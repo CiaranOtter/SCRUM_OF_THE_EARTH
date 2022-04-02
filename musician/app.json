@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Musician_App",
-    "slug": "Musician_App",
+    "name": "musician",
+    "slug": "musician",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
