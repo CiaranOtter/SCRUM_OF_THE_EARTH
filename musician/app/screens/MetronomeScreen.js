@@ -17,11 +17,14 @@ function MetronomeScreen(props) {
         <SafeAreaView>
             <TouchableOpacity onPress={metronomePress}>
                 <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='contain' style={styles.metronomeImage} >
-                    <TextInput onChangeText={onChangeNumber}
+                    <TextInput onChangeText={onChangeNumber}     //bpm text input
                         value ={number}
                         placeholder='120'
                         keyboardType='numeric'
-                        style={styles.bpmTextInput} ></TextInput>
+                        style={styles.bpmTextInput} >
+                    </TextInput>
+                    <Text style={styles.timeSignatureText}>4/4</Text>
+                    <Text style={styles.speeedText}>Allegro</Text>
                    
                 </ImageBackground>
 
@@ -32,18 +35,29 @@ function MetronomeScreen(props) {
 }
 
 const styles = StyleSheet.create({
-    metronomeImage:{
-        width:'100%',
-        height:'100%',
-        alignItems:'center',
-    },
     bpmTextInput:{
         paddingTop:125,
         //height:50,
         fontSize:25,
         color: colors.black,
 
+    },
+    metronomeImage:{
+        width:'100%',
+        height:'100%',
+        alignItems:'center',
+    },
+    speeedText:{
+        paddingTop:37.5,
+        color: colors.black,
+        fontSize:20,
+    },
+    timeSignatureText:{
+        paddingTop:335,
+        color:'#fff',
+        fontSize:20,
     }
+    
     
 })
 
