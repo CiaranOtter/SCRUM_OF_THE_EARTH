@@ -1,15 +1,17 @@
 import React from 'react';
-import {SafeAreaView,TouchableHighlight,Image,StyleSheet, } from 'react-native';
+import {SafeAreaView,TouchableHighlight,Image,StyleSheet, TouchableOpacity, Text, ImageBackground } from 'react-native';
 
 const metronomePress = ()=>console.log("MetronopmePressed")
 
 function MetronomeScreen(props) {
     return (
         <SafeAreaView>
-            <TouchableHighlight onPress={metronomePress}>
-                <Image source={require("../../assets/mock-metronome.jpg")} resizeMode='contain' style={styles.metronomeImage} ></Image>
+            <TouchableOpacity onPress={metronomePress}>
+                <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='contain' style={styles.metronomeImage} >
+                   
+                </ImageBackground>
 
-            </TouchableHighlight>
+            </TouchableOpacity>
         </SafeAreaView>
         
     );
