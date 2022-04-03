@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import {SafeAreaView,TouchableHighlight,Image,StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput } from 'react-native';
 import click1 from '../click1.mp3';
-import click2 from '../click1.mp3'
+import hardClick from '../hardClick.mp3'
 
 import colors from '../config/colors';
 
@@ -18,11 +18,19 @@ export default class MetronomeScreen extends Component {
       playing: false,
       count: 0,
       bpm: 100,
-      beatsPerMeasure: 4
+      //beatsPerMeasure: 4
     };
 
     this.click1 = new Audio(click1);
-    this.click2 = new Audio(click2);
+    this.click2 = new Audio(hardClick);
+  }
+  
+  handleBeatsPerMeasureChange = (e) => {
+    const beatsPerMeasure = e.target.value;
+
+    this.setState({
+      beatsPerMeasure
+    })
   }
 
   handleBpmChange = (e) => {
@@ -82,7 +90,7 @@ export default class MetronomeScreen extends Component {
     
     render(){
 
-        const { playing, bpm } = this.state;
+        const { playing, bpm, beatsPerMeasure } = this.state;
     return (
         <SafeAreaView>
             <TouchableOpacity onPress={this.startStop}>
@@ -96,7 +104,16 @@ export default class MetronomeScreen extends Component {
                         //style={styles.bpmTextInput}
                          >
                     </input>
-                    
+                    </form>
+                    <form>
+                       <input onChange={this.handleBeatsPerMeasureChange}     //bpm text input
+                        value ={beatsPerMeasure}
+                        type='number'
+                       placeholder='Please enter the beats per measure'
+                       // keyboardType='numeric'
+                        //style={styles.bpmTextInput}
+                         >
+                    </input>
                     </form> 
                     <Text style={styles.timeSignatureText}>4/4</Text>
                     <Text style={styles.speeedText}>Allegro</Text>
