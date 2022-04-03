@@ -8,9 +8,9 @@ import colors from '../config/colors';
 
 export default class MetronomeScreen extends Component {
 
-   
-    
-   
+
+
+
   constructor() {
     super();
 
@@ -79,7 +79,7 @@ export default class MetronomeScreen extends Component {
   };
 
 
-    
+
     render(){
 
         const { playing, bpm } = this.state;
@@ -96,15 +96,15 @@ export default class MetronomeScreen extends Component {
                         //style={styles.bpmTextInput}
                          >
                     </input>
-                    
-                    </form> 
+
+                    </form>
                     <Text style={styles.timeSignatureText}>4/4</Text>
                     <Text style={styles.speeedText}>Allegro</Text>
-                   
+
                 </ImageBackground>
             </TouchableOpacity>
         </SafeAreaView>
-        
+
     );
     }
 }
@@ -132,10 +132,9 @@ const styles = StyleSheet.create({
     },
     timeSignatureText:{
         paddingTop:335,
-        color:'#fff',
+        color:'#525252',
         fontSize:20,
     }
-    
-    
-})
 
+
+})
