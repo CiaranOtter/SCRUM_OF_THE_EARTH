@@ -8,9 +8,9 @@ import colors from '../config/colors';
 
 export default class MetronomeScreen extends Component {
 
-   
-    
-   
+
+
+
   constructor() {
     super();
 
@@ -18,7 +18,9 @@ export default class MetronomeScreen extends Component {
       playing: false,
       count: 0,
       bpm: 100,
-      //beatsPerMeasure: 4
+      beatsPerMeasure: 4,
+      tempoText: "Moderato (moderately)"
+
     };
 
     this.click1 = new Audio(click1);
@@ -46,6 +48,30 @@ export default class MetronomeScreen extends Component {
       });
     } else {
       this.setState({ bpm });
+    }
+
+    if (bpm < 20){
+      this.setState({tempoText: "Larghissimo (very, very slow)"});
+    } else if (bpm >= 20 && bpm < 40){
+      this.setState({tempoText: "Grave (slow and solemn)"});
+    } else if (bpm >= 40 && bpm < 60){
+      this.setState({tempoText: "Lento (slowly)"});
+    } else if (bpm >= 60 && bpm < 66){
+      this.setState({tempoText: "Largo (slowly)"});
+    } else if (bpm >= 66 && bpm < 76){
+      this.setState({tempoText: "Adagio (slow and stately)"});
+    } else if (bpm >= 76 && bpm < 90){
+      this.setState({tempoText: "Andante (walking pace)"});
+    } else if (bpm >= 90 && bpm < 110){
+      this.setState({tempoText: "Moderato (moderately)"});
+    } else if (bpm >= 110 && bpm < 140){
+      this.setState({tempoText: "Allegro (fast)"});
+    } else if (bpm >= 140 && bpm < 160){
+      this.setState({tempoText: "Vivace (very fast)"});
+    } else if (bpm >= 180 && bpm < 200){
+      this.setState({tempoText: "Presto (really fast)"});
+    } else if (bpm > 200){
+      this.setState({tempoText: "Prestissimo (that's reeeeeally fast dude!)"});
     }
   };
 
@@ -87,7 +113,7 @@ export default class MetronomeScreen extends Component {
   };
 
 
-    
+
     render(){
 
         const { playing, bpm, beatsPerMeasure } = this.state;
@@ -114,14 +140,17 @@ export default class MetronomeScreen extends Component {
                         //style={styles.bpmTextInput}
                          >
                     </input>
-                    </form> 
+                    </form>
                     <Text style={styles.timeSignatureText}>4/4</Text>
-                    <Text style={styles.speeedText}>Allegro</Text>
-                   
+                    <Text
+                      style={styles.speedText}>
+                        {this.state.tempoText}
+                      </Text>
+
                 </ImageBackground>
             </TouchableOpacity>
         </SafeAreaView>
-        
+
     );
     }
 }
@@ -142,17 +171,16 @@ const styles = StyleSheet.create({
         height:'100%',
         alignItems:'center',
     },
-    speeedText:{
+    speedText:{
         paddingTop:37.5,
         color: colors.black,
         fontSize:20,
     },
     timeSignatureText:{
         paddingTop:335,
-        color:'#fff',
+        color:'#525252',
         fontSize:20,
     }
-    
-    
-})
 
+
+})
