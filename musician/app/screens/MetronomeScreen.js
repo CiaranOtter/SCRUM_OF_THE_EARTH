@@ -135,10 +135,10 @@ export default class MetronomeScreen extends Component {
                        <input onChange={this.handleBeatsPerMeasureChange}     //bpm text input
                         value ={beatsPerMeasure}
                         type='number'
-                       placeholder='Please enter the beats per measure'
-                       // keyboardType='numeric'
+                        placeholder='Please enter the beats per measure'
+                        // keyboardType='numeric'
                         //style={styles.bpmTextInput}
-                         >
+                        >
                     </input>
                     </form>
                     <Text style={styles.timeSignatureText}>4/4</Text>
