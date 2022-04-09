@@ -128,7 +128,7 @@ export default class MetronomeScreen extends Component {
             <Picker color='red'
           onChange={this.handleBeatsPerMeasureChange}     //bpm text input
           value={beatsPerMeasure}>
-            <Picker.Item label = "bpm value" value = "0"></Picker.Item>
+            <Picker.Item label = "Beats per Measure" value = "0"></Picker.Item>
             <Picker.Item label="2" value="2"></Picker.Item>
             <Picker.Item label="3" value="3"></Picker.Item>
             <Picker.Item label="4" value="4"></Picker.Item>
@@ -168,7 +168,7 @@ export default class MetronomeScreen extends Component {
           <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='contain' style={styles.metronomeImage} >
            
           
-            <Text style={styles.timeSignatureText}>4/4</Text>
+            <Text style={styles.timeSignatureText}>...</Text>
             <Text
               style={styles.speedText}>
               {this.state.tempoText}
