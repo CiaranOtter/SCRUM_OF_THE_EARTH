@@ -9,5 +9,5 @@ jobs:
       - checkout
       - run:
           name: Install and Make
-          command: npm install && cd musician && npm run test
+          command: npm install && npm run test
       - coveralls/upload
