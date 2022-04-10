@@ -28,7 +28,7 @@ jobs:
           command: npm run build
           name: Build app
       - persist_to_workspace:
-          root: ~/project
+          root: ~/project/musician
           paths:
             - .
 
