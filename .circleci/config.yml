@@ -2,22 +2,34 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+orbs: 
+  node: circle/node@4.7.0
+  heroku: circleci/heroku@1.2.6
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  build_and_test: # this can be any name you choose
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: cimg/node:17.2.0
+    
     steps:
       - checkout
+      -node/install-packages:
+        pkg-manager: expo
+
+      -run:
+        command: npm run test
+        name: run test
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+        command: npm run build
+        name: Build app
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -25,3 +37,7 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+    filters:
+      branches:
+        only: main
+
