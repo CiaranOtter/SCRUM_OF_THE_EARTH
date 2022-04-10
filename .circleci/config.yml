@@ -3,7 +3,7 @@
 version: 2.1
 
 orbs: 
-  node: circleci/node@4.7.0
+  node: circleci/node:7.10
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -11,9 +11,9 @@ orbs:
 jobs:
   build_and_test: # this can be any name you choose
     docker:
-      - image: cimg/node:17.2.0
+      - image: cimg/node:16.13.2
     
-    working_directory: ~/musician/
+    working_directory: ~/musician
 
     steps:
       - checkout
@@ -21,12 +21,10 @@ jobs:
           pkg-manager: npm
           app-dir: ~/musician/
 
-      - run:
-          command: npm run test
-          name: run test
-      - run:
-          command: npm run build
-          name: Build app
+      - run: echo ls
+      - run: cd musician && npm install
+      - run: cd musician && npm run test
+      - run: cd musician && npm run build
 
 
 # Invoke jobs via workflows

@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "scrum_of_the_earth",
+    "slug": "scrum_of_the_earth",
+    "version": "1.0.0",
+    "description": "https://coveralls.io/repos/github/CiaranOtter/SCRUM_OF_THE_EARTH/badge.svg?branch=main(Coverage Status)!:https://coveralls.io/github/CiaranOtter/SCRUM_OF_THE_EARTH?branch=main",
+    "sdkVersion": "44.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "android": {
+      "package": "android.json"
+    },
+    "ios": {
+      "bundleIdentifier": "ios.json"
+    }
+  }
+}
