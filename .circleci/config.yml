@@ -21,12 +21,9 @@ jobs:
           pkg-manager: npm
           app-dir: ~/musician
 
-      - run:
-          command: npm run test
-          name: run test
-      - run:
-          command: npm run build
-          name: Build app
+      - run: npm install
+      - run: npm run test
+      - run: npm run build
 
 
 # Invoke jobs via workflows
