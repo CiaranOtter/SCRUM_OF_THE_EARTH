@@ -861,7 +861,7 @@
     "fsevents": "darwin"
   },
   "scripts": {
-    "test": "expo doctor",
+    "test": "react-scripts test --env=jsdom",
     "build": "expo prebuild",
     "start": "expo start --dev-client",
     "android": "expo run:android",
