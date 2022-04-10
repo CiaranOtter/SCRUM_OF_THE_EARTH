@@ -13,7 +13,7 @@ jobs:
     docker:
       - image: cimg/node:17.2.0
     
-    working_directory: ~/project/musician
+    working_directory: ~/project/SCRUM_OF_THE_EARTH/musician
 
     steps:
       - checkout
