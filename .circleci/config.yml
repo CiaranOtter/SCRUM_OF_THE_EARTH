@@ -17,14 +17,14 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-        pkg-manager: expo
+          pkg-manager: expo
 
       - run:
-        command: npm run test
-        name: run test
+          command: npm run test
+          name: run test
       - run:
-        command: npm run build
-        name: Build app
+          command: npm run build
+          name: Build app
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -37,7 +37,4 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
-    filters:
-      branches:
-        only: main
 
