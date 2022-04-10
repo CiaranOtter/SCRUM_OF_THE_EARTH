@@ -21,6 +21,7 @@ jobs:
           pkg-manager: npm
           app-dir: ~/musician
 
+      - run: echo ls 
       - run: cd musician && npm install
       - run: cd musician && npm run test
       - run: cd musician && npm run build
