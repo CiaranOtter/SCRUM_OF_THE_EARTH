@@ -3,8 +3,7 @@
 version: 2.1
 
 orbs: 
-  node: circle/node@4.7.0
-  heroku: circleci/heroku@1.2.6
+  node: circleci/node@4.7.0
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -14,17 +13,20 @@ jobs:
     docker:
       - image: cimg/node:17.2.0
     
+    working_directory: /home/circleci/project/musician
+
     steps:
       - checkout
       - node/install-packages:
-        pkg-manager: expo
+          pkg-manager: npm
+          app-dir: /home/circleci/project/musician
 
       - run:
-        command: npm run test
-        name: run test
+          command: npm run test
+          name: run test
       - run:
-        command: npm run build
-        name: Build app
+          command: npm run build
+          name: Build app
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -34,10 +36,6 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  test_my_app:
     jobs:
-      - say-hello
-    filters:
-      branches:
-        only: main
-
+      - build_and_test
