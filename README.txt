@@ -1,0 +1,1 @@
+https://coveralls.io/repos/github/CiaranOtter/SCRUM_OF_THE_EARTH/badge.svg?branch=main(Coverage Status)!:https://coveralls.io/github/CiaranOtter/SCRUM_OF_THE_EARTH?branch=main
