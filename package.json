@@ -856,7 +856,7 @@
     "react-native-web": "0.17.1"
   },
   "optionalDependencies": {
-    "fsevents": "*"
+    "fsevents": "darwin"
  },
   "scripts": {
     "test": "expo doctor",
