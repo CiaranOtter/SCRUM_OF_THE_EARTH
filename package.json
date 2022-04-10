@@ -275,7 +275,7 @@
     "fs-minipass": "^2.1.0",
     "fs-write-stream-atomic": "^1.0.10",
     "fs.realpath": "^1.0.0",
-    "fsevents": "*",
+    "fsevents": "^2.3.2",
     "function-bind": "^1.1.1",
     "gensync": "^1.0.0-beta.2",
     "get-caller-file": "^2.0.5",
@@ -855,6 +855,9 @@
     "react-dom": "17.0.1",
     "react-native-web": "0.17.1"
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+ },
   "scripts": {
     "test": "expo doctor",
     "build": "expo prebuild",
