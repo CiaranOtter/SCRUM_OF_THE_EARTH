@@ -2,6 +2,8 @@ on: ["push", "pull_request"]
 
 name: Test Coveralls
 
+app-dir: ~/project/musician
+
 jobs:
   build:
     name: Build
