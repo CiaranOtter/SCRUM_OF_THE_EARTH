@@ -1,27 +1,19 @@
-on: ["push", "pull_request"]
-
-name: Test Coveralls
-
+version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.2.3
 jobs:
-
   build:
-    name: Build
-    runs-on: ubuntu-latest
+    docker:
+      - image: cimg/node:17.2-browsers
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
-
-    - uses: actions/checkout@v1
-
-    - name: Use Node.js 10.x
-    - uses: actions/setup-node@v1
-    - with:
-        node-version: 10.x
-
-    - name: npm install, make test-coverage
-    - run: |
-        npm install
-        make test-coverage
-
-    - name: Coveralls
-    - uses: coverallsapp/github-action@master
-    - with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      - checkout
+      - browser-tools/install-browser-tools
+      - run: npm install
+      - run:
+          name: "Run Jest and Collect Coverage Reports"
+          command: jest --collectCoverage=true
+      - store_artifacts:
+          path: coverage
