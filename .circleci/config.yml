@@ -13,13 +13,13 @@ jobs:
     docker:
       - image: cimg/node:17.2.0
     
-    working_directory: ~/SCRUM_OF_THE_EARTH/musician
+    working_directory: ~/project/musician
 
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-          app-dir: ~/SCRUM_OF_THE_EARTH/musician
+          app-dir: ~/project/musician
 
       - run: echo ls 
       - run: cd musician && npm install
