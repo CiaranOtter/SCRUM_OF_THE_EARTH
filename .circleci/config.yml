@@ -13,13 +13,13 @@ jobs:
     docker:
       - image: cimg/node:17.2.0
     
-    working_directory: /home/circleci/project/musician/
+    working_directory: ~/musician/
 
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-          app-dir: /home/circleci/project/musician/
+          app-dir: ~/musician/
 
       - run:
           command: npm run test
