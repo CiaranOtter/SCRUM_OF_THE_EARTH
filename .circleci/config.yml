@@ -13,12 +13,13 @@ jobs:
     docker:
       - image: cimg/node:17.2.0
     
-    working_directory: ~/project/musician
+    working_directory: ~/project
 
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: npm
+          app-dir: ~/project/musician
 
       - run:
           command: npm run test
