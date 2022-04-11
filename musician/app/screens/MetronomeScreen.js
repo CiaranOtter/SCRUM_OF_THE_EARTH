@@ -52,6 +52,7 @@ export default class MetronomeScreen extends Component {
       this.setState({ bpm });
     }
 
+    //#region If statement to select tempo text based on tempo
     if (bpm < 20) {
       this.setState({ tempoText: "Larghissimo (very, very slow)" });
     } else if (bpm >= 20 && bpm < 40) {
@@ -75,6 +76,7 @@ export default class MetronomeScreen extends Component {
     } else if (bpm > 200) {
       this.setState({ tempoText: "Prestissimo (that's reeeally fast dude!)" });
     }
+    //#endregion
   };
 
   handleSubmit = (e) => {
