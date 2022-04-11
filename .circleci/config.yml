@@ -19,6 +19,7 @@ jobs:
   test-Coverage:
     executor:
       name: node/default
+      tag: "16.13"
 
     steps:
       - checkout
