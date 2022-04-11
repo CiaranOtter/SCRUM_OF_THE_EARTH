@@ -15,6 +15,7 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
+            - run: npm install coveralls --save-dev
             - run: npm run coveralls
 
       - coveralls/upload:
@@ -36,4 +37,3 @@ workflows:
       - build-1
       - done:
           requires: [build-1]
-
