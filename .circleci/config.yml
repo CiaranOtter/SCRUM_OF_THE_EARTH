@@ -5,7 +5,18 @@ orbs:
   node: circleci/node@1.1.6
 
 jobs:
-  build-1:
+  test-build:
+    executor:
+      nme: node/default
+
+    steps:
+      - checkout
+
+      - run: npm install
+      - run: npm run expo-test
+      - run: npm build
+
+  test-Coverage:
     executor:
       name: node/default
 
@@ -34,6 +45,8 @@ jobs:
 workflows:
   test_parallel_then_upload:
     jobs:
-      - build-1
+      - test-build
+      - test-Coverage
+          require: [test-build]
       - done:
-          requires: [build-1]
+          requires: [test-Coverage, test-build]
