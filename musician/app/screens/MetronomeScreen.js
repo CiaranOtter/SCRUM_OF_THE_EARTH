@@ -16,29 +16,31 @@ export default class MetronomeScreen extends Component {
   constructor() {
     super();
 
+    //initial state of the app and its componets/functions
     this.state = {
-      playing: false,
+      playing: false, // there is nothing being played yet
       count: 0,
-      bpm: 100,
-      beatsPerMeasure: 4,
-      tempoText: "Moderato (moderately)"
+      bpm: 100, // initial beats per minute value
+      beatsPerMeasure: 4, // initial beats per measure value 
+      tempoText: "Moderato (moderately)" // initial tempo marking based on the bpm value
 
     };
 
+    // initialise the audios we are going to use
     this.click1 = new Audio(click1);
     this.click2 = new Audio(hardClick);
   }
 
   handleBeatsPerMeasureChange = (e) => {
-    const beatsPerMeasure = e.target.value;
+    const beatsPerMeasure = e.target.value; // obtain value of the beats per measure from the dropdwon menu 
 
     this.setState({
-      beatsPerMeasure
+      beatsPerMeasure //set the value to the one obtained
     })
   }
 
   handleBpmChange = (e) => {
-    const bpm = e.target.value;
+    const bpm = e.target.value; //obtain value of the beats per measure from the user input
     if (this.state.playing) {
       clearInterval(this.timer);  //start a new timer
       this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
@@ -52,7 +54,7 @@ export default class MetronomeScreen extends Component {
       this.setState({ bpm });
     }
 
-    //#region If statement to select tempo text based on tempo
+    //#region If statement to select and sisplay the tempo marking based on the bpm value
     if (bpm < 20) {
       this.setState({ tempoText: "Larghissimo (very, very slow)" });
     } else if (bpm >= 20 && bpm < 40) {
@@ -126,13 +128,13 @@ export default class MetronomeScreen extends Component {
     const { playing, bpm, beatsPerMeasure } = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.bpmText}> ENTER BEATS PER MINUTES:</Text>
+        <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>  
         <TouchableOpacity>
-          <TextInput style={styles.bpmTextInput} onChange={this.handleBpmChange}     //bpm text input
+          <TextInput style={styles.bpmTextInput} onChange={this.handleBpmChange} //text to indicate that the user should enter a bpm and a bpm text input
             value={bpm} ></TextInput>
           <form>
             <Picker style={styles.pickerMenu}
-              onChange={this.handleBeatsPerMeasureChange}     //bpm text input
+              onChange={this.handleBeatsPerMeasureChange}     //beats per measure dropdown menu, and function to be called when a value is picked
               value={beatsPerMeasure}>
               <Picker.Item label="beats per measure" value="0"></Picker.Item>
               <Picker.Item label="2" value="2"></Picker.Item>
@@ -147,8 +149,9 @@ export default class MetronomeScreen extends Component {
               <Picker.Item label="11" value="11"></Picker.Item>
               <Picker.Item label="12" value="12"></Picker.Item>
             </Picker>
-            <Picker style={styles.pickerMenu}>
-              <Picker.Item label="note per measure" value="0"></Picker.Item>
+            <Picker style={styles.pickerMenu} //drop down menu to select the note per measure
+            > 
+              <Picker.Item label="note per measure" value="0"></Picker.Item> 
               <Picker.Item label="1" value="1"></Picker.Item>
               <Picker.Item label="2" value="2"></Picker.Item>
               <Picker.Item label="3" value="3"></Picker.Item>
@@ -164,16 +167,19 @@ export default class MetronomeScreen extends Component {
             </Picker>
           </form>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.playButton} onPress={this.startStop}>
+        <TouchableOpacity style={styles.playButton} onPress={this.startStop} // a button to start or stop the metronome sound
+        >
           <Text style={styles.buttonText}>START/STOP</Text>
         </TouchableOpacity>
         <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='contain' style={styles.metronomeImage} >
 
           <Text
+          //time signature text
             style={styles.timeSignatureText}>
             {this.state.beatsPerMeasure} / {this.state.notesPerMeasure}</Text>
 
           <Text
+          //bpm text
             style={styles.speedText}>
             {this.state.tempoText}
           </Text>
