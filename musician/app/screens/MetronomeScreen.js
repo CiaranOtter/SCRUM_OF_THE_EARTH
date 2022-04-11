@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
-import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal,Picker} from 'react-native';
+// import { SafeAreaView, StyleSheet, TouchableOpacity, Text, ImageBackground, Button,Picker} from 'react-native';
 import click1 from '../click1.mp3';
 import hardClick from '../hardClick.mp3'
 import { StatusBar } from 'expo-status-bar';
