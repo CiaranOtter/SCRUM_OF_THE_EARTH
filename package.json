@@ -1,5 +1,9 @@
 {
   "name": "scrum_of_the_earth",
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": ["json", "html"]
+  },
   "version": "1.0.0",
   "description": "https://coveralls.io/repos/github/CiaranOtter/SCRUM_OF_THE_EARTH/badge.svg?branch=main(Coverage Status)!:https://coveralls.io/github/CiaranOtter/SCRUM_OF_THE_EARTH?branch=main",
   "main": "index.js",
@@ -861,7 +865,7 @@
     "fsevents": "darwin"
   },
   "scripts": {
-    "test": "react-scripts test --env=jsdom",
+    "test": "npx jest --coveralls",
     "build": "expo prebuild",
     "start": "expo start --dev-client",
     "android": "expo run:android",

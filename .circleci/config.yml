@@ -1,14 +1,27 @@
 version: 2.1
 orbs:
   coveralls: coveralls/coveralls@1.0.6
+  node: circleci/node@5.0.6
   
 jobs:
-  build:
+  install-node-example:
     docker:
-      - image: 'circleci/node:16.13.2'
+      - image: 'cimg/base:stable'
     steps:
       - checkout
-      - run:
-          name: Install and Make
-          command: npm install && npx jest --coverage
+      - node/install:
+          install-yarn: true
+          node-version: '16.13'
+      - run: node --version
+
+  workflows:
+    test_my_app:
+      jobs:
+        - install-node-example
+    test:
+      jobs:
+        - node/test:
+            test-results-for: jest
+
+
       - coveralls/upload
