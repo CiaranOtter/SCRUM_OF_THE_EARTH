@@ -2,7 +2,10 @@
   "name": "scrum_of_the_earth",
   "jest": {
     "collectCoverage": true,
-    "coverageReporters": ["json", "html"]
+    "coverageReporters": [
+      "json",
+      "html"
+    ]
   },
   "version": "1.0.0",
   "description": "https://coveralls.io/repos/github/CiaranOtter/SCRUM_OF_THE_EARTH/badge.svg?branch=main(Coverage Status)!:https://coveralls.io/github/CiaranOtter/SCRUM_OF_THE_EARTH?branch=main",
@@ -148,7 +151,6 @@
     "copy-webpack-plugin": "^6.0.4",
     "core-util-is": "^1.0.3",
     "cosmiconfig": "^5.2.1",
-    "coveralls": "^3.1.1",
     "create-ecdh": "^4.0.4",
     "create-hash": "^1.2.0",
     "create-hmac": "^1.1.7",
@@ -865,13 +867,12 @@
     "fsevents": "darwin"
   },
   "scripts": {
-    "test": "npx jest --coveralls",
     "build": "expo prebuild",
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "coverage": "react-scripts test --env=jsdom --coverage",
-    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "test":"jest --watchAll --config=jestconfig.json",
+    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
     "eject": "react-scripts eject"
   },
   "repository": {
@@ -886,6 +887,7 @@
   },
   "homepage": "https://github.com/CiaranOtter/SCRUM_OF_THE_EARTH#readme",
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "coveralls": "^3.1.1"
   }
 }
