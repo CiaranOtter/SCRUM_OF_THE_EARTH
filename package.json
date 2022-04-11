@@ -883,7 +883,7 @@
   },
   "scripts": {
     "expo-test": "expo doctor",
-    "build": "expo prebuild",
+    "build": "expo build:android",
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",

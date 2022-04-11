@@ -1,20 +1,18 @@
-# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
 
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
-  coveralls: coveralls/coveralls@1.0.6
-  node: circleci/node@5.0.2
+  coveralls: coveralls/coveralls@1.0.5
+  node: circleci/node@1.1.6
 
 jobs:
-  test-build:
+  build-1:
     executor:
       name: node/default
 
     steps:
       - checkout
 
+<<<<<<< HEAD
       - run: npm install
       - run: npm run expo-test
       - run: npm run build
@@ -29,10 +27,11 @@ jobs:
     steps:
       - checkout
 
+=======
+>>>>>>> b7116889d3884ea8f1e33126885ba5e7e95e9e7a
       - node/with-cache:
           steps:
             - run: npm install
-            - run: npm install coveralls --save-dev
             - run: npm run coveralls
 
       - coveralls/upload:
@@ -47,4 +46,10 @@ jobs:
     steps:
       - coveralls/upload:
           parallel_finished: true
-  node: circleci/node@4.7
+
+workflows:
+  test_parallel_then_upload:
+    jobs:
+      - build-1
+      - done:
+          requires: [build-1]
