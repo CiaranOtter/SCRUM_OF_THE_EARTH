@@ -1,9 +1,10 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState } from 'react';  //libraries imported from external sources
 import { render } from 'react-dom';
 import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker } from 'react-native';
-import click1 from '../click1.mp3';
-import hardClick from '../hardClick.mp3'
 import { StatusBar } from 'expo-status-bar';
+
+import click1 from '../click1.mp3';      //objects and libraries imported from within our project
+import hardClick from '../hardClick.mp3'
 import colors from '../config/colors';
 
 export default class MetronomeScreen extends Component {
