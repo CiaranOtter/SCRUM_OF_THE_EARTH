@@ -187,25 +187,20 @@ export default class MetronomeScreen extends Component {
 
 
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({    //styles for elements listed in Alphabetical order (with the exception of container - which is always on top)
   container: {
     flex: 1,
     justifyContent: "center",
     alignContent: 'center',
     // backgroundColor:'#347572'
   },
-  pickerMenu: {
-    borderWidth: 1,
-    borderColor: '#777',
-    paddingTop: 5,
-    marginLeft: 600,
-    marginTop: 10,
-    width: 200,
+  bpmText: {
+    paddingTop: 150,
+    color: '#347572',
     fontSize: 15,
-    color: colors.black,
+    paddingLeft: 600,
     justifyContent: 'center',
-    alignContent: 'center',
-    backgroundColor: '#d4f3ee'
+    alignContent: 'center'
   },
   bpmTextInput: {
     borderWidth: 1,
@@ -220,11 +215,41 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     backgroundColor: '#d4f3ee'
   },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 20,
+    paddingLeft: 10,
+    color: 'white'
+
+  },
   metronomeImage: {
     // margin:10,
     width: '100%',
     height: '90%',
     alignItems: 'center',
+  },
+  pickerMenu: {
+    borderWidth: 1,
+    borderColor: '#777',
+    paddingTop: 5,
+    marginLeft: 600,
+    marginTop: 10,
+    width: 200,
+    fontSize: 15,
+    color: colors.black,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: '#d4f3ee'
+  },
+  playButton: {
+    backgroundColor: '#347572',
+    height: 50,
+    width: '10%',
+    borderRadius: 10,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignSelf: 'center',
+    alignItems: 'center'
   },
   speedText: {
     paddingTop: 50,
@@ -243,29 +268,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center'
   },
-  bpmText: {
-    paddingTop: 150,
-    color: '#347572',
-    fontSize: 15,
-    paddingLeft: 600,
-    justifyContent: 'center',
-    alignContent: 'center'
-  },
-  playButton: {
-    backgroundColor: '#347572',
-    height: 50,
-    width: '10%',
-    borderRadius: 10,
-    marginTop: 10,
-    flexDirection: 'row',
-    alignSelf: 'center',
-    alignItems: 'center'
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontSize: 20,
-    paddingLeft: 10,
-    color: 'white'
-
-  }
 });
