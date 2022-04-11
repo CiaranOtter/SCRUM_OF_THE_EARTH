@@ -1,10 +1,10 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState } from 'react';  //libraries imported from external sources
 import { render } from 'react-dom';
-import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal,Picker} from 'react-native';
-import click1 from '../click1.mp3';
-import hardClick from '../hardClick.mp3'
+import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import Slider from '@react-native-community/slider'
+
+import click1 from '../click1.mp3';      //objects and libraries imported from within our project
+import hardClick from '../hardClick.mp3'
 import colors from '../config/colors';
 
 export default class MetronomeScreen extends Component {
@@ -20,19 +20,22 @@ export default class MetronomeScreen extends Component {
       playing: false,
       count: 0,
       bpm: 100,
-      beatsPerMeasure: 4,
-      tempoText: "Moderato (moderately)"
+      beatsPerMeasure: 4, // the initial beats per measure value
+      tempoText: "Moderato (moderately)" // the initial tempo marking, in relation to the beats per minute value
 
     };
-
+    
+    // initialise the audios we are going to use
     this.click1 = new Audio(click1);
     this.click2 = new Audio(hardClick);
   }
+
+  // handle the beats per measure change
   handleBeatsPerMeasureChange = (e) => {
-    const beatsPerMeasure = e.target.value;
+    const beatsPerMeasure = e.target.value; //obtain the value from the dropdown that user has selected
 
     this.setState({
-      beatsPerMeasure
+      beatsPerMeasure // set the new value of the beats per measure to what was obtained
     })
   }
 
@@ -51,6 +54,7 @@ export default class MetronomeScreen extends Component {
       this.setState({ bpm });
     }
 
+    //#region If statement to select and dispay tempo marking based on tempo / beats per minute
     if (bpm < 20) {
       this.setState({ tempoText: "Larghissimo (very, very slow)" });
     } else if (bpm >= 20 && bpm < 40) {
@@ -74,6 +78,7 @@ export default class MetronomeScreen extends Component {
     } else if (bpm > 200) {
       this.setState({ tempoText: "Prestissimo (that's reeeeeally fast dude!)" });
     }
+    //#endregion
   };
 
   handleSubmit = (e) => {
