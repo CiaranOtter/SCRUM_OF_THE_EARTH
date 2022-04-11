@@ -1,20 +1,20 @@
 version: 2.1
 
 orbs:
-  coveralls: coveralls/coveralls@1.0.5
-  node: circleci/node@1.1.6
+  coveralls: coveralls/coveralls@1.0.6
+  node: circleci/node@5.0.2
 
 jobs:
   test-build:
     executor:
-      nme: node/default
+      name: node/default
 
     steps:
       - checkout
 
       - run: npm install
       - run: npm run expo-test
-      - run: npm build
+      - run: npm run build
 
   test-Coverage:
     executor:
