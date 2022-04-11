@@ -13,7 +13,6 @@ jobs:
       - checkout
 
       - run: npm install
-      - run: npm install --global expo-cli 
       - run: npm run expo-test
       - run: npm run build
 
