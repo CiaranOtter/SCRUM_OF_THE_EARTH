@@ -882,7 +882,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "test": "jest",
-    "coveralls": "jest --coverage --config=jestconfig.json && cat ./tests/coverage/lcov.info | coveralls",
+    "coveralls": "jest --coverage --config=jestconfig.json --passWithNoTests && cat ./tests/coverage/lcov.info | coveralls",
     "eject": "react-scripts eject"
   },
   "repository": {
