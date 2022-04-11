@@ -195,13 +195,13 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     flex: 1,
     justifyContent: "center",
     alignContent: 'center',
-    // backgroundColor:'#347572'
+    //backgroundColor:colors.black,
   },
   bpmText: {
     paddingTop: 150,
-    color: '#347572',
+    color: colors.black,
     fontSize: 15,
-    paddingLeft: 600,
+    paddingLeft: '42.5%',
     justifyContent: 'center',
     alignContent: 'center'
   },
@@ -209,20 +209,20 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     borderWidth: 1,
     borderColor: '#777',
     paddingTop: 5,
-    marginLeft: 600,
+    marginLeft:'42.5%',
     marginTop: 10,
     width: 200,
     fontSize: 15,
     color: colors.black,
     justifyContent: 'center',
     alignContent: 'center',
-    backgroundColor: '#d4f3ee'
+    backgroundColor: colors.userInputElement,
   },
   buttonText: {
     textAlign: 'center',
     fontSize: 20,
-    paddingLeft: 10,
-    color: 'white'
+    paddingLeft: 20,
+    color: colors.black,
 
   },
   metronomeImage: {
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     borderWidth: 1,
     borderColor: '#777',
     paddingTop: 5,
-    marginLeft: 600,
+    marginLeft: '42.5%',
     marginTop: 10,
     width: 200,
     fontSize: 15,
@@ -245,14 +245,14 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     backgroundColor: '#d4f3ee'
   },
   playButton: {
-    backgroundColor: '#347572',
+    backgroundColor: colors.pressableElement,
     height: 50,
     width: '10%',
     borderRadius: 10,
     marginTop: 10,
     flexDirection: 'row',
     alignSelf: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   speedText: {
     paddingTop: 50,
