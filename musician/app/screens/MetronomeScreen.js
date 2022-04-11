@@ -128,7 +128,8 @@ export default class MetronomeScreen extends Component {
     const { playing, bpm, beatsPerMeasure } = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>  
+        <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:
+        </Text>  
         <TouchableOpacity>
           <TextInput style={styles.bpmTextInput} onChange={this.handleBpmChange} //text to indicate that the user should enter a bpm and a bpm text input
             value={bpm} ></TextInput>
