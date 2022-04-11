@@ -10,7 +10,7 @@ import App from './musician/App';
 //   });
 // });
 
-test('should test Header component', () => {
-    const wrapper = shallow(<SafeAreaView />);
-    expect(wrapper).toMatchSnapshot();
-   });
+it('renders correctly', () => {
+    const tree = renderer.create(<App />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
