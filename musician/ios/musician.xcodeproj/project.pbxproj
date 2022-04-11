@@ -320,8 +320,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "test.json";
-				PRODUCT_NAME = "musician";
+				PRODUCT_BUNDLE_IDENTIFIER = "ios.json";
+				PRODUCT_NAME = json;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -346,8 +346,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "test.json";
-				PRODUCT_NAME = "musician";
+				PRODUCT_BUNDLE_IDENTIFIER = "ios.json";
+				PRODUCT_NAME = json;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				TARGETED_DEVICE_FAMILY = "1,2";

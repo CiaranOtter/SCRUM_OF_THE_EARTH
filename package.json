@@ -890,7 +890,7 @@
     "test": "jest --coverage --config=jest.config.js --passWithNoTests",
     "coveralls": "jest --coverage --passWithNoTests && cat ./tests/coverage/lcov.info | coveralls",
     "eject": "react-scripts eject",
-    "collect-Coverage":"jest --collect-coverage"
+    "collect-Coverage": "jest --collect-coverage"
   },
   "repository": {
     "type": "git",
