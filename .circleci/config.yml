@@ -21,8 +21,8 @@ jobs:
 
   test-Coverage:
     pkg-manager: npm
-    
-    executor:
+
+    exec:
       name: node/default
       tag: '15.0'
 
