@@ -19,7 +19,7 @@ jobs:
   test-Coverage:
     executor:
       name: node/default
-      tag: '15.0'm ]OKpki998iujkM  09iok ,
+      tag: '15.0'
 
     steps:
       - checkout
@@ -28,7 +28,7 @@ jobs:
           steps:
             - run: npm install
             - run: npm install coveralls --save-dev
-            # - run: npm run coveralls
+            - run: npm run coveralls
 
       - coveralls/upload:
           parallel: true
