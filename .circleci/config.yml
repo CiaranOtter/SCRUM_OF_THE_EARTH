@@ -16,7 +16,7 @@ jobs:
           steps:
             - run: npm install
             - run: npm install coveralls --save-dev
-            - run: npm run coveralls
+            - run: npm run test
 
       - coveralls/upload:
           parallel: true
