@@ -19,6 +19,7 @@ jobs:
   test-Coverage:
     executor:
       name: node/default
+      tag: '15.0'
 
     steps:
       - checkout
@@ -47,5 +48,6 @@ workflows:
     jobs:
       - test-build
       - test-Coverage
+          require: [test-build]
       - done:
           requires: [test-Coverage, test-build]
