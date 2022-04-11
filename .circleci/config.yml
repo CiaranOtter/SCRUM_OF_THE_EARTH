@@ -7,7 +7,7 @@ orbs:
 jobs:
   test-build:
     executor:
-      nme: node/default
+      name: node/default
 
     steps:
       - checkout
