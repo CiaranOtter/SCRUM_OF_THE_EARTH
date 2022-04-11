@@ -18,9 +18,9 @@ export default class MetronomeScreen extends Component {
 
     // initial state of app and its components/functions
     this.state = {
-      playing: false,
-      count: 0,
-      bpm: 100,
+      playing: false, // there is nothing being played yet
+      count: 0, // initial count (this is used to help with accentuating the beat)
+      bpm: 100, // initial beats per minutes  value
       beatsPerMeasure: 4, // the initial beats per measure value
       tempoText: "Moderato (moderately)" // the initial tempo marking, in relation to the beats per minute value
 
@@ -41,12 +41,12 @@ export default class MetronomeScreen extends Component {
   }
 
   handleBpmChange = (e) => {
-    const bpm = e.target.value;
+    const bpm = e.target.value; //obtain value from the text input from user
+
     if (this.state.playing) {
-      clearInterval(this.timer);  //start a new timer
+      clearInterval(this.timer);
       this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
 
-      //set new bpm and counter
       this.setState({
         count: 0,
         bpm
@@ -199,12 +199,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 20
+    alignContent: 'center',
+    //backgroundColor:colors.black,
   },
-  button: {
-    borderRadius: 8,
-    borderRadius:100,
-    paddingHorizontal: 14,
+  bpmText: {
+    paddingTop: 150,
+    color: colors.black,
+    fontSize: 15,
+    paddingLeft: '42.5%',
     justifyContent: 'center',
     alignItems: "center",
     backgroundColor: "#DDDDDD",
@@ -212,16 +214,52 @@ const styles = StyleSheet.create({
     
   },
   bpmTextInput: {
-    paddingTop: 125,
-    //height:50,
-    fontSize: 25,
+    borderWidth: 1,
+    borderColor: '#777',
+    paddingTop: 5,
+    marginLeft:'42.5%',
+    marginTop: 10,
+    width: 200,
+    fontSize: 15,
+    color: colors.black,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: colors.userInputElement,
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 20,
+    paddingLeft: 20,
     color: colors.black,
 
   },
    metronomeImage: {
     width: '100%',
-    height: '85%',
-  alignItems: 'center',
+    height: '90%',
+    alignItems: 'center',
+  },
+  pickerMenu: {
+    borderWidth: 1,
+    borderColor: '#777',
+    paddingTop: 5,
+    marginLeft: '42.5%',
+    marginTop: 10,
+    width: 200,
+    fontSize: 15,
+    color: colors.black,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: '#d4f3ee'
+  },
+  playButton: {
+    backgroundColor: colors.pressableElement,
+    height: 50,
+    width: '10%',
+    borderRadius: 10,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignSelf: 'center',
+    alignItems: 'center',
   },
   speedText: {
     paddingTop: 37.5,
