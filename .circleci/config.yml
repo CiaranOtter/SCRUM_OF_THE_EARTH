@@ -1,24 +1,39 @@
 version: 2.1
+
 orbs:
-  coveralls: coveralls/coveralls@1.0.6  
-  node: circleci/node@5.0.2
-  
+  coveralls: coveralls/coveralls@1.0.5
+  node: circleci/node@1.1.6
+
 jobs:
-  install-node:
-    docker:
-      - image: 'cimg/node@16.13.2'
+  build-1:
+    executor:
+      name: node/default
+
     steps:
       - checkout
-      - node/install:
-          install-yarn: true
-          node-version: '16.13'
-      - run: node --version
 
-  workflows:
-    test_my_app:
-      jobs:
-        - ins
-        - node/test:
-            test-results-for: jest
-            requires: test_my_app
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm run coveralls
+
+      - coveralls/upload:
+          parallel: true
+          flag_name: Test 1
+          verbose: true
+
+  done:
+    executor:
+      name: node/default
+
+    steps:
+      - coveralls/upload:
+          parallel_finished: true
+
+workflows:
+  test_parallel_then_upload:
+    jobs:
+      - build-1
+      - done:
+          requires: [build-1]
 
