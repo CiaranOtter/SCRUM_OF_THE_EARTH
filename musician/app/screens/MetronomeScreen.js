@@ -16,6 +16,7 @@ export default class MetronomeScreen extends Component {
   constructor() {
     super();
 
+    // initial state of app and its components/functions
     this.state = {
       playing: false,
       count: 0,
@@ -131,7 +132,8 @@ export default class MetronomeScreen extends Component {
           <TouchableOpacity>
           <form>
             <Picker color='red'
-          onChange={this.handleBeatsPerMeasureChange}     //bpm text input
+          onChange={this.handleBeatsPerMeasureChange} //function to be called when the beats per measure value is changed
+          //a dropdown menu for the user to select the beats per measure they require
           value={beatsPerMeasure}>
             <Picker.Item label = "Beats per Measure" value = "0"></Picker.Item>
             <Picker.Item label="2" value="2"></Picker.Item>
@@ -161,9 +163,8 @@ export default class MetronomeScreen extends Component {
           </Picker>
           </form>
            <form>
-             <input onChange={this.handleBpmChange}     //bpm text input
+             <input onChange={this.handleBpmChange} //read in input from the user and call function when this input changes
                 value={bpm}
-       
               >
               </input >
             </form >   
