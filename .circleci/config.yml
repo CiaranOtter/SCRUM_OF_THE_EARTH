@@ -47,6 +47,5 @@ workflows:
     jobs:
       - test-build
       - test-Coverage
-          require: [test-build]
       - done:
           requires: [test-Coverage, test-build]
