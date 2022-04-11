@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
-import {SafeAreaView,TouchableHighlight,Image,StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput } from 'react-native';
+import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker } from 'react-native';
 import click1 from '../click1.mp3';
 import hardClick from '../hardClick.mp3'
-
+import { StatusBar } from 'expo-status-bar';
 import colors from '../config/colors';
 
 export default class MetronomeScreen extends Component {
 
-
+  // const[range, setRange] = useState('50%')
+  // const[sliding, setSliding] = useState('Inactive')
 
 
   constructor() {
@@ -26,7 +27,7 @@ export default class MetronomeScreen extends Component {
     this.click1 = new Audio(click1);
     this.click2 = new Audio(hardClick);
   }
-  
+
   handleBeatsPerMeasureChange = (e) => {
     const beatsPerMeasure = e.target.value;
 
@@ -50,28 +51,28 @@ export default class MetronomeScreen extends Component {
       this.setState({ bpm });
     }
 
-    if (bpm < 20){
-      this.setState({tempoText: "Larghissimo (very, very slow)"});
-    } else if (bpm >= 20 && bpm < 40){
-      this.setState({tempoText: "Grave (slow and solemn)"});
-    } else if (bpm >= 40 && bpm < 60){
-      this.setState({tempoText: "Lento (slowly)"});
-    } else if (bpm >= 60 && bpm < 66){
-      this.setState({tempoText: "Largo (slowly)"});
-    } else if (bpm >= 66 && bpm < 76){
-      this.setState({tempoText: "Adagio (slow and stately)"});
-    } else if (bpm >= 76 && bpm < 90){
-      this.setState({tempoText: "Andante (walking pace)"});
-    } else if (bpm >= 90 && bpm < 110){
-      this.setState({tempoText: "Moderato (moderately)"});
-    } else if (bpm >= 110 && bpm < 140){
-      this.setState({tempoText: "Allegro (fast)"});
-    } else if (bpm >= 140 && bpm < 160){
-      this.setState({tempoText: "Vivace (very fast)"});
-    } else if (bpm >= 180 && bpm < 200){
-      this.setState({tempoText: "Presto (really fast)"});
-    } else if (bpm > 200){
-      this.setState({tempoText: "Prestissimo (that's reeeeeally fast dude!)"});
+    if (bpm < 20) {
+      this.setState({ tempoText: "Larghissimo (very, very slow)" });
+    } else if (bpm >= 20 && bpm < 40) {
+      this.setState({ tempoText: "Grave (slow and solemn)" });
+    } else if (bpm >= 40 && bpm < 60) {
+      this.setState({ tempoText: "Lento (slowly)" });
+    } else if (bpm >= 60 && bpm < 66) {
+      this.setState({ tempoText: "Largo (slowly)" });
+    } else if (bpm >= 66 && bpm < 76) {
+      this.setState({ tempoText: "Adagio (slow and stately)" });
+    } else if (bpm >= 76 && bpm < 90) {
+      this.setState({ tempoText: "Andante (walking pace)" });
+    } else if (bpm >= 90 && bpm < 110) {
+      this.setState({ tempoText: "Moderato (moderately)" });
+    } else if (bpm >= 110 && bpm < 140) {
+      this.setState({ tempoText: "Allegro (fast)" });
+    } else if (bpm >= 140 && bpm < 160) {
+      this.setState({ tempoText: "Vivace (very fast)" });
+    } else if (bpm >= 180 && bpm < 200) {
+      this.setState({ tempoText: "Presto (really fast)" });
+    } else if (bpm > 200) {
+      this.setState({ tempoText: "Prestissimo (that's reeeally fast dude!)" });
     }
   };
 
@@ -86,17 +87,21 @@ export default class MetronomeScreen extends Component {
       this.setState({
         playing: false
       });
+
+
     } else {
 
-        //start again with the current bpm
+      //start again with the current bpm
       this.timer = setInterval(this.playClick, (60 / this.state.bpm) * 1000);
       this.setState(
         {
           count: 0,
-          playing: true
+          playing: true,
+
         },
         this.playClick
       );
+
     }
   };
 
@@ -113,74 +118,154 @@ export default class MetronomeScreen extends Component {
   };
 
 
+  render() {
 
-    render(){
-
-        const { playing, bpm, beatsPerMeasure } = this.state;
+    const { playing, bpm, beatsPerMeasure } = this.state;
     return (
-        <SafeAreaView>
-            <TouchableOpacity onPress={this.startStop}>
-                <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='contain' style={styles.metronomeImage} >
-                  <form>
-                       <input onChange={this.handleBpmChange}     //bpm text input
-                        value ={bpm}
-                        type='number'
-                       // placeholder='120'
-                       // keyboardType='numeric'
-                        //style={styles.bpmTextInput}
-                         >
-                    </input>
-                    </form>
-                    <form>
-                       <input onChange={this.handleBeatsPerMeasureChange}     //bpm text input
-                        value ={beatsPerMeasure}
-                        type='number'
-                       placeholder='Please enter the beats per measure'
-                       // keyboardType='numeric'
-                        //style={styles.bpmTextInput}
-                         >
-                    </input>
-                    </form>
-                    <Text style={styles.timeSignatureText}>4/4</Text>
-                    <Text
-                      style={styles.speedText}>
-                        {this.state.tempoText}
-                      </Text>
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.bpmText}> ENTER BEATS PER MINUTES:</Text>
+        <TouchableOpacity>
+          <TextInput style={styles.bpmTextInput} onChange={this.handleBpmChange}     //bpm text input
+            value={bpm} ></TextInput>
+          <form>
+            <Picker style={styles.pickerMenu}
+              onChange={this.handleBeatsPerMeasureChange}     //bpm text input
+              value={beatsPerMeasure}>
+              <Picker.Item label="beats per measure" value="0"></Picker.Item>
+              <Picker.Item label="2" value="2"></Picker.Item>
+              <Picker.Item label="3" value="3"></Picker.Item>
+              <Picker.Item label="4" value="4"></Picker.Item>
+              <Picker.Item label="5" value="5"></Picker.Item>
+              <Picker.Item label="6" value="6"></Picker.Item>
+              <Picker.Item label="7" value="7"></Picker.Item>
+              <Picker.Item label="8" value="8"></Picker.Item>
+              <Picker.Item label="9" value="9"></Picker.Item>
+              <Picker.Item label="10" value="10"></Picker.Item>
+              <Picker.Item label="11" value="11"></Picker.Item>
+              <Picker.Item label="12" value="12"></Picker.Item>
+            </Picker>
+            <Picker style={styles.pickerMenu}>
+              <Picker.Item label="note per measure" value="0"></Picker.Item>
+              <Picker.Item label="1" value="1"></Picker.Item>
+              <Picker.Item label="2" value="2"></Picker.Item>
+              <Picker.Item label="3" value="3"></Picker.Item>
+              <Picker.Item label="4" value="4"></Picker.Item>
+              <Picker.Item label="5" value="5"></Picker.Item>
+              <Picker.Item label="6" value="6"></Picker.Item>
+              <Picker.Item label="7" value="7"></Picker.Item>
+              <Picker.Item label="8" value="8"></Picker.Item>
+              <Picker.Item label="9" value="9"></Picker.Item>
+              <Picker.Item label="10" value="10"></Picker.Item>
+              <Picker.Item label="11" value="11"></Picker.Item>
+              <Picker.Item label="12" value="12"></Picker.Item>
+            </Picker>
+          </form>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.playButton} onPress={this.startStop}>
+          <Text style={styles.buttonText}>START/STOP</Text>
+        </TouchableOpacity>
+        <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='contain' style={styles.metronomeImage} >
 
-                </ImageBackground>
-            </TouchableOpacity>
-        </SafeAreaView>
+          <Text
+            style={styles.timeSignatureText}>
+            {this.state.beatsPerMeasure} / {this.state.notesPerMeasure}</Text>
+
+          <Text
+            style={styles.speedText}>
+            {this.state.tempoText}
+          </Text>
+        </ImageBackground>
+
+
+      </SafeAreaView>
+
 
     );
-    }
+  }
 }
 
 
 
 
 const styles = StyleSheet.create({
-    bpmTextInput:{
-        paddingTop:125,
-        //height:50,
-        fontSize:25,
-        color: colors.black,
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: 'center',
+    // backgroundColor:'#347572'
+  },
+  pickerMenu: {
+    borderWidth: 1,
+    borderColor: '#777',
+    paddingTop: 5,
+    marginLeft: 600,
+    marginTop: 10,
+    width: 200,
+    fontSize: 15,
+    color: colors.black,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: '#d4f3ee'
+  },
+  bpmTextInput: {
+    borderWidth: 1,
+    borderColor: '#777',
+    paddingTop: 5,
+    marginLeft: 600,
+    marginTop: 10,
+    width: 200,
+    fontSize: 15,
+    color: colors.black,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: '#d4f3ee'
+  },
+  metronomeImage: {
+    // margin:10,
+    width: '100%',
+    height: '90%',
+    alignItems: 'center',
+  },
+  speedText: {
+    paddingTop: 50,
+    paddingLeft: 90,
+    color: colors.black,
+    fontSize: 17,
+    justifyContent: 'center',
+    alignContent: 'center',
+    //  backgroundColor: '#347572'
+  },
 
-    },
-    metronomeImage:{
-        width:'100%',
-        height:'100%',
-        alignItems:'center',
-    },
-    speedText:{
-        paddingTop:37.5,
-        color: colors.black,
-        fontSize:20,
-    },
-    timeSignatureText:{
-        paddingTop:335,
-        color:'#525252',
-        fontSize:20,
-    }
+  timeSignatureText: {
+    paddingTop: 550,
+    color: '#ffffff',
+    fontSize: 20,
+    justifyContent: 'center',
+    alignContent: 'center'
+  },
+  bpmText: {
+    paddingTop: 150,
+    color: '#347572',
+    fontSize: 15,
+    paddingLeft: 600,
+    justifyContent: 'center',
+    alignContent: 'center'
+  },
+  playButton: {
+    backgroundColor: '#347572',
+    height: 50,
+    width: '10%',
+    borderRadius: 10,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignSelf: 'center',
+    alignItems: 'center'
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 20,
+    paddingLeft: 10,
+    color: 'white'
 
-
-})
+  }
+});
