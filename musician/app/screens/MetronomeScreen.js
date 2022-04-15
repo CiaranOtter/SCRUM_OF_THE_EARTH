@@ -1,10 +1,11 @@
 import React, { Component, useState } from 'react';  //libraries imported from external sources
 import { render } from 'react-dom';
-import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker } from 'react-native';
+import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { Audio } from 'expo-av';
 
-import click1 from '../click1.mp3';      //objects and libraries imported from within our project
-import hardClick from '../hardClick.mp3'
+//import click1 from '../click1.mp3';      //objects and libraries imported from within our project
+//import hardClick from '../hardClick.mp3'
 import colors from '../config/colors';
 
 export default class MetronomeScreen extends Component {
@@ -26,9 +27,22 @@ export default class MetronomeScreen extends Component {
 
     };
 
-    // initialise the audios we are going to use
-    this.click1 = new Audio(click1);
-    this.click2 = new Audio(hardClick);
+  }
+
+  //load the sound we're going to use for the metronome
+  async componentDidMount(){
+    this.click1 = new Audio.Sound();
+    this.hardClick = new Audio.Sound();
+
+    //try to load the audio, and if it fails debug the error
+    try {     
+      this.click1.loadAsync(require('../click1.mp3'));
+      this.hardClick.loadAsync(require('../hardClick.mp3'));
+    } catch (error) {
+      console.log('Failed to load metronome sounds: ' + error);
+    }
+
+    
   }
 
   handleBeatsPerMeasureChange = (e) => {
@@ -110,12 +124,18 @@ export default class MetronomeScreen extends Component {
     }
   };
 
-  playClick = () => {
+
+
+playClick = () => {
     const { count, beatsPerMeasure } = this.state;
     if (count % beatsPerMeasure === 0) {
-      this.click2.play();
+      
+      this.hardClick.setPositionAsync(0); //reset the playback position of the Async so that the sound can play continuosly
+      this.hardClick.playAsync();  //play the sound
     } else {
-      this.click1.play();
+     
+      this.click1.setPositionAsync(0);  //reset the playback position of the Async so that the sound can play continuosly
+      this.click1.playAsync();   //play the sound
     }
     this.setState((state) => ({
       count: (state.count + 1) % state.beatsPerMeasure
@@ -133,8 +153,8 @@ export default class MetronomeScreen extends Component {
         </Text>  
         <TouchableOpacity>
           <TextInput style={styles.bpmTextInput} onChange={this.handleBpmChange} //text to indicate that the user should enter a bpm and a bpm text input
-            value={bpm} ></TextInput>
-          <form>
+            number={bpm} ></TextInput>
+          <View>
             <Picker style={styles.pickerMenu}
               onChange={this.handleBeatsPerMeasureChange}     //beats per measure dropdown menu, and function to be called when a value is picked
               value={beatsPerMeasure}>
@@ -167,7 +187,7 @@ export default class MetronomeScreen extends Component {
               <Picker.Item label="11" value="11"></Picker.Item>
               <Picker.Item label="12" value="12"></Picker.Item>
             </Picker>
-          </form>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.playButton} onPress={this.startStop} // a button to start or stop the metronome sound
         >
