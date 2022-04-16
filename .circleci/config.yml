@@ -13,9 +13,9 @@ jobs:
     steps: 
       - checkout
 
-      - run:
-          name: "Install codecov"
-          command: "curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov"
+      # - run:
+      #     name: "Install codecov"
+      #     command: "curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov"
       - run: 
           name: "List files"
           command: "ls;"
