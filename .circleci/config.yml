@@ -20,12 +20,17 @@ jobs:
       - checkout
 
       - run: 
+          name: "List files"
+          command: "ls;"
+          
+      - run: 
           name: "Intsall npm modules"
           command: "npm install"
 
       - run: 
           name: "Run tests"
           command: "npm test"
+
 
 workflows:
   say-hello-workflow:
