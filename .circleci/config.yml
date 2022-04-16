@@ -25,7 +25,7 @@ jobs:
       
       - coveralls/upload:
           path_to_lcov: musician/coverage/lcov.info
-          token: uBUJ6eadGjnX1wRxPovjb7PqxLicixf5B
+          token: oHIlZv5aBtBVLSyLMZrTMnnWiiHaC4MtN
           verbose: true
 
 
