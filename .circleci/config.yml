@@ -25,7 +25,7 @@ jobs:
 
       - run: 
           name: "Run tests"
-          command: "cd musician; npm test -- --trace-uncaught"
+          command: "cd musician; npm test -- node --trace-uncaught"
 
       - coveralls/upload:
           path_to_lcov: musician/coverage/lcov.info
