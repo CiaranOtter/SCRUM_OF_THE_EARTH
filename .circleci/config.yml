@@ -3,11 +3,14 @@ version: 2.1
 orbs: 
   coveralls: coveralls/coveralls@1.0.6
 
+repo_token: oHIlZv5aBtBVLSyLMZrTMnnWiiHaC4MtN
+
 jobs:     
   install-node-modules:
     build:
     docker:
       - image: cimg/node:16.13.2
+    
     steps: 
       - checkout
 
@@ -22,10 +25,10 @@ jobs:
       - run: 
           name: "Run tests"
           command: "cd musician; npm test"
-      
+
       - coveralls/upload:
           path_to_lcov: musician/coverage/lcov.info
-          token: "oHIlZv5aBtBVLSyLMZrTMnnWiiHaC4MtN"
+          token: oHIlZv5aBtBVLSyLMZrTMnnWiiHaC4MtN
           verbose: true
 
 
