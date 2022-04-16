@@ -6,7 +6,6 @@ orbs:
 
 
 jobs:     
-  repo_token: oHIlZv5aBtBVLSyLMZrTMnnWiiHaC4MtN
 
   install-node-modules:
     build:
