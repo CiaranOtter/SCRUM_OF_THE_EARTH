@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/App.js",
   "coveralls": {
-    "COVERALLS_REPO_TOKEN": "uBUJ6eadGjnX1wRxPovjb7PqxLicixf5B"
+    "token": "oHIlZv5aBtBVLSyLMZrTMnnWiiHaC4MtN"
   },
   "jest": {
     "collectCoverage": true,
