@@ -33,7 +33,7 @@ jobs:
           command: "cd musician; npm test"
       
       - coveralls/upload:
-          path_to_lcov: ~/musician/coverage/lcov.info
+          path_to_lcov: musician/coverage/lcov.info
 
 
 workflows:
