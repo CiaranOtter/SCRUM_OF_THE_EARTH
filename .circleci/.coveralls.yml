@@ -3,16 +3,7 @@ version: 2.1
 orbs: 
   coveralls: coveralls/coveralls@1.0.6
 
-jobs:
-  say-hello:
-
-    docker:
-      - image: cimg/node:16.13.2
-    steps:
-      - checkout
-      - run: ls; pwd;
-
-          
+jobs:     
   install-node-modules:
     build:
     docker:
@@ -41,5 +32,4 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
       - install-node-modules
