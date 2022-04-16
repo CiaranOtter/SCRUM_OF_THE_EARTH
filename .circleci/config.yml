@@ -23,6 +23,10 @@ jobs:
           name: "Intsall npm modules"
           command: "npm install"
 
+      - run: 
+          name: "Run tests"
+          command: "npm run test -- --coverage"
+
 workflows:
   say-hello-workflow:
     jobs:
