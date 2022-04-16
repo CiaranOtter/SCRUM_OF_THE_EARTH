@@ -25,7 +25,7 @@ jobs:
 
       - run: 
           name: "Intsall npm modules"
-          command: "cd musician; npm install"
+          command: "cd musician; npm install; npm install jest"
 
       - run: 
           name: "Run tests"
