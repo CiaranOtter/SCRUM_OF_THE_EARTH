@@ -21,7 +21,7 @@ jobs:
           command: "ls;"
 
       - run: 
-          name: "Intsall npm modules"
+          name: "Install npm modules"
           command: "cd musician; npm install; npm install jest"
 
       - run: 
