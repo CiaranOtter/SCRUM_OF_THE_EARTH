@@ -1,17 +1,34 @@
 version: 2.1
 
-orbs: 
-  coveralls: coveralls/coveralls@1.0.6
-
-workflows:
-  test-deploy:
-    jobs:
-      - test
-      
 jobs:
-  test:
+  say-hello:
+    working_directory: ~/project/Keep_Track
+
     docker:
-      - image: cimg/node:14.13.0
+      - image: cimg/node:16.13.2
     steps:
       - checkout
-      - run: node --version
+      - run: ls; pwd;
+
+          
+  install-node-modules:
+    build:
+    docker:
+      - image: cimg/node:16.13.2
+
+    steps: 
+      - checkout
+
+      - run: 
+          name: "Intsall npm modules"
+          command: "npm install"
+
+      - run: 
+          name: "Run tests"
+          command: "npm run test -- --coverage"
+
+workflows:
+  say-hello-workflow:
+    jobs:
+      - say-hello
+      - install-node-modules
