@@ -24,7 +24,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --coverage && coveralls < coverage/lcov.info"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "coveralls": "^3.1.1",
