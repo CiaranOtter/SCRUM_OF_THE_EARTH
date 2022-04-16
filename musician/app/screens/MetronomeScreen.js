@@ -1,17 +1,19 @@
-import React, { Component, useState } from 'react';  //libraries imported from external sources
-import { render } from 'react-dom';
-import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 
-import click1 from '../click1.mp3';      //objects and libraries imported from within our project
-import hardClick from '../hardClick.mp3'
+import React, { Component, useState } from 'react';  //libraries imported from external sources
+import metronome from "../classes/metronome.js";
+// import { render } from 'react-dom';
+import { SafeAreaView, StyleSheet, TouchableOpacity, Text, ImageBackground, Picker } from 'react-native';
+// import { StatusBar } from 'expo-status-bar';
+
+// import click1 from '../click1.mp3';      //objects and libraries imported from within our project
+// import hardClick from '../hardClick.mp3'
 import colors from '../config/colors';
+
 
 export default class MetronomeScreen extends Component {
 
   // const[range, setRange] = useState('50%')
   // const[sliding, setSliding] = useState('Inactive')
-
 
   constructor() {
     super();
@@ -31,13 +33,24 @@ export default class MetronomeScreen extends Component {
     this.click2 = new Audio(hardClick);
   }
 
+
   handleBeatsPerMeasureChange = (e) => {
     const beatsPerMeasure = e.target.value; // obtain value of the beats per measure from the dropdwon menu 
 
+    setBeatPerMeasure(beatsPerMeasure);
+  }
+
+  setBeatPerMeasure(beatsPerMeasure) {
     this.setState({
       beatsPerMeasure //set the value to the one obtained
-    })
+    });
+    
+    return this.state.beatsPerMeasure;
   }
+
+  
+
+  
 
   handleBpmChange = (e) => {
     const bpm = e.target.value; //obtain value of the beats per measure from the user input
@@ -194,6 +207,7 @@ export default class MetronomeScreen extends Component {
     );
   }
 }
+
 
 
 
