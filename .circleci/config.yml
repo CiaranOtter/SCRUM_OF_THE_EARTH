@@ -22,14 +22,14 @@ jobs:
       - run: 
           name: "List files"
           command: "ls;"
-          
+
       - run: 
           name: "Intsall npm modules"
-          command: "npm install"
+          command: "cd musician; npm install"
 
       - run: 
           name: "Run tests"
-          command: "npm test"
+          command: "cd musician; npm test"
 
 
 workflows:
