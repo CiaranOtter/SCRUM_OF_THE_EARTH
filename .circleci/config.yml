@@ -3,17 +3,33 @@ version: 2.1
 orbs: 
   coveralls: coveralls/coveralls@1.0.6
 
-jobs:
-  say-hello:
-
+jobs:     
+  install-node-modules:
+    build:
     docker:
       - image: cimg/node:16.13.2
-    steps:
+    steps: 
       - checkout
-      - run: ls; pwd;
+
+      - run: 
+          name: "List files"
+          command: "ls;"
+
+      - run: 
+          name: "Intsall npm modules"
+          command: "cd musician; npm install; npm install jest"
+
+      - run: 
+          name: "Run tests"
+          command: "cd musician; npm test"
+      
+      - coveralls/upload:
+          path_to_lcov: musician/coverage/lcov.info
+          token: uBUJ6eadGjnX1wRxPovjb7PqxLicixf5B
+          verbose: true
 
 
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
+      - install-node-modules
