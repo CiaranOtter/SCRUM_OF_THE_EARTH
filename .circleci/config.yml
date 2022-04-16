@@ -1,6 +1,6 @@
 version: 2.1
 
-repo_token: uBUJ6eadGjnX1wRxPovjb7PqxLicixf5B
+
 
 orbs: 
   coveralls: coveralls/coveralls@1.0.10
@@ -21,6 +21,8 @@ jobs:
     docker:
       - image: cimg/node:16.13.2
 
+    repo_token: uBUJ6eadGjnX1wRxPovjb7PqxLicixf5B
+
     steps: 
       - checkout
 
@@ -35,6 +37,8 @@ jobs:
       - run: 
           name: "Run tests"
           command: "cd musician; npm test"
+      
+      - coveralls/upload
 
 
 workflows:
