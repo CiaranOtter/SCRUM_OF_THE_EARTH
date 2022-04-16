@@ -5,7 +5,6 @@ orbs:
 
 jobs:
   say-hello:
-    working_directory: ~/project/Keep_Track
 
     docker:
       - image: cimg/node:16.13.2
@@ -33,7 +32,8 @@ jobs:
           name: "Run tests"
           command: "cd musician; npm test"
       
-      - coveralls/upload
+      - coveralls/upload:
+          path_to_lcov: /musician/coverage/lcov.info
 
 
 workflows:
