@@ -10,10 +10,6 @@ import colors from '../config/colors';
 
 export default class MetronomeScreen extends Component {
 
-  // const[range, setRange] = useState('50%')
-  // const[sliding, setSliding] = useState('Inactive')
-
-
   constructor() {
     super();
 
@@ -193,7 +189,7 @@ playClick = () => {
         >
           <Text style={styles.buttonText}>START/STOP</Text>
         </TouchableOpacity>
-        <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='contain' style={styles.metronomeImage} >
+        <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='stretch' style={styles.metronomeImage} >
 
           <Text
           //time signature text
@@ -206,8 +202,6 @@ playClick = () => {
             {this.state.tempoText}
           </Text>
         </ImageBackground>
-
-
       </SafeAreaView>
 
 
@@ -226,7 +220,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     //backgroundColor:colors.black,
   },
   bpmText: {
-    paddingTop: 150,
+    paddingTop: '10%',
     color: colors.black,
     fontSize: 15,
     paddingLeft: '42.5%',
@@ -238,7 +232,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     borderColor: '#777',
     paddingTop: 5,
     marginLeft:'42.5%',
-    marginTop: 10,
+    //marginTop: 15,
     width: 200,
     fontSize: 15,
     color: colors.black,
@@ -262,9 +256,9 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
   pickerMenu: {
     borderWidth: 1,
     borderColor: '#777',
-    paddingTop: 5,
+    paddingTop: 50,
     marginLeft: '42.5%',
-    marginTop: 10,
+    marginTop: 20,
     width: 200,
     fontSize: 15,
     color: colors.black,
@@ -293,7 +287,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
   },
 
   timeSignatureText: {
-    paddingTop: 550,
+    paddingTop: 400,
     color: '#ffffff',
     fontSize: 20,
     justifyContent: 'center',
