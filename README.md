@@ -6,5 +6,5 @@ The repository for the SCRUM of the Earth group in Software development, wits un
 
 [![codecov](https://codecov.io/gh/CiaranOtter/SCRUM_OF_THE_EARTH/branch/main/graph/badge.svg?token=DLPYCW57ZE)](https://codecov.io/gh/CiaranOtter/SCRUM_OF_THE_EARTH)
 
-![Alt text](./musician/coverage/badge-branches.svg)
-<img src=./musician/coverage/badge-branches.svg>
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
