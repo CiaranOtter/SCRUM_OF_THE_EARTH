@@ -26,7 +26,7 @@ jobs:
 
       - run: 
           name: "Run tests"
-          command: "cd musician; npm run test:badges"
+          command: "cd musician; npm test"
 
       - codecov/upload
 
