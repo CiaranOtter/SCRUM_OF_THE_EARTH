@@ -1,17 +1,37 @@
 version: 2.1
 
 orbs: 
-  coveralls: coveralls/coveralls@1.0.6
+  codecov: codecov/codecov@3.2.2
+
+jobs:     
+
+  install-node-modules:
+    build:
+    docker:
+      - image: cimg/node:16.13.2
+    
+    steps: 
+      - checkout
+
+      # - run:
+      #     name: "Install codecov"
+      #     command: "curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov"
+      - run: 
+          name: "List files"
+          command: "ls;"
+
+      - run: 
+          name: "Install npm modules"
+          command: "cd musician; npm install; npm install jest"
+
+      - run: 
+          name: "Run tests"
+          command: "cd musician; npm test"
+
+      - codecov/upload
+
 
 workflows:
-  test-deploy:
+  say-hello-workflow:
     jobs:
-      - test
-      
-jobs:
-  test:
-    docker:
-      - image: cimg/node:14.13.0
-    steps:
-      - checkout
-      - run: node --version
+      - install-node-modules
