@@ -1,13 +1,13 @@
 
 import React, { Component, useState } from 'react';  //libraries imported from external sources
-import metronome from "../classes/metronome.js";
-import { SafeAreaView, StyleSheet, TouchableOpacity, Text, ImageBackground, Picker } from 'react-native';
 
-// import click1 from '../click1.mp3';      //objects and libraries imported from within our project
-// import hardClick from '../hardClick.mp3'
+import { SafeAreaView, StyleSheet, TouchableOpacity, Text, ImageBackground, Picker, TextInput } from 'react-native';
+
+import click1 from '../sounds/click1.mp3';      //objects and libraries imported from within our project
+import hardClick from '../sounds/hardClick.mp3'
 import colors from '../config/colors';
-import metronome from '../classes/metronome.js';
 
+const metronome = require("../classes/metronome.js");
 
 export default class MetronomeScreen extends Component {
 
@@ -17,7 +17,7 @@ export default class MetronomeScreen extends Component {
   constructor() {
     super();
 
-    let metronome = new metronome();
+    this.MetronomeClass = new metronome();
 
     //initial state of the app and its componets/functions
     // this.state = {
@@ -38,7 +38,7 @@ export default class MetronomeScreen extends Component {
   handleBeatsPerMeasureChange = (e) => {
     const beatsPerMeasure = e.target.value; // obtain value of the beats per measure from the dropdwon menu 
 
-    this.metronome.setBeatPerMeasure(beatsPerMeasure);
+    this.MetronomeClass.setBeatPerMeasure(beatsPerMeasure);
   }
 
 //   setBPM(bpm) {
@@ -133,20 +133,20 @@ export default class MetronomeScreen extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.metronome.getBPM());
+    console.log(this.MetronomeClass.getBPM());
   };
 
   startStop = () => {
-    if (this.metronome.isPlaying()) {
+    if (this.MetronomeClass.isPlaying()) {
       clearInterval(this.timer);
-      this.metronome.setPlaying(false)
+      this.MetronomeClass.setPlaying(false)
 
 
     } else {
 
       //start again with the current bpm
-      this.timer = setInterval(this.playClick, (60 / this.metronome.getBPM()) * 1000);
-      this.metronome.setPlaying(true)
+      this.timer = setInterval(this.playClick, (60 / this.MetronomeClass.getBPM()) * 1000);
+      this.MetronomeClass.setPlaying(true)
       
       this.playClick
 
@@ -154,23 +154,23 @@ export default class MetronomeScreen extends Component {
   };
 
   playClick = () => {
-    const count = this.metronome.getCount();
-    const beatsPerMeasure = this.metronome.getBeatsPerMeasure();
+    const count = this.MetronomeClass.getCount();
+    const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
     if (count % beatsPerMeasure === 0) {
       this.click2.play();
     } else {
       this.click1.play();
     }
-    this.metronome.updateCount();
+    this.MetronomeClass.updateCount();
   };
 
 
   render() {
 
     // initialise the variables we are going to use to be in the current state
-    const playing = this.metronome.getPlaying()
-    const bpm = this.metronome.getBPM()
-    const beatsPerMeasure = this.metronome.getBeatsPerMeasure();
+    const playing = this.MetronomeClass.isPlaying()
+    const bpm = this.MetronomeClass.getBPM()
+    const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
 
     return (
       <SafeAreaView style={styles.container}>
@@ -223,12 +223,12 @@ export default class MetronomeScreen extends Component {
           <Text
           //time signature text
             style={styles.timeSignatureText}>
-            {beatsPerMeasure} / {this.state.notesPerMeasure}</Text>
+            {beatsPerMeasure} / 4</Text>
 
           <Text
           //bpm text
             style={styles.speedText}>
-            {this.metronome.getTempoText}
+            {this.MetronomeClass.getTempoText}
           </Text>
         </ImageBackground>
 
