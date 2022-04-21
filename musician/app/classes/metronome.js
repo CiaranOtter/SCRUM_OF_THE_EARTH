@@ -79,8 +79,13 @@ module.exports = class metronome {
           return this.tempoText;
     } 
 
-    setPlaying() {
-        this.playing = !this.playing;
+    setPlaying(b) {
+      if (!b){
+        this.playing = true
+      } else {
+        this.playing = false;
+        this.setCount(0);
+      }
         return this.playing;
     } 
 
@@ -89,9 +94,29 @@ module.exports = class metronome {
         return this.count;
     }
 
-    getPlaying() {
+    updateCount(){
+      this.count = (this.count + 1) % this.beatsPerMeasure
+      return this.count
+    }
+
+    isPlaying() {
         return this.playing;
     }
 
+    getBPM() {
+      return this.bpm;
+    }
+
+    getCount() {
+      return this.count
+    }
+
+    getBeatsPerMeasure(){
+      return this.beatsPerMeasure
+    }
+
+    getTempoText() {
+      return this.tempoText;
+    }
     
 }
