@@ -25,7 +25,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --coverage"
+    "test": "jest --coverage && jest-coverage-badges"
   },
   "dependencies": {
     "coveralls": "^3.1.1",
