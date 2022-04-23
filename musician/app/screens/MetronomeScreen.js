@@ -1,27 +1,33 @@
-import React, { Component, useState } from 'react';  //libraries imported from external sources
-import { render } from 'react-dom';
-import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { Audio } from 'expo-av';
 
-//import click1 from '../click1.mp3';      //objects and libraries imported from within our project
-//import hardClick from '../hardClick.mp3'
+import React, { Component, useState } from 'react';  //libraries imported from external sources
+
+import { SafeAreaView, StyleSheet, TouchableOpacity, Text, ImageBackground, Picker, TextInput } from 'react-native';
+
+import click1 from '../sounds/click1.mp3';      //objects and libraries imported from within our project
+import hardClick from '../sounds/hardClick.mp3'
 import colors from '../config/colors';
 
+const metronome = require("../classes/metronome.js");
+
 export default class MetronomeScreen extends Component {
+
+  // const[range, setRange] = useState('50%')
+  // const[sliding, setSliding] = useState('Inactive')
 
   constructor() {
     super();
 
-    //initial state of the app and its componets/functions
-    this.state = {
-      playing: false, // there is nothing being played yet
-      count: 0,
-      bpm: 100, // initial beats per minute value
-      beatsPerMeasure: 4, // initial beats per measure value 
-      tempoText: "Moderato (moderately)" // initial tempo marking based on the bpm value
+    this.MetronomeClass = new metronome();
 
-    };
+    //initial state of the app and its componets/functions
+    // this.state = {
+    //   playing: false, // there is nothing being played yet
+    //   count: 0,
+    //   bpm: 100, // initial beats per minute value
+    //   beatsPerMeasure: 4, // initial beats per measure value 
+    //   tempoText: "Moderato (moderately)" // initial tempo marking based on the bpm value
+
+    // };
 
   }
 
@@ -41,89 +47,128 @@ export default class MetronomeScreen extends Component {
     
   }
 
+
   handleBeatsPerMeasureChange = (e) => {
     const beatsPerMeasure = e.target.value; // obtain value of the beats per measure from the dropdwon menu 
 
-    this.setState({
-      beatsPerMeasure //set the value to the one obtained
-    })
+    this.MetronomeClass.setBeatPerMeasure(beatsPerMeasure);
   }
 
-  handleBpmChange = (e) => {
-    const bpm = e.target.value; //obtain value of the beats per measure from the user input
-    if (this.state.playing) {
-      clearInterval(this.timer);  //start a new timer
-      this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
+//   setBPM(bpm) {
+//     if (this.state.playing) {
+//       clearInterval(this.timer);  //start a new timer
+//       this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
 
-      //set new bpm and counter
-      this.setState({
-        count: 0,
-        bpm
-      });
-    } else {
-      this.setState({ bpm });
-    }
+//       //set new bpm and counter
+//       this.setState({
+//         count: 0,
+//         bpm
+//       });
+//     } else {
+//       this.setState({ bpm });
+//     }
 
-    //#region If statement to select and sisplay the tempo marking based on the bpm value
-    if (bpm < 20) {
-      this.setState({ tempoText: "Larghissimo (very, very slow)" });
-    } else if (bpm >= 20 && bpm < 40) {
-      this.setState({ tempoText: "Grave (slow and solemn)" });
-    } else if (bpm >= 40 && bpm < 60) {
-      this.setState({ tempoText: "Lento (slowly)" });
-    } else if (bpm >= 60 && bpm < 66) {
-      this.setState({ tempoText: "Largo (slowly)" });
-    } else if (bpm >= 66 && bpm < 76) {
-      this.setState({ tempoText: "Adagio (slow and stately)" });
-    } else if (bpm >= 76 && bpm < 90) {
-      this.setState({ tempoText: "Andante (walking pace)" });
-    } else if (bpm >= 90 && bpm < 110) {
-      this.setState({ tempoText: "Moderato (moderately)" });
-    } else if (bpm >= 110 && bpm < 140) {
-      this.setState({ tempoText: "Allegro (fast)" });
-    } else if (bpm >= 140 && bpm < 160) {
-      this.setState({ tempoText: "Vivace (very fast)" });
-    } else if (bpm >= 180 && bpm < 200) {
-      this.setState({ tempoText: "Presto (really fast)" });
-    } else if (bpm > 200) {
-      this.setState({ tempoText: "Prestissimo (that's reeeally fast dude!)" });
-    }
-    //#endregion
-  };
+//     return this.state.bpm;
+//   } 
+
+//   calcTempoText(bpm) {
+//     if (bpm < 20) {
+//       this.setState({ tempoText: "Larghissimo (very, very slow)" });
+//     } else if (bpm >= 20 && bpm < 40) {
+//       this.setState({ tempoText: "Grave (slow and solemn)" });
+//     } else if (bpm >= 40 && bpm < 60) {
+//       this.setState({ tempoText: "Lento (slowly)" });
+//     } else if (bpm >= 60 && bpm < 66) {
+//       this.setState({ tempoText: "Largo (slowly)" });
+//     } else if (bpm >= 66 && bpm < 76) {
+//       this.setState({ tempoText: "Adagio (slow and stately)" });
+//     } else if (bpm >= 76 && bpm < 90) {
+//       this.setState({ tempoText: "Andante (walking pace)" });
+//     } else if (bpm >= 90 && bpm < 110) {
+//       this.setState({ tempoText: "Moderato (moderately)" });
+//     } else if (bpm >= 110 && bpm < 140) {
+//       this.setState({ tempoText: "Allegro (fast)" });
+//     } else if (bpm >= 140 && bpm < 160) {
+//       this.setState({ tempoText: "Vivace (very fast)" });
+//     } else if (bpm >= 180 && bpm < 200) {
+//       this.setState({ tempoText: "Presto (really fast)" });
+//     } else if (bpm > 200) {
+//       this.setState({ tempoText: "Prestissimo (that's reeeally fast dude!)" });
+//     }
+
+//       return this.state.tempoText;
+// } 
+
+  // handleBpmChange = (e) => {
+  //   const bpm = e.target.value; //obtain value of the beats per measure from the user input
+  //   // if (this.state.playing) {
+  //   //   clearInterval(this.timer);  //start a new timer
+  //   //   this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
+
+  //   //   //set new bpm and counter
+  //   //   this.setState({
+  //   //     count: 0,
+  //   //     bpm
+  //   //   });
+  //   // } else {
+  //   //   this.setState({ bpm });
+  //   // }
+
+  //   this.metronome.setBPM(bpm);
+  //   //#region If statement to select and sisplay the tempo marking based on the bpm value
+  //   // if (bpm < 20) {
+  //   //   this.setState({ tempoText: "Larghissimo (very, very slow)" });
+  //   // } else if (bpm >= 20 && bpm < 40) {
+  //   //   this.setState({ tempoText: "Grave (slow and solemn)" });
+  //   // } else if (bpm >= 40 && bpm < 60) {
+  //   //   this.setState({ tempoText: "Lento (slowly)" });
+  //   // } else if (bpm >= 60 && bpm < 66) {
+  //   //   this.setState({ tempoText: "Largo (slowly)" });
+  //   // } else if (bpm >= 66 && bpm < 76) {
+  //   //   this.setState({ tempoText: "Adagio (slow and stately)" });
+  //   // } else if (bpm >= 76 && bpm < 90) {
+  //   //   this.setState({ tempoText: "Andante (walking pace)" });
+  //   // } else if (bpm >= 90 && bpm < 110) {
+  //   //   this.setState({ tempoText: "Moderato (moderately)" });
+  //   // } else if (bpm >= 110 && bpm < 140) {
+  //   //   this.setState({ tempoText: "Allegro (fast)" });
+  //   // } else if (bpm >= 140 && bpm < 160) {
+  //   //   this.setState({ tempoText: "Vivace (very fast)" });
+  //   // } else if (bpm >= 180 && bpm < 200) {
+  //   //   this.setState({ tempoText: "Presto (really fast)" });
+  //   // } else if (bpm > 200) {
+  //   //   this.setState({ tempoText: "Prestissimo (that's reeeally fast dude!)" });
+  //   // }
+
+  //   this.metronome.calcTempoText(bpm)
+  //   //#endregion
+  // };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.bpm);
+    console.log(this.MetronomeClass.getBPM());
   };
 
   startStop = () => {
-    if (this.state.playing) {
+    if (this.MetronomeClass.isPlaying()) {
       clearInterval(this.timer);
-      this.setState({
-        playing: false
-      });
+      this.MetronomeClass.setPlaying(false)
 
 
     } else {
 
       //start again with the current bpm
-      this.timer = setInterval(this.playClick, (60 / this.state.bpm) * 1000);
-      this.setState(
-        {
-          count: 0,
-          playing: true,
-
-        },
-        this.playClick
-      );
+      this.timer = setInterval(this.playClick, (60 / this.MetronomeClass.getBPM()) * 1000);
+      this.MetronomeClass.setPlaying(true)
+      
+      this.playClick
 
     }
   };
 
-
-
-playClick = () => {
-    const { count, beatsPerMeasure } = this.state;
+  playClick = () => {
+    const count = this.MetronomeClass.getCount();
+    const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
     if (count % beatsPerMeasure === 0) {
       
       this.hardClick.setPositionAsync(0); //reset the playback position of the Async so that the sound can play continuosly
@@ -133,16 +178,17 @@ playClick = () => {
       this.click1.setPositionAsync(0);  //reset the playback position of the Async so that the sound can play continuosly
       this.click1.playAsync();   //play the sound
     }
-    this.setState((state) => ({
-      count: (state.count + 1) % state.beatsPerMeasure
-    }));
+    this.MetronomeClass.updateCount();
   };
 
 
   render() {
 
     // initialise the variables we are going to use to be in the current state
-    const { playing, bpm, beatsPerMeasure } = this.state;
+    const playing = this.MetronomeClass.isPlaying()
+    const bpm = this.MetronomeClass.getBPM()
+    const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
+
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:
@@ -194,12 +240,12 @@ playClick = () => {
           <Text
           //time signature text
             style={styles.timeSignatureText}>
-            {this.state.beatsPerMeasure} / {this.state.notesPerMeasure}</Text>
+            {beatsPerMeasure} / 4</Text>
 
           <Text
           //bpm text
             style={styles.speedText}>
-            {this.state.tempoText}
+            {this.MetronomeClass.getTempoText}
           </Text>
         </ImageBackground>
       </SafeAreaView>
@@ -208,6 +254,7 @@ playClick = () => {
     );
   }
 }
+
 
 
 

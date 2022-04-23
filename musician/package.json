@@ -2,18 +2,39 @@
   "name": "musician",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "coveralls": {
+    "token": "oHIlZv5aBtBVLSyLMZrTMnnWiiHaC4MtN"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "testPathIgnorePatterns": [
+      "/musician/app/sounds"
+    ],
+    "coverageReporters": [
+      "html",
+      "json-summary", 
+      "text",
+      "lcov"
+    ]
+  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest --coverage && jest-coverage-badges"
   },
   "dependencies": {
-    "@react-native-community/slider": "^4.1.12",
+    "coveralls": "^3.1.1",
     "expo": "~44.0.0",
     "expo-cli": "^5.3.0",
     "expo-status-bar": "~1.2.0",
+    "jest": "^27.5.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
