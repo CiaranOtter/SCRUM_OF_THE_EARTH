@@ -22,7 +22,7 @@ jobs:
 
       - run: 
           name: "Install npm modules"
-          command: "cd musician; npm install; npm install jest; npm install --save jest-coverage-badges; npm install -g codecov"
+          command: "cd musician; npm install; npm install jest; npm install --save jest-coverage-badges; sudo npm install -g codecov"
 
       - run: 
           name: "Run tests"
