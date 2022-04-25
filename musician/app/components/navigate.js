@@ -1,21 +1,38 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, { Component, createFactory } from 'react';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
 import MetronomeScreen from '../screens/MetronomeScreen';
 import TunerScreen from '../screens/TunerScreen';
 
+import { Button, View } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+const Stack = new createStackNavigator();
+// const nav = React.useRef();
 
-const AppStack = createStackNavigator();
-export default function Navigator(){
+export default class Navigator extends Component{
+    constructor() {
+        super();
+        this.Page = <MetronomeScreen></MetronomeScreen>
+        // this.nav = useNavigationContainerRef();
+    }
 
-    return (
-    <NavigationContainer>
-    <AppStack.Navigator screenOptions={{ headerShown: true }} >
-    <AppStack.Screen name="Tuner" component={TunerScreen} />
-    <AppStack.Screen name="Metronome" component={MetronomeScreen} />
-    </AppStack.Navigator>
+    openTuner = (e) => {
+        this.Page = <TunerScreen></TunerScreen>
+        this.render();
+        console.log("Running change page");
+    }
 
-    </NavigationContainer>
-    );
+    openMetronome = (e) => {
+        this.Page = <MetronomeScreen></MetronomeScreen>
+        this.render();
+        console.log("Runnning Metronome")
+    }
+
+    // render() {
+
+    //     return(
+            
+    //     )
+    // }
 }
