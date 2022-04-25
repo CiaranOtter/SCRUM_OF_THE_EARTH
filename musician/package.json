@@ -30,11 +30,8 @@
     "test": "jest --coverage && jest-coverage-badges"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
     "@react-native-masked-view/masked-view": "^0.2.6",
     "@react-navigation/native": "^6.0.10",
->>>>>>> navigation-ui
     "@react-navigation/stack": "^6.2.1",
     "coveralls": "^3.1.1",
     "expo": "~44.0.0",
@@ -47,11 +44,7 @@
     "react-native": "0.64.3",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.1.0",
-<<<<<<< HEAD
-    "react-native-reanimated": "~2.3.1",
-=======
     "react-native-reanimated": "^2.8.0",
->>>>>>> navigation-ui
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1"
   },
