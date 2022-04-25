@@ -6,7 +6,7 @@ import colors from "../config/colors";
 import { StyleSheet } from "react-native";
 
 
-export default class TunerScreen extends Component {
+export default class PracticeScreen extends Component {
 
         constructor(){
             super();
@@ -14,7 +14,7 @@ export default class TunerScreen extends Component {
         render() {
             return (
                 <View style={ styles.container }>
-                    <Text>Screen for tuner</Text>
+                    <Text>Screen for Practice</Text>
                 </View>
             )    
         }
