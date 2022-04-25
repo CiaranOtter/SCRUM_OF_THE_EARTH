@@ -80,8 +80,8 @@ const metronome = require("../app/classes/metronome.js")
 
 
     test("Testing the metronome's ability to set the state of playing", () => {
-        expect(TestMetronome.setPlaying(true)).toEqual(false);
-        expect(TestMetronome.setPlaying(false)).toEqual(true);
+        expect(TestMetronome.setPlaying(true)).toEqual(true);
+        expect(TestMetronome.setPlaying(false)).toEqual(false);
     });
 
     test("Testing the metronome's ability to set the count", () => {
@@ -120,10 +120,10 @@ const metronome = require("../app/classes/metronome.js")
 
     test("Testing the metronome's ability to retrieve the state of playing", () => {
       TestMetronome.setPlaying(false)
-      expect(TestMetronome.isPlaying()).toEqual(true)
+      expect(TestMetronome.isPlaying()).toEqual(false)
 
       TestMetronome.setPlaying(true)
-      expect(TestMetronome.isPlaying()).toEqual(false)
+      expect(TestMetronome.isPlaying()).toEqual(true)
     });
 
 
