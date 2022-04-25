@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';  //libraries imported from external sources
 import { render } from 'react-dom';
-import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker, View } from 'react-native';
+import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Pressable, Text, ImageBackground, TextInput, Button, Modal, Picker, View, } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
 
@@ -37,7 +37,7 @@ export default class MetronomeScreen extends Component {
     //try to load the audio, and if it fails debug the error
     try {
       this.click1.loadAsync(require('../click1.mp3'));
-      this.hardClick.loadAsync(require('../hardClick.mp3'));
+      this.hardClick.loadAsync(require('../click2.mp3'));
     } catch (error) {
       console.log('Failed to load metronome sounds: ' + error);
     }
@@ -49,7 +49,7 @@ export default class MetronomeScreen extends Component {
     const beatsPerMeasure = e.target.value; // obtain value of the beats per measure from the dropdwon menu 
 
     this.setState({
-      beatsPerMeasure //set the value to the one obtained
+      beatsPerMeasure //set the value to the one obtained 
     })
   }
 
@@ -150,27 +150,32 @@ export default class MetronomeScreen extends Component {
     return (
       <SafeAreaView style={styles.container}>
 
-        <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='contain' style={styles.metronomeImage} >
-          <TouchableOpacity style={styles.playButton} onPress={this.startStop} // a button to start or stop the metronome sound
+        <ImageBackground source={require("../../assets/MetronomeImage.png")} resizeMode='contain' style={styles.metronomeImage}>
+
+          <Pressable style={styles.playButton} onPress={this.startStop} // a button to start or stop the metronome sound
           >
-            <Text style={styles.buttonText}>START/STOP</Text>
-          </TouchableOpacity>
+            <Text style={styles.buttonText}>Tap</Text>
+          </Pressable>
+
           <TextInput style={styles.bpmTextInput} onChange={this.handleBpmChange} //text to indicate that the user should enter a bpm and a bpm text input
-            number={bpm} ></TextInput>
-          <TouchableOpacity style={styles.timeSignatureText} onPress={() => { this.setState({ isVisible: true }) }} // a button to start or stop the metronome sound
+            number={bpm}
+            placeholder='120' ></TextInput>
+
+          <Pressable style={styles.timeSignatureText} onPress={() => { this.setState({ isVisible: true }) }} // a button to start or stop the metronome sound
           >
             <Text style={styles.timeSignatureText}  //time signature text
             >
               {this.state.beatsPerMeasure} / {this.state.notesPerMeasure}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
+
           <Text
             //bpm text
             style={styles.speedText}>
             {this.state.tempoText}
           </Text>
-        </ImageBackground>
-        <Modal animationType="fade"      //Pop-Up menu to choose the time signature (beats per measure and notes per measure)
+
+          <Modal animationType="fade"      //Pop-Up menu to choose the time signature (beats per measure and notes per measure)
           title="Time Signature"
           transparent={true}
           visible={this.state.isVisible}
@@ -180,7 +185,7 @@ export default class MetronomeScreen extends Component {
             <Text style={styles.text}      //title of the time signature Pop-Up menu
             >Time Signature</Text>
 
-            <View>
+            <View> 
               <Picker style={styles.pickerMenu}
                 onChange={this.handleBeatsPerMeasureChange}     //beats per measure  menu, and function to be called when a value is picked
                 value={beatsPerMeasure}>
@@ -219,6 +224,8 @@ export default class MetronomeScreen extends Component {
             />
           </View>
         </Modal>
+        </ImageBackground>
+       
 
 
 
@@ -237,7 +244,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     flex: 1,
     justifyContent: "center",
     alignContent: 'center',
-    //backgroundColor:colors.black,
+    backgroundColor:colors.white,
   },
   bpmText: {
     paddingTop: 150,
@@ -249,7 +256,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
   },
   bpmTextInput: {
     borderWidth: 1,
-    borderColor: '#ffffff',
+    borderColor: colors.black,
     borderRadius: 20,
     alignItems: 'center',
     marginTop: '4.5%',
@@ -258,7 +265,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     color: colors.black,
     justifyContent: 'center',
     textAlign: 'center',
-    backgroundColor: '#CAE5E7',
+    backgroundColor: colors.textInput,
   },
   buttonText: {
     textAlign: 'center',
@@ -268,10 +275,11 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
 
   },
   metronomeImage: {
-    // margin:10,
+    //margin:10,
     width: '100%',
     height: '100%',
     alignItems: 'center',
+    flex:1,
   },
   modal: {     //pop-up menu modal
     flex: 1,
@@ -298,6 +306,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     justifyContent: 'center',
     alignContent: 'center',
     // backgroundColor: '#d4f3ee'
+    //flex:0.5,
   },
   pickerMenu2: {      //picker for notes per measure
     // borderWidth: 1,
@@ -312,6 +321,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     justifyContent: 'center',
     alignContent: 'center',
     // backgroundColor: '#d4f3ee'
+    //flex:0.5,
   },
   playButton: {
     backgroundColor: colors.pressableElement,
