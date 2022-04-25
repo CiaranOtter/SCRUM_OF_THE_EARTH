@@ -11,7 +11,7 @@ import SettingsScreen from './app/screens/SettingsScreen';
 
 import { Icon } from 'react-native-elements';
 
-import Navigator from './app/components/navigate';
+// import Navigator from './app/components/navigate';
 
 // const nav = useNavigationContainerRef();
 

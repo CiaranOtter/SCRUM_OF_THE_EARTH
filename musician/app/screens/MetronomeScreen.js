@@ -5,8 +5,6 @@ import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, 
 import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
 
-import { SafeAreaView, StyleSheet, TouchableOpacity, Text, ImageBackground, Picker, TextInput, Button } from 'react-native';
-
 import click1 from '../sounds/click1.mp3';      //objects and libraries imported from within our project
 import hardClick from '../sounds/hardClick.mp3'
 import colors from '../config/colors';
