@@ -81,14 +81,9 @@ module.exports = class metronome {
     } 
 
     setPlaying(b) {
-      if (!b){
-        this.playing = true
-      } else {
-        this.playing = false;
-        this.setCount(0);
-      }
-        console.log(this.playing)
-        return this.playing;
+      this.playing = b;
+      console.log(this.playing)
+      return this.playing;
     } 
 
     setCount(count) {
