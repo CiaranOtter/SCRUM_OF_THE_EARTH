@@ -10,6 +10,7 @@ module.exports = class metronome {
 
     setBeatPerMeasure(b) {
         this.beatsPerMeasure = b;
+        console.log(b)
         return this.beatsPerMeasure;
     }
 
@@ -86,6 +87,7 @@ module.exports = class metronome {
         this.playing = false;
         this.setCount(0);
       }
+        console.log(this.playing)
         return this.playing;
     } 
 
