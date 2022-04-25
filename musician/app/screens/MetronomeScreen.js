@@ -1,7 +1,9 @@
+
 import React, { Component, useState } from 'react';  //libraries imported from external sources
 import { render } from 'react-dom';
-import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker } from 'react-native';
+import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { Audio } from 'expo-av';
 
 import { SafeAreaView, StyleSheet, TouchableOpacity, Text, ImageBackground, Picker, TextInput, Button } from 'react-native';
 
@@ -14,76 +16,138 @@ const metronome = require("../classes/metronome.js");
 let startstopText = "Start";
 export default class MetronomeScreen extends Component {
 
-  // const[range, setRange] = useState('50%')
-  // const[sliding, setSliding] = useState('Inactive')
-
-
   constructor() {
     super();
     this.timer;
     this.MetronomeClass = new metronome()
     // this.navigation = navigation;
 
+    this.MetronomeClass = new metronome();
+
     //initial state of the app and its componets/functions
-    this.state = {
-      playing: false, // there is nothing being played yet
-      count: 0,
-      bpm: 100, // initial beats per minute value
-      beatsPerMeasure: 4, // initial beats per measure value 
-      tempoText: "Moderato (moderately)" // initial tempo marking based on the bpm value
+    // this.state = {
+    //   playing: false, // there is nothing being played yet
+    //   count: 0,
+    //   bpm: 100, // initial beats per minute value
+    //   beatsPerMeasure: 4, // initial beats per measure value 
+    //   tempoText: "Moderato (moderately)" // initial tempo marking based on the bpm value
 
-    };
+    // };
 
-    // initialise the audios we are going to use
-    this.click1 = new Audio(click1);
-    this.click2 = new Audio(hardClick);
   }
+
+  //load the sound we're going to use for the metronome
+  async componentDidMount(){
+    this.click1 = new Audio.Sound();
+    this.hardClick = new Audio.Sound();
+
+    //try to load the audio, and if it fails debug the error
+    try {     
+      this.click1.loadAsync(require('../click1.mp3'));
+      this.hardClick.loadAsync(require('../hardClick.mp3'));
+    } catch (error) {
+      console.log('Failed to load metronome sounds: ' + error);
+    }
+
+    
+  }
+
 
   handleBeatsPerMeasureChange = (e) => {
-    this.MetronomeClass.setBeatPerMeasure(e.target.value);
+    const beatsPerMeasure = e.target.value; // obtain value of the beats per measure from the dropdwon menu 
+
+    this.MetronomeClass.setBeatPerMeasure(beatsPerMeasure);
   }
 
-  handleBpmChange = (e) => {
-    const bpm = e.target.value; //obtain value of the beats per measure from the user input
-    if (this.state.playing) {
-      clearInterval(this.timer);  //start a new timer
-      this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
+//   setBPM(bpm) {
+//     if (this.state.playing) {
+//       clearInterval(this.timer);  //start a new timer
+//       this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
 
-      //set new bpm and counter
-      this.setState({
-        count: 0,
-        bpm
-      });
-    } else {
-      this.setState({ bpm });
-    }
+//       //set new bpm and counter
+//       this.setState({
+//         count: 0,
+//         bpm
+//       });
+//     } else {
+//       this.setState({ bpm });
+//     }
 
-    //#region If statement to select and sisplay the tempo marking based on the bpm value
-    if (bpm < 20) {
-      this.setState({ tempoText: "Larghissimo (very, very slow)" });
-    } else if (bpm >= 20 && bpm < 40) {
-      this.setState({ tempoText: "Grave (slow and solemn)" });
-    } else if (bpm >= 40 && bpm < 60) {
-      this.setState({ tempoText: "Lento (slowly)" });
-    } else if (bpm >= 60 && bpm < 66) {
-      this.setState({ tempoText: "Largo (slowly)" });
-    } else if (bpm >= 66 && bpm < 76) {
-      this.setState({ tempoText: "Adagio (slow and stately)" });
-    } else if (bpm >= 76 && bpm < 90) {
-      this.setState({ tempoText: "Andante (walking pace)" });
-    } else if (bpm >= 90 && bpm < 110) {
-      this.setState({ tempoText: "Moderato (moderately)" });
-    } else if (bpm >= 110 && bpm < 140) {
-      this.setState({ tempoText: "Allegro (fast)" });
-    } else if (bpm >= 140 && bpm < 160) {
-      this.setState({ tempoText: "Vivace (very fast)" });
-    } else if (bpm >= 180 && bpm < 200) {
-      this.setState({ tempoText: "Presto (really fast)" });
-    } else if (bpm > 200) {
-      this.setState({ tempoText: "Prestissimo (that's reeeally fast dude!)" });
-    }
-    //#endregion
-  };
+//     return this.state.bpm;
+//   } 
+
+//   calcTempoText(bpm) {
+//     if (bpm < 20) {
+//       this.setState({ tempoText: "Larghissimo (very, very slow)" });
+//     } else if (bpm >= 20 && bpm < 40) {
+//       this.setState({ tempoText: "Grave (slow and solemn)" });
+//     } else if (bpm >= 40 && bpm < 60) {
+//       this.setState({ tempoText: "Lento (slowly)" });
+//     } else if (bpm >= 60 && bpm < 66) {
+//       this.setState({ tempoText: "Largo (slowly)" });
+//     } else if (bpm >= 66 && bpm < 76) {
+//       this.setState({ tempoText: "Adagio (slow and stately)" });
+//     } else if (bpm >= 76 && bpm < 90) {
+//       this.setState({ tempoText: "Andante (walking pace)" });
+//     } else if (bpm >= 90 && bpm < 110) {
+//       this.setState({ tempoText: "Moderato (moderately)" });
+//     } else if (bpm >= 110 && bpm < 140) {
+//       this.setState({ tempoText: "Allegro (fast)" });
+//     } else if (bpm >= 140 && bpm < 160) {
+//       this.setState({ tempoText: "Vivace (very fast)" });
+//     } else if (bpm >= 180 && bpm < 200) {
+//       this.setState({ tempoText: "Presto (really fast)" });
+//     } else if (bpm > 200) {
+//       this.setState({ tempoText: "Prestissimo (that's reeeally fast dude!)" });
+//     }
+
+//       return this.state.tempoText;
+// } 
+
+  // handleBpmChange = (e) => {
+  //   const bpm = e.target.value; //obtain value of the beats per measure from the user input
+  //   // if (this.state.playing) {
+  //   //   clearInterval(this.timer);  //start a new timer
+  //   //   this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
+
+  //   //   //set new bpm and counter
+  //   //   this.setState({
+  //   //     count: 0,
+  //   //     bpm
+  //   //   });
+  //   // } else {
+  //   //   this.setState({ bpm });
+  //   // }
+
+  //   this.metronome.setBPM(bpm);
+  //   //#region If statement to select and sisplay the tempo marking based on the bpm value
+  //   // if (bpm < 20) {
+  //   //   this.setState({ tempoText: "Larghissimo (very, very slow)" });
+  //   // } else if (bpm >= 20 && bpm < 40) {
+  //   //   this.setState({ tempoText: "Grave (slow and solemn)" });
+  //   // } else if (bpm >= 40 && bpm < 60) {
+  //   //   this.setState({ tempoText: "Lento (slowly)" });
+  //   // } else if (bpm >= 60 && bpm < 66) {
+  //   //   this.setState({ tempoText: "Largo (slowly)" });
+  //   // } else if (bpm >= 66 && bpm < 76) {
+  //   //   this.setState({ tempoText: "Adagio (slow and stately)" });
+  //   // } else if (bpm >= 76 && bpm < 90) {
+  //   //   this.setState({ tempoText: "Andante (walking pace)" });
+  //   // } else if (bpm >= 90 && bpm < 110) {
+  //   //   this.setState({ tempoText: "Moderato (moderately)" });
+  //   // } else if (bpm >= 110 && bpm < 140) {
+  //   //   this.setState({ tempoText: "Allegro (fast)" });
+  //   // } else if (bpm >= 140 && bpm < 160) {
+  //   //   this.setState({ tempoText: "Vivace (very fast)" });
+  //   // } else if (bpm >= 180 && bpm < 200) {
+  //   //   this.setState({ tempoText: "Presto (really fast)" });
+  //   // } else if (bpm > 200) {
+  //   //   this.setState({ tempoText: "Prestissimo (that's reeeally fast dude!)" });
+  //   // }
+
+  //   this.metronome.calcTempoText(bpm)
+  //   //#endregion
+  // };
 
   handleBpmChange = (e) => {
     this.MetronomeClass.setBPM(e.target.value);
@@ -100,17 +164,12 @@ export default class MetronomeScreen extends Component {
       clearInterval(this.timer);
       startstopText = "START"
     } else {
-
-
-
+    //start again with the current bpm
       this.timer = setInterval(this.playClick, (60 / this.MetronomeClass.getBPM()) * 1000);
-      startstopText = "STOP"
+      this.MetronomeClass.setPlaying(true)
+      
       this.playClick
-
-        },
-        this.playClick
-      );
-
+    }
     this.MetronomeClass.setPlaying(!playing)
   };
 
@@ -118,9 +177,13 @@ export default class MetronomeScreen extends Component {
     const count = this.MetronomeClass.getCount();
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
     if (count % beatsPerMeasure === 0) {
-      this.click2.play();
+      
+      this.hardClick.setPositionAsync(0); //reset the playback position of the Async so that the sound can play continuosly
+      this.hardClick.playAsync();  //play the sound
     } else {
-      this.click1.play();
+     
+      this.click1.setPositionAsync(0);  //reset the playback position of the Async so that the sound can play continuosly
+      this.click1.playAsync();   //play the sound
     }
     this.MetronomeClass.updateCount();
   };
@@ -132,14 +195,15 @@ export default class MetronomeScreen extends Component {
     const playing = this.MetronomeClass.isPlaying()
     const bpm = this.MetronomeClass.getBPM()
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
+
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:
         </Text>  
         <TouchableOpacity>
           <TextInput style={styles.bpmTextInput} onChange={this.handleBpmChange} //text to indicate that the user should enter a bpm and a bpm text input
-            value={bpm} ></TextInput>
-          <form>
+            number={bpm} ></TextInput>
+          <View>
             <Picker style={styles.pickerMenu}
               onChange={this.handleBeatsPerMeasureChange}     //beats per measure dropdown menu, and function to be called when a value is picked
               value={beatsPerMeasure}>
@@ -172,18 +236,18 @@ export default class MetronomeScreen extends Component {
               <Picker.Item label="11" value="11"></Picker.Item>
               <Picker.Item label="12" value="12"></Picker.Item>
             </Picker>
-          </form>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.playButton} onPress={this.startStop} // a button to start or stop the metronome sound
         >
           <Text style={styles.buttonText}>{ this.startstopText } </Text>
         </TouchableOpacity>
-        <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='contain' style={styles.metronomeImage} >
+        <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='stretch' style={styles.metronomeImage} >
 
           <Text
           //time signature text
             style={styles.timeSignatureText}>
-            {this.state.beatsPerMeasure} / {this.state.notesPerMeasure}</Text>
+            {beatsPerMeasure} / 4</Text>
 
           <Text
           //bpm text
@@ -191,15 +255,13 @@ export default class MetronomeScreen extends Component {
             {this.MetronomeClass.getTempoText}
           </Text>
         </ImageBackground>
-
-        {/* <Button onPress={() => {this.navigation.navigate('tuner')}}></Button> */}
-
       </SafeAreaView>
 
       
     );
   }
 }
+
 
 
 
@@ -212,7 +274,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     backgroundColor:colors.white,
   },
   bpmText: {
-    paddingTop: 150,
+    paddingTop: '10%',
     color: colors.black,
     fontSize: 15,
     paddingLeft: '42.5%',
@@ -224,7 +286,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     borderColor: '#777',
     paddingTop: 5,
     marginLeft:'42.5%',
-    marginTop: 10,
+    //marginTop: 15,
     width: 200,
     fontSize: 15,
     color: colors.black,
@@ -248,9 +310,9 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
   pickerMenu: {
     borderWidth: 1,
     borderColor: '#777',
-    paddingTop: 5,
+    paddingTop: 50,
     marginLeft: '42.5%',
-    marginTop: 10,
+    marginTop: 20,
     width: 200,
     fontSize: 15,
     color: colors.black,
@@ -279,7 +341,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
   },
 
   timeSignatureText: {
-    paddingTop: 550,
+    paddingTop: 400,
     color: '#ffffff',
     fontSize: 20,
     justifyContent: 'center',
