@@ -14,6 +14,8 @@ module.exports = class pitchNoteClassification {
     // by setting these values in a note class (noteClass)
     classifyNote(pitch) {
 
+        this.pitch = pitch;
+
         // #region Notes with Octave = 0
         // note = C0
         if (pitch >= 15.89 && pitch <= 16.83){
@@ -119,6 +121,8 @@ module.exports = class pitchNoteClassification {
     // whether it is in tune, flat or sharp
     classifyPitch(pitch) {
 
+        this.pitch = pitch;
+
         if (pitch >= this.noteClass.getFlatPitch() && pitch < this.noteClass.getTunePitch()){
             this.classification = "The Note is Flat";
         }
@@ -129,5 +133,19 @@ module.exports = class pitchNoteClassification {
             this.classification = "The Note is In-Tune";
         }
         
+    }
+
+    //function that gets the note value given the pitch (as a parameter)
+    getNote(p){
+        this.classifyNote(p);
+
+        return this.note;
+    }
+
+    //function to get the classification of the pitch given the pitch (as a parameter)
+    getClassification(p){
+        this.classifyPitch(p);
+
+        return this.classification;
     }
 }

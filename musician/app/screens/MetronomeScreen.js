@@ -1,23 +1,28 @@
 
 import React, { Component, useState } from 'react';  //libraries imported from external sources
+import { render } from 'react-dom';
+import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, Text, ImageBackground, TextInput, Button, Modal, Picker, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { Audio } from 'expo-av';
 
-import { SafeAreaView, StyleSheet, TouchableOpacity, Text, ImageBackground, Picker, TextInput } from 'react-native';
-
-import click1 from '../sounds/click1.mp3';      //objects and libraries imported from within our project
+import click1 from '../sounds/click1.mp3'      //objects and libraries imported from within our project
 import hardClick from '../sounds/hardClick.mp3'
 import colors from '../config/colors';
 
 const metronome = require("../classes/metronome.js");
 
+let startstopText = "Start";
 export default class MetronomeScreen extends Component {
 
   // const[range, setRange] = useState('50%')
   // const[sliding, setSliding] = useState('Inactive')
+  
 
   constructor() {
     super();
-
-    this.MetronomeClass = new metronome();
+    this.timer;
+    this.MetronomeClass = new metronome()
+    // this.navigation = navigation;
 
     //initial state of the app and its componets/functions
     // this.state = {
@@ -49,9 +54,7 @@ export default class MetronomeScreen extends Component {
 
 
   handleBeatsPerMeasureChange = (e) => {
-    const beatsPerMeasure = e.target.value; // obtain value of the beats per measure from the dropdwon menu 
-
-    this.MetronomeClass.setBeatPerMeasure(beatsPerMeasure);
+    this.MetronomeClass.setBeatPerMeasure(e.target.value);
   }
 
 //   setBPM(bpm) {
@@ -144,26 +147,28 @@ export default class MetronomeScreen extends Component {
   //   //#endregion
   // };
 
+  handleBpmChange = (e) => {
+    this.MetronomeClass.setBPM(e.target.value);
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.MetronomeClass.getBPM());
   };
 
   startStop = () => {
-    if (this.MetronomeClass.isPlaying()) {
+    let playing = this.MetronomeClass.isPlaying();
+    if (playing) {
       clearInterval(this.timer);
-      this.MetronomeClass.setPlaying(false)
-
-
+      startstopText = "START"
     } else {
+    //start again with the current bpm
 
-      //start again with the current bpm
       this.timer = setInterval(this.playClick, (60 / this.MetronomeClass.getBPM()) * 1000);
-      this.MetronomeClass.setPlaying(true)
-      
+      startstopText = "STOP"
       this.playClick
-
     }
+    this.MetronomeClass.setPlaying(!playing)
   };
 
   playClick = () => {
@@ -188,18 +193,16 @@ export default class MetronomeScreen extends Component {
     const playing = this.MetronomeClass.isPlaying()
     const bpm = this.MetronomeClass.getBPM()
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
-
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:
         </Text>  
-        <TouchableOpacity>
           <TextInput style={styles.bpmTextInput} onChange={this.handleBpmChange} //text to indicate that the user should enter a bpm and a bpm text input
-            number={bpm} ></TextInput>
-          <View>
+            defaultValue={bpm} ></TextInput>
+          <form>
             <Picker style={styles.pickerMenu}
-              onChange={this.handleBeatsPerMeasureChange}     //beats per measure dropdown menu, and function to be called when a value is picked
-              value={beatsPerMeasure}>
+              onChange={this.handleBeatsPerMeasureChange} //beats per measure dropdown menu, and function to be called when a value is picked
+              >
               <Picker.Item label="beats per measure" value="0"></Picker.Item>
               <Picker.Item label="2" value="2"></Picker.Item>
               <Picker.Item label="3" value="3"></Picker.Item>
@@ -229,11 +232,12 @@ export default class MetronomeScreen extends Component {
               <Picker.Item label="11" value="11"></Picker.Item>
               <Picker.Item label="12" value="12"></Picker.Item>
             </Picker>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.playButton} onPress={this.startStop} // a button to start or stop the metronome sound
+          </form>
+          {/* <TouchableOpacity>
+        </TouchableOpacity> */}
+        <TouchableOpacity style={styles.playButton} onPress={this.startStop}// a button to start or stop the metronome sound
         >
-          <Text style={styles.buttonText}>START/STOP</Text>
+          <Text style={styles.buttonText}>{ this.startstopText } </Text>
         </TouchableOpacity>
         <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='stretch' style={styles.metronomeImage} >
 
@@ -248,9 +252,10 @@ export default class MetronomeScreen extends Component {
             {this.MetronomeClass.getTempoText}
           </Text>
         </ImageBackground>
+
       </SafeAreaView>
 
-
+      
     );
   }
 }
@@ -264,7 +269,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     flex: 1,
     justifyContent: "center",
     alignContent: 'center',
-    //backgroundColor:colors.black,
+    backgroundColor:colors.white,
   },
   bpmText: {
     paddingTop: '10%',
@@ -292,7 +297,6 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     fontSize: 20,
     paddingLeft: 20,
     color: colors.black,
-
   },
   metronomeImage: {
     // margin:10,
@@ -314,7 +318,7 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
     backgroundColor: '#d4f3ee'
   },
   playButton: {
-    backgroundColor: colors.pressableElement,
+    // ...( MetronomeClass.isPlaying() ? {backgroundColor: colors.stopRed} : {backgroundColor: colors.startGreen}),
     height: 50,
     width: '10%',
     borderRadius: 10,
