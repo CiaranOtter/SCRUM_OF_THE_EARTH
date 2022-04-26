@@ -12,6 +12,7 @@ import SettingsScreen from './app/screens/SettingsScreen';
 import { Icon } from 'react-native-elements';
 
 import Navigator from './app/components/navigate';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // const nav = useNavigationContainerRef();
 
@@ -32,11 +33,32 @@ export default function App() {
             </NavigationContainer>
 
       <View style={styles.nav_container}>
-        <Icon name="audiotrack" onPress={() => {nav.navigate('tuner')}}>Test</Icon>
-        <Icon name="details" onPress={() => {nav.navigate('metronome')}}>Test</Icon>
-        <Icon name="construction" onPress={() => {nav.navigate('tools')}}>Test</Icon>
-        <Icon name="content-paste" onPress={() => {nav.navigate('practice')}}>Test</Icon>
-        <Icon name="settings" onPress={() => {nav.navigate('settings')}}>Test</Icon>
+
+        <TouchableOpacity style={styles.icon} onPress={() => {nav.navigate('tuner')}}>
+          <Icon name="audiotrack"/>
+          <Text style={styles.nav_text}>Tuner</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {nav.navigate('metronome')}} style={styles.icon}>
+          <Icon  name="details" />
+          <Text style={styles.nav_text}>metronome</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {nav.navigate('tools')}} style={styles.icon}>
+          <Icon  name="construction" />
+          <Text style={styles.nav_text} >Tools</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {nav.navigate('practice')}} style={styles.icon}>
+          <Icon  name="content-paste" />
+          <Text style={styles.nav_text}>practice</Text> 
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {nav.navigate('settings')}} style={styles.icon}>
+          <Icon name="settings" />
+          <Text style={styles.nav_text}>settings</Text>
+        </TouchableOpacity>
+
       </View>
     </View>
       // {/* <Button onPress={() => {nav.navigate("tuner")} }><Text>Test</Text></Button> */}
@@ -53,5 +75,15 @@ const styles = StyleSheet.create({
   nav_container: {
     flexDirection: 'row',
     margin: "auto"
+  },
+  icon: {
+    padding: 20
+  },
+  nav_text: {
+    textAlign: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5
   }
 });
