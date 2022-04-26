@@ -43,8 +43,8 @@ export default class MetronomeScreen extends Component {
 
     //try to load the audio, and if it fails debug the error
     try {     
-      this.click1.loadAsync(require('../click1.mp3'));
-      this.hardClick.loadAsync(require('../hardClick.mp3'));
+      this.click1.loadAsync(require('../sounds/click1.mp3'));
+      this.hardClick.loadAsync(require('../sounds/hardClick.mp3'));
     } catch (error) {
       console.log('Failed to load metronome sounds: ' + error);
     }
