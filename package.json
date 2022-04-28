@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "expo-cli": "^5.3.0"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   }
 }

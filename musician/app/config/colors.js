@@ -6,5 +6,8 @@ export default{
 =======
 >>>>>>> origin/main
     pressableElement: '#55B7AD',
+    stopRed:'#ED254E',
+    startGreen:'#6AB48B',
     userInputElement: '#d4f3ee',
+    white: '#ffffff'
 }

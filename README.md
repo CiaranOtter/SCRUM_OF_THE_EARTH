@@ -4,4 +4,7 @@ The repository for the SCRUM of the Earth group in Software development, wits un
 
 [![CircleCI](https://circleci.com/gh/CiaranOtter/SCRUM_OF_THE_EARTH/tree/main.svg?style=svg)](https://circleci.com/gh/CiaranOtter/SCRUM_OF_THE_EARTH/tree/main)
 
-[![Coverage Status](https://coveralls.io/repos/github/CiaranOtter/SCRUM_OF_THE_EARTH/badge.svg?branch=main)](https://coveralls.io/github/CiaranOtter/SCRUM_OF_THE_EARTH?branch=main)
+[![codecov](https://codecov.io/gh/CiaranOtter/SCRUM_OF_THE_EARTH/branch/main/graph/badge.svg?token=DLPYCW57ZE)](https://codecov.io/gh/CiaranOtter/SCRUM_OF_THE_EARTH)
+
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
