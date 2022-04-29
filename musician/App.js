@@ -29,7 +29,7 @@ export default function App() {
                     <Stack.Screen name="practice" component={PracticeScreen} />
                     <Stack.Screen name="settings" component={SettingsScreen} />
                 </Stack.Navigator>
-            </NavigationContainer>
+      </NavigationContainer>
 
       <View style={styles.nav_container}>
         <Icon name="audiotrack" onPress={() => {nav.navigate('tuner')}}>Test</Icon>
