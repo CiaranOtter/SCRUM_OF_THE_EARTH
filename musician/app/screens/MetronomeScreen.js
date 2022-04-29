@@ -198,8 +198,8 @@ export default class MetronomeScreen extends Component {
         <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:
         </Text>  
           <TextInput style={styles.bpmTextInput} onChange={this.handleBpmChange} //text to indicate that the user should enter a bpm and a bpm text input
-            defaultValue={bpm} ></TextInput>
-          <form>
+            number={bpm} ></TextInput>
+          <View>
             <Picker style={styles.pickerMenu}
               onChange={this.handleBeatsPerMeasureChange} //beats per measure dropdown menu, and function to be called when a value is picked
               >
@@ -232,9 +232,7 @@ export default class MetronomeScreen extends Component {
               <Picker.Item label="11" value="11"></Picker.Item>
               <Picker.Item label="12" value="12"></Picker.Item>
             </Picker>
-          </form>
-          {/* <TouchableOpacity>
-        </TouchableOpacity> */}
+          </View>
         <TouchableOpacity style={styles.playButton} onPress={this.startStop}// a button to start or stop the metronome sound
         >
           <Text style={styles.buttonText}>{ this.startstopText } </Text>
