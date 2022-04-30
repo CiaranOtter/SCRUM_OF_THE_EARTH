@@ -1,7 +1,7 @@
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, Pressable } from 'react-native';
 
 import MetronomeScreen from './app/screens/MetronomeScreen';
 import TunerScreen from './app/screens/TunerScreen';
@@ -32,14 +32,33 @@ export default function App() {
       </NavigationContainer>
 
       <View style={styles.nav_container}>
-        <Icon name="audiotrack" onPress={() => {nav.navigate('tuner')}}>Test</Icon>
-        <Icon name="details" onPress={() => {nav.navigate('metronome')}}>Test</Icon>
-        <Icon name="construction" onPress={() => {nav.navigate('tools')}}>Test</Icon>
-        <Icon name="content-paste" onPress={() => {nav.navigate('practice')}}>Test</Icon>
-        <Icon name="settings" onPress={() => {nav.navigate('settings')}}>Test</Icon>
+        <Pressable onPress={() => {nav.navigate('tuner')}} style={styles.icon_container}>
+          <Icon name="audiotrack" />
+          <Text>Tuner</Text>
+        </Pressable>
+        
+        <Pressable onPress={() => {nav.navigate('metronome')}} style={styles.icon_container}>
+          <Icon name="details" />
+          <Text>Metronome</Text>
+        </Pressable>
+        
+        <Pressable onPress={() => {nav.navigate('tools')}} style={styles.icon_container}>
+          <Icon name="construction" />
+          <Text>Tools</Text>
+        </Pressable>
+        
+        <Pressable onPress={() => {nav.navigate('practice')}} style={styles.icon_container}>
+          <Icon name="content-paste" />
+          <Text>Practice</Text>
+        </Pressable>
+        
+        <Pressable onPress={() => {nav.navigate('settings')}} style={styles.icon_container}>
+          <Icon name="settings" />
+          <Text>Settings</Text>
+        </Pressable>
+        
       </View>
     </View>
-      // {/* <Button onPress={() => {nav.navigate("tuner")} }><Text>Test</Text></Button> */}
   )
 }
 
@@ -52,6 +71,14 @@ const styles = StyleSheet.create({
   },
   nav_container: {
     flexDirection: 'row',
-    margin: "auto"
+    alignItems:'center',
+    justifyContent: 'center'
+  },
+
+  icon_container: {
+    margin: "auto",
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
