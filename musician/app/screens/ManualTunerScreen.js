@@ -17,13 +17,12 @@ export default class ManualTunerScreen extends Component {
       playThroughEarpieceAndroid: true
 
     });
-      //create an audio sound object and load the sound
-    this.e = new Audio.Sound();
+
     const status = { shouldPlay: false } //dont play sound as soon as app is loaded
+    //create audio sound objects for each note and load the sound
+    this.e = new Audio.Sound();
     this.e.loadAsync( require ('../sounds/stringE1.mp3'), status, false );
 
-
-    //I want to abstract away these objects but for now notes are EBGDAE
     this.b = new Audio.Sound();
     this.b.loadAsync( require ('../sounds/stringB.mp3'), status, false);
 
@@ -42,7 +41,7 @@ export default class ManualTunerScreen extends Component {
 
   }//end async function
 
-  //function to play each note
+  //functions to play each note--Needs to be abstacted
   playE1 = () => {
     this.e.replayAsync(); //replayAsync() allows the sound to play many times vs play which only played once on phone
     console.log("E1 button pressed");
@@ -75,8 +74,6 @@ export default class ManualTunerScreen extends Component {
 
   render (){
     return(
-      //this is where the app is actually run
-      //console.log("in the render/retunr function");
     <SafeAreaView style={styles.container}>
 
       <View style={{ flexDirection: "row" }}>
