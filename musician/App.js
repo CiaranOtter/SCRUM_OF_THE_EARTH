@@ -1,13 +1,16 @@
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 import MetronomeScreen from './app/screens/MetronomeScreen';
 import TunerScreen from './app/screens/TunerScreen';
 import ToolScreen from './app/screens/ToolScreen';
 import PracticeScreen from './app/screens/PracticeScreen';
 import SettingsScreen from './app/screens/SettingsScreen';
+
+//manual tuner screen for testing purposes
+import ManualTunerScreen from './app/screens/ManualTunerScreen';
 
 import { Icon } from 'react-native-elements';
 
@@ -20,11 +23,12 @@ export default function App() {
   const Stack = new createStackNavigator();
 
   return (
-    <View style={{ flex: 1 }}>
+
+    <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer ref={nav} >
                 <Stack.Navigator >
                     <Stack.Screen name="metronome" component={MetronomeScreen} />
-                    <Stack.Screen name="tuner" component={TunerScreen} />
+                    <Stack.Screen name="tuner" component={ManualTunerScreen} />
                     <Stack.Screen name="tools" component={ToolScreen} />
                     <Stack.Screen name="practice" component={PracticeScreen} />
                     <Stack.Screen name="settings" component={SettingsScreen} />
@@ -38,7 +42,7 @@ export default function App() {
         <Icon name="content-paste" onPress={() => {nav.navigate('practice')}}>Test</Icon>
         <Icon name="settings" onPress={() => {nav.navigate('settings')}}>Test</Icon>
       </View>
-    </View>
+    </SafeAreaView>
       // {/* <Button onPress={() => {nav.navigate("tuner")} }><Text>Test</Text></Button> */}
   )
 }
