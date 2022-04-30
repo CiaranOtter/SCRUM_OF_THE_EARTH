@@ -246,7 +246,7 @@ export default class MetronomeScreen extends Component {
           style={styles.playButton}
           onPress={this.startStop} // a button to start or stop the metronome sound
         >
-          <Text style={styles.buttonText}>{this.startstopText} </Text>
+          <Text style={styles.buttonText}>START/STOP</Text>
         </TouchableOpacity>
         <ImageBackground
           source={require("../../assets/metronome-image-wb.png")}
@@ -327,9 +327,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#d4f3ee",
   },
   playButton: {
-    // ...( MetronomeClass.isPlaying() ? {backgroundColor: colors.stopRed} : {backgroundColor: colors.startGreen}),
+    backgroundColor: colors.pressableElement,
     height: 50,
-    width: "10%",
+    width: 120,
     borderRadius: 10,
     marginTop: 10,
     flexDirection: "row",
