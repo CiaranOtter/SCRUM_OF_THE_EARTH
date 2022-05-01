@@ -23,11 +23,11 @@ export default function App() {
     <View style={{ flex: 1 }}>
       <NavigationContainer ref={nav} >
                 <Stack.Navigator >
-                    <Stack.Screen name="metronome" component={MetronomeScreen} />
-                    <Stack.Screen name="tuner" component={TunerScreen} />
-                    <Stack.Screen name="tools" component={ToolScreen} />
-                    <Stack.Screen name="practice" component={PracticeScreen} />
-                    <Stack.Screen name="settings" component={SettingsScreen} />
+                    <Stack.Screen options={{ headerShown: false }} name="metronome" component={MetronomeScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="tuner" component={TunerScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="tools" component={ToolScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="practice" component={PracticeScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="settings" component={SettingsScreen} />
                 </Stack.Navigator>
       </NavigationContainer>
 
@@ -80,5 +80,5 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center'
-  }
+  },
 });

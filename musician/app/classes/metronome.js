@@ -16,6 +16,7 @@ module.exports = class metronome {
 
     setBPM(bpm) {
         this.bpm = bpm;
+        console.log(this.bpm)
         return this.bpm;
     }
 
