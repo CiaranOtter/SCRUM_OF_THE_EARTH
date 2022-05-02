@@ -1,7 +1,8 @@
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, Pressable } from 'react-native';
+import {Button, StyleSheet, Text, View, Pressable, Image} from 'react-native';
+import logo from './assets/6String.jpg';
 
 import MetronomeScreen from './app/screens/MetronomeScreen';
 import TunerScreen from './app/screens/TunerScreen';
@@ -56,6 +57,10 @@ export default function App() {
           <Icon name="settings" />
           <Text>Settings</Text>
         </Pressable>
+
+
+
+
         
       </View>
     </View>
@@ -69,6 +74,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+
   nav_container: {
     flexDirection: 'row',
     alignItems:'center',
