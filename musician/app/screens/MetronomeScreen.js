@@ -5,7 +5,7 @@ import { SafeAreaView, TouchableHighlight, Image, StyleSheet, TouchableOpacity, 
 import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
 
-import click1 from '../sounds/click1.mp3';      //objects and libraries imported from within our project
+import click1 from '../sounds/click1.mp3'      //objects and libraries imported from within our project
 import hardClick from '../sounds/hardClick.mp3'
 import colors from '../config/colors';
 
@@ -196,13 +196,11 @@ export default class MetronomeScreen extends Component {
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
     return (
       <SafeAreaView style={styles.container}>
-
-        <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>  
-        
-        <TouchableOpacity>
+        <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:
+        </Text>  
           <TextInput style={styles.bpmTextInput} onChange={this.handleBpmChange} //text to indicate that the user should enter a bpm and a bpm text input
-            number={bpm} ></TextInput>
-          <View>
+            defaultValue={bpm} ></TextInput>
+          <form>
             <Picker style={styles.pickerMenu}
               onChange={this.handleBeatsPerMeasureChange} //beats per measure dropdown menu, and function to be called when a value is picked
               >
@@ -235,8 +233,9 @@ export default class MetronomeScreen extends Component {
               <Picker.Item label="11" value="11"></Picker.Item>
               <Picker.Item label="12" value="12"></Picker.Item>
             </Picker>
-          </View>
-        </TouchableOpacity>
+          </form>
+          {/* <TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity style={styles.playButton} onPress={this.startStop}// a button to start or stop the metronome sound
         >
           <Text style={styles.buttonText}>"START/STOP"</Text>
