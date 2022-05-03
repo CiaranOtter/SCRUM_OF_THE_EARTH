@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import colors from "../config/colors";
 import { StyleSheet } from "react-native";
 
@@ -12,9 +12,9 @@ export default class ToolScreen extends Component {
 
         render() {
             return (
-                <View style={ styles.container }>
+                <SafeAreaView style={ styles.container }>
                     <Text>Screen for tools</Text>
-                </View>
+                </SafeAreaView>
             )    
         }
     

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/stack";
-import {Button, View, Text, StyleSheet, Image, Picker, Switch, TouchableOpacity} from "react-native";
+import {Button, View, Text, StyleSheet, Image, Picker, Switch, TouchableOpacity, SafeAreaView} from "react-native";
 import { Audio } from "expo-av";
 import logo from './6String.jpg'
 
@@ -47,7 +47,7 @@ export default function TunerScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text></Text>
       <Button
         title={recording ? "Stop Recording" : "Start Recording"}
@@ -128,7 +128,7 @@ export default function TunerScreen() {
 
 
 
-    </View>
+    </SafeAreaView>
   );
 }
 
