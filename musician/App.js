@@ -1,7 +1,8 @@
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, Pressable } from 'react-native';
+import {Button, StyleSheet, Text, View, Pressable, Image} from 'react-native';
+import logo from './assets/6String.jpg';
 
 import MetronomeScreen from './app/screens/MetronomeScreen';
 import TunerScreen from './app/screens/TunerScreen';
@@ -23,11 +24,11 @@ export default function App() {
     <View style={{ flex: 1 }}>
       <NavigationContainer ref={nav} >
                 <Stack.Navigator >
-                    <Stack.Screen name="metronome" component={MetronomeScreen} />
-                    <Stack.Screen name="tuner" component={TunerScreen} />
-                    <Stack.Screen name="tools" component={ToolScreen} />
-                    <Stack.Screen name="practice" component={PracticeScreen} />
-                    <Stack.Screen name="settings" component={SettingsScreen} />
+                    <Stack.Screen options={{ headerShown: false }} name="metronome" component={MetronomeScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="tuner" component={TunerScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="tools" component={ToolScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="practice" component={PracticeScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="settings" component={SettingsScreen} />
                 </Stack.Navigator>
       </NavigationContainer>
 
@@ -56,6 +57,10 @@ export default function App() {
           <Icon name="settings" />
           <Text>Settings</Text>
         </Pressable>
+
+
+
+
         
       </View>
     </View>
@@ -69,6 +74,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+
   nav_container: {
     flexDirection: 'row',
     alignItems:'center',
@@ -80,5 +87,5 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center'
-  }
+  },
 });

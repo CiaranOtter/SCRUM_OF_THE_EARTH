@@ -63,23 +63,6 @@ export default class MetronomeScreen extends Component {
     this.MetronomeClass.setBeatPerMeasure(e.target.value);
   };
 
-  //   setBPM(bpm) {
-  //     if (this.state.playing) {
-  //       clearInterval(this.timer);  //start a new timer
-  //       this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
-
-  //       //set new bpm and counter
-  //       this.setState({
-  //         count: 0,
-  //         bpm
-  //       });
-  //     } else {
-  //       this.setState({ bpm });
-  //     }
-
-  //     return this.state.bpm;
-  //   }
-
   //   calcTempoText(bpm) {
   //     if (bpm < 20) {
   //       this.setState({ tempoText: "Larghissimo (very, very slow)" });
@@ -153,8 +136,11 @@ export default class MetronomeScreen extends Component {
   //   //#endregion
   // };
 
-  handleBpmChange = (e) => {
-    this.MetronomeClass.setBPM(e.target.value);
+  handleBpmChange = (text) => {
+    if (text == ""){
+      text = "120"
+    }
+    this.MetronomeClass.setBPM(text);
   };
 
   handleSubmit = (e) => {
@@ -167,6 +153,7 @@ export default class MetronomeScreen extends Component {
     if (playing) {
       clearInterval(this.timer);
       startstopText = "START";
+      this.MetronomeClass.setCount(0)
     } else {
       //start again with the current bpm
 
@@ -174,7 +161,6 @@ export default class MetronomeScreen extends Component {
         this.playClick,
         (60 / this.MetronomeClass.getBPM()) * 1000
       );
-      startstopText = "STOP";
       this.playClick;
     }
     this.MetronomeClass.setPlaying(!playing);
@@ -183,6 +169,7 @@ export default class MetronomeScreen extends Component {
   playClick = () => {
     const count = this.MetronomeClass.getCount();
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
+    console.log(count)
     if (count % beatsPerMeasure === 0) {
       this.hardClick.setPositionAsync(0); //reset the playback position of the Async so that the sound can play continuosly
       this.hardClick.playAsync(); //play the sound
@@ -199,55 +186,71 @@ export default class MetronomeScreen extends Component {
     const bpm = this.MetronomeClass.getBPM();
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>
-        <TextInput
-          style={styles.bpmTextInput}
-          onChange={this.handleBpmChange} //text to indicate that the user should enter a bpm and a bpm text input
-          number={bpm}
-        ></TextInput>
-        <View>
-          <Picker
-            style={styles.pickerMenu}
-            onChange={this.handleBeatsPerMeasureChange} //beats per measure dropdown menu, and function to be called when a value is picked
+      <SafeAreaView style={styles.container} forceInset={{ top: 'never'}}>
+        
+          {/* Text for bpm input */}
+          <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>
+
+          {/* input for the bpm */}
+          <View style={styles.centeredView}>
+            <TextInput
+              style={styles.bpmTextInput}
+              onChangeText={text => {this.handleBpmChange(text)}} //text to indicate that the user should enter a bpm and a bpm text input
+              number={bpm}></TextInput>
+            </View>
+          
+          {/* input picker for the beats per measure */}
+          <View style={styles.centeredView}>
+            <Picker
+              style={styles.pickerMenu}
+              onChange={this.handleBeatsPerMeasureChange} //beats per measure dropdown menu, and function to be called when a value is picked
+            >
+              <Picker.Item label="beats per measure" value="0"></Picker.Item>
+              <Picker.Item label="2" value="2"></Picker.Item>
+              <Picker.Item label="3" value="3"></Picker.Item>
+              <Picker.Item label="4" value="4"></Picker.Item>
+              <Picker.Item label="5" value="5"></Picker.Item>
+              <Picker.Item label="6" value="6"></Picker.Item>
+              <Picker.Item label="7" value="7"></Picker.Item>
+              <Picker.Item label="8" value="8"></Picker.Item>
+              <Picker.Item label="9" value="9"></Picker.Item>
+              <Picker.Item label="10" value="10"></Picker.Item>
+              <Picker.Item label="11" value="11"></Picker.Item>
+              <Picker.Item label="12" value="12"></Picker.Item>
+            </Picker>
+          </View>
+
+          {/* input picker for the notes per measure */}
+          <View style={styles.centeredView}>
+            <Picker
+              style={styles.pickerMenu} //drop down menu to select the note per measure
+            >
+              <Picker.Item label="note per measure" value="0"></Picker.Item>
+              <Picker.Item label="1" value="1"></Picker.Item>
+              <Picker.Item label="2" value="2"></Picker.Item>
+              <Picker.Item label="3" value="3"></Picker.Item>
+              <Picker.Item label="4" value="4"></Picker.Item>
+              <Picker.Item label="5" value="5"></Picker.Item>
+              <Picker.Item label="6" value="6"></Picker.Item>
+              <Picker.Item label="7" value="7"></Picker.Item>
+              <Picker.Item label="8" value="8"></Picker.Item>
+              <Picker.Item label="9" value="9"></Picker.Item>
+              <Picker.Item label="10" value="10"></Picker.Item>
+              <Picker.Item label="11" value="11"></Picker.Item>
+              <Picker.Item label="12" value="12"></Picker.Item>
+            </Picker>
+          </View>
+
+        {/* input button for starting and stopping the metronome */}
+        <View style={styles.centeredView}>
+          <TouchableOpacity
+            style={styles.playButton}
+            onPress={this.startStop} // a button to start or stop the metronome sound
           >
-            <Picker.Item label="beats per measure" value="0"></Picker.Item>
-            <Picker.Item label="2" value="2"></Picker.Item>
-            <Picker.Item label="3" value="3"></Picker.Item>
-            <Picker.Item label="4" value="4"></Picker.Item>
-            <Picker.Item label="5" value="5"></Picker.Item>
-            <Picker.Item label="6" value="6"></Picker.Item>
-            <Picker.Item label="7" value="7"></Picker.Item>
-            <Picker.Item label="8" value="8"></Picker.Item>
-            <Picker.Item label="9" value="9"></Picker.Item>
-            <Picker.Item label="10" value="10"></Picker.Item>
-            <Picker.Item label="11" value="11"></Picker.Item>
-            <Picker.Item label="12" value="12"></Picker.Item>
-          </Picker>
-          <Picker
-            style={styles.pickerMenu} //drop down menu to select the note per measure
-          >
-            <Picker.Item label="note per measure" value="0"></Picker.Item>
-            <Picker.Item label="1" value="1"></Picker.Item>
-            <Picker.Item label="2" value="2"></Picker.Item>
-            <Picker.Item label="3" value="3"></Picker.Item>
-            <Picker.Item label="4" value="4"></Picker.Item>
-            <Picker.Item label="5" value="5"></Picker.Item>
-            <Picker.Item label="6" value="6"></Picker.Item>
-            <Picker.Item label="7" value="7"></Picker.Item>
-            <Picker.Item label="8" value="8"></Picker.Item>
-            <Picker.Item label="9" value="9"></Picker.Item>
-            <Picker.Item label="10" value="10"></Picker.Item>
-            <Picker.Item label="11" value="11"></Picker.Item>
-            <Picker.Item label="12" value="12"></Picker.Item>
-          </Picker>
+            <Text style={styles.buttonText}>START/STOP</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.playButton}
-          onPress={this.startStop} // a button to start or stop the metronome sound
-        >
-          <Text style={styles.buttonText}>START/STOP</Text>
-        </TouchableOpacity>
+
         <ImageBackground
           source={require("../../assets/metronome-image-wb.png")}
           resizeMode="stretch"
@@ -276,30 +279,30 @@ const styles = StyleSheet.create({
   //styles for elements listed in Alphabetical order (with the exception of container - which is always on top)
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignContent: "center",
     backgroundColor: colors.white,
+    borderWidth: 1,
+    borderColor: 'red',
   },
   bpmText: {
     paddingTop: "10%",
     color: colors.black,
     fontSize: 15,
-    paddingLeft: "42.5%",
-    justifyContent: "center",
-    alignContent: "center",
+    width: '100%',
+    textAlign: 'center'
   },
   bpmTextInput: {
     borderWidth: 1,
+    borderColor: "red",
     borderColor: "#777",
     paddingTop: 5,
-    marginLeft: "42.5%",
-    //marginTop: 15,
     width: 200,
+    height: 40,
     fontSize: 15,
     color: colors.black,
-    justifyContent: "center",
-    alignContent: "center",
     backgroundColor: colors.userInputElement,
+    margin: 'auto',
+    borderWidth: 1,
+    borderColor: 'red'
   },
   buttonText: {
     textAlign: "center",
@@ -309,15 +312,14 @@ const styles = StyleSheet.create({
   },
   metronomeImage: {
     // margin:10,
-    width: "100%",
-    height: "90%",
+    // width: "100%",
+    // height: "90%",
     alignItems: "center",
   },
   pickerMenu: {
     borderWidth: 1,
-    borderColor: "#777",
+    borderColor: colors.black,
     paddingTop: 50,
-    marginLeft: "42.5%",
     marginTop: 20,
     width: 200,
     fontSize: 15,
@@ -329,12 +331,10 @@ const styles = StyleSheet.create({
   playButton: {
     backgroundColor: colors.pressableElement,
     height: 50,
-    width: 120,
+    width: 200,
     borderRadius: 10,
     marginTop: 10,
-    flexDirection: "row",
-    alignSelf: "center",
-    alignItems: "center",
+    textAlign: 'center'
   },
   speedText: {
     paddingTop: 50,
@@ -353,4 +353,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
   },
+  centeredView: {
+    // flex: 1,
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent:'center', 
+ },
 });
