@@ -1,7 +1,8 @@
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import {Button, StyleSheet, Text, View, Pressable, Image} from 'react-native';
+import logo from './assets/6String.jpg';
 
 import MetronomeScreen from './app/screens/MetronomeScreen';
 import TunerScreen from './app/screens/TunerScreen';
@@ -24,44 +25,46 @@ export default function App() {
     <View style={{ flex: 1 }}>
       <NavigationContainer ref={nav} >
                 <Stack.Navigator >
-                    <Stack.Screen name="metronome" component={MetronomeScreen} />
-                    <Stack.Screen name="tuner" component={TunerScreen} />
-                    <Stack.Screen name="tools" component={ToolScreen} />
-                    <Stack.Screen name="practice" component={PracticeScreen} />
-                    <Stack.Screen name="settings" component={SettingsScreen} />
+                    <Stack.Screen options={{ headerShown: false }} name="metronome" component={MetronomeScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="tuner" component={TunerScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="tools" component={ToolScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="practice" component={PracticeScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="settings" component={SettingsScreen} />
                 </Stack.Navigator>
-            </NavigationContainer>
+      </NavigationContainer>
 
       <View style={styles.nav_container}>
-
-        <TouchableOpacity style={styles.icon} onPress={() => {nav.navigate('tuner')}}>
-          <Icon name="audiotrack"/>
-          <Text style={styles.nav_text}>Tuner</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => {nav.navigate('metronome')}} style={styles.icon}>
-          <Icon  name="details" />
-          <Text style={styles.nav_text}>metronome</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => {nav.navigate('tools')}} style={styles.icon}>
-          <Icon  name="construction" />
-          <Text style={styles.nav_text} >Tools</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => {nav.navigate('practice')}} style={styles.icon}>
-          <Icon  name="content-paste" />
-          <Text style={styles.nav_text}>practice</Text> 
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => {nav.navigate('settings')}} style={styles.icon}>
+        <Pressable onPress={() => {nav.navigate('tuner')}} style={styles.icon_container}>
+          <Icon name="audiotrack" />
+          <Text>Tuner</Text>
+        </Pressable>
+        
+        <Pressable onPress={() => {nav.navigate('metronome')}} style={styles.icon_container}>
+          <Icon name="details" />
+          <Text>Metronome</Text>
+        </Pressable>
+        
+        <Pressable onPress={() => {nav.navigate('tools')}} style={styles.icon_container}>
+          <Icon name="construction" />
+          <Text>Tools</Text>
+        </Pressable>
+        
+        <Pressable onPress={() => {nav.navigate('practice')}} style={styles.icon_container}>
+          <Icon name="content-paste" />
+          <Text>Practice</Text>
+        </Pressable>
+        
+        <Pressable onPress={() => {nav.navigate('settings')}} style={styles.icon_container}>
           <Icon name="settings" />
-          <Text style={styles.nav_text}>settings</Text>
-        </TouchableOpacity>
+          <Text>Settings</Text>
+        </Pressable>
 
+
+
+
+        
       </View>
     </View>
-      // {/* <Button onPress={() => {nav.navigate("tuner")} }><Text>Test</Text></Button> */}
   )
 }
 
@@ -72,18 +75,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+
   nav_container: {
     flexDirection: 'row',
-    margin: "auto"
+    alignItems:'center',
+    justifyContent: 'center'
   },
-  icon: {
-    padding: 20
+
+  icon_container: {
+    margin: "auto",
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  nav_text: {
-    textAlign: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 5,
-    paddingBottom: 5
-  }
 });

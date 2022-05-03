@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/stack';
-import { Button, View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import colors from "../config/colors";
 import { StyleSheet } from "react-native";
 
@@ -11,11 +9,12 @@ export default class ToolScreen extends Component {
         constructor(){
             super();
         }
+
         render() {
             return (
-                <View style={ styles.container }>
+                <SafeAreaView style={ styles.container }>
                     <Text>Screen for tools</Text>
-                </View>
+                </SafeAreaView>
             )    
         }
     
