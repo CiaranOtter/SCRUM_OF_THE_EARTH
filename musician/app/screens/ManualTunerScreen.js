@@ -42,8 +42,10 @@ export default class ManualTunerScreen extends Component {
   }//end async function
 
   //functions to play each note--Needs to be abstacted
+
+
   playE1 = () => {
-    this.e.replayAsync(); //replayAsync() allows the sound to play many times vs play which only played once on phone
+    this.e.replayAsync(); //replayAsync() allows the sound to play many times vs playAsync() which only played once on phone
     console.log("E1 button pressed");
   };
 
@@ -72,12 +74,15 @@ export default class ManualTunerScreen extends Component {
     console.log("E2 button pressed");
   };
 
+  //in each button consider key=item.id.toString()
+
   render (){
     return(
     <SafeAreaView style={styles.container}>
 
       <View style={{ flexDirection: "row" }}>
         <View style={styles.buttonStyle}>
+
             <Button
               title="E2 String"
               onPress={this.playE2}/>
