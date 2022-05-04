@@ -294,7 +294,6 @@ const styles = StyleSheet.create({
   },
   bpmTextInput: {
     borderWidth: 1,
-    borderColor: "red",
     borderColor: "#777",
     paddingTop: 5,
     width: 200,
@@ -303,8 +302,6 @@ const styles = StyleSheet.create({
     color: colors.black,
     backgroundColor: colors.userInputElement,
     margin: 'auto',
-    borderWidth: 1,
-    borderColor: 'red'
   },
   buttonText: {
     textAlign: "center",
@@ -313,9 +310,9 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   metronomeImage: {
-    // margin:10,
-    // width: "100%",
-    // height: "90%",
+    margin:10,
+    width: "100%",
+    height: "90%",
     alignItems: "center",
   },
   pickerMenu: {

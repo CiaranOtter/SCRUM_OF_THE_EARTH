@@ -125,6 +125,8 @@ const metronome = require("../app/classes/metronome.js")
       TestMetronome.setPlaying(true)
       expect(TestMetronome.isPlaying()).toEqual(true)
     });
+  });
 
+  describe("Metronome render tests", () => {
 
   });

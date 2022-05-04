@@ -19,6 +19,10 @@ export default function TunerScreen() {
   PitchDetector.forNumberArray(60)
 
 
+  function updateRecording() {
+    console.log("test")
+  }
+
   async function startRecording() {
     try {
       console.log("Requesting Permissions..");
@@ -29,11 +33,12 @@ export default function TunerScreen() {
       });      
 
       console.log("Starting recording..");
-      const { recording } = await Audio.Recording.createAsync(
+      const { recording: recording, status } = await Audio.Recording.createAsync(
         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
       );
 
-      setRecording(recording);
+      recording.setOnRecordingStatusUpdate(() => {updateRecording})
+      await recording.startAsync()
       console.log("Recording started");
     } catch (error) {
       console.error("Failed to start recording", err);
