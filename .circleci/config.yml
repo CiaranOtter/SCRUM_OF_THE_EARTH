@@ -40,10 +40,6 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: "Check directory" 
-          command: "ls -a;"
-
       - run: 
           name: "Run the jest tests"
           command: "cd musician; npm test"
