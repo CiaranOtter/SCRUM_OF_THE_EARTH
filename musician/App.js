@@ -13,6 +13,7 @@ import SettingsScreen from './app/screens/SettingsScreen';
 import { Icon } from 'react-native-elements';
 
 import Navigator from './app/components/navigate';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // const nav = useNavigationContainerRef();
 
