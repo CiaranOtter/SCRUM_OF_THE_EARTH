@@ -21,17 +21,45 @@ jobs:
           command: "ls;"
 
       - run: 
-          name: "Install npm modules"
+          name: "Install npm modules in musician"
           command: "cd musician; npm install; npm install jest; npm install --save jest-coverage-badges; sudo npm install -g codecov"
 
+      - run:
+          name: "Install npm modules in outer folder"
+          command: "npm run setup"
+        
       - run: 
-          name: "Run tests"
+          name: "Initialize the coveage file location"
+          command: "npm run initialize-coverage"
+
+  run-test:
+    build:
+    docker:
+      - image: cimg/node:16.13.2
+
+    steps:
+      - run: 
+          name: "Run the jest tests"
           command: "cd musician; npm test"
 
-      - codecov/upload
+  Load-Badges:
+    build:
+    docker: 
+      - image: cimg/node:16.13.2
+
+    steps:
+      - run:
+          name: "Generate badges from coverage-summary.json"
+          command: "npm run badges"
 
 
 workflows:
-  say-hello-workflow:
+  Install-and-test:
     jobs:
       - install-node-modules
+      - run-test:
+          requires:
+            - install-node-modules
+      - Load-Badges:
+          requires: 
+            - run-test
