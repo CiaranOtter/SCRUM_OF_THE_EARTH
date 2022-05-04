@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/stack";
 import {Button, View, Text, StyleSheet, Image, Picker, Switch, TouchableOpacity, SafeAreaView} from "react-native";
 import { Audio } from "expo-av";
 import logo from './6String.jpg';
+import {findPitch} from 'pitchy';
 
 //import React, {useState} from "react";
 
@@ -53,9 +54,26 @@ export default function TunerScreen() {
     console.log("Recording stopped and stored at", uri);
   }
 
+  function updatePitch(analyserNode,sampleRate){
+    let data = new Float32Array(analyserNode.fftSize);
+    analyserNode.getFloatTimeDomainData(data);
+    let[pitch, clarity] = findPitch(data, sampleRate);
+  }
+
+  function detectPitch(){
+    
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text></Text>
+      {/* <Text>{pitch}</Text>
+      <Text>{clarity}</Text> */}
+
+      <Button
+      title="Detect Pitch"
+      onPress={detectPitch}
+      />
+      
       <Button
         title={recording ? "Stop Recording" : "Start Recording"}
 
@@ -64,8 +82,6 @@ export default function TunerScreen() {
       />
 
       <Image source={logo} style={styles.logo}/>
-
-
 
       <Picker
           selectedValue={selectedValue}
