@@ -5,7 +5,7 @@ The repository for the SCRUM of the Earth group in Software development, wits un
 ## coverage for project in total
 ![](https://img.shields.io/badge/Coverage-99%25-83A603.svg?prefix=$coverage$)
 
-### coverage for functions
+### coverage for tested functions
 
 ![](https://img.shields.io/badge/Coverage-100%25-83A603.svg?prefix=$functions$) 
 
