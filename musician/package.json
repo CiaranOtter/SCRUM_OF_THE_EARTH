@@ -4,7 +4,12 @@
   "main": "node_modules/expo/AppEntry.js",
   "jest": {
     "coverageDirectory": "../coverage/",
-    "coverageReporters": ["clover", "json", "lcov", "text"]
+    "coverageReporters": [
+      "clover",
+      "json",
+      "lcov",
+      "text"
+    ]
   },
   "scripts": {
     "start": "expo start",
@@ -38,7 +43,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "coverage-badge-creator": "^1.0.11"
+    "coverage-badge-creator": "^1.0.11",
+    "expo-av": "^10.2.1"
   },
   "private": true
 }
