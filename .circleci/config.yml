@@ -38,6 +38,10 @@ jobs:
       - image: cimg/node:16.13.2
 
     steps:
+      - run:
+          name: "Check directory" 
+          command: "pwd"
+
       - run: 
           name: "Run the jest tests"
           command: "cd musician; npm test"
