@@ -20,8 +20,28 @@ export default function TunerScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
   this.count = 0
-  this.duration = 0
+  this.duration = 0;
 
+  function componentDidMount() {
+    this.low_E = new Audio.Sound();
+    this.A = new Audio.Sound();
+    this.D = new Audio.Sound();
+    this.G = new Audio.Sound();
+    this.B = new Audio.Sound();
+    this.high_E = new Audio.Sound();
+
+    //try to load the audio, and if it fails debug the error
+    try {
+      this.low_E.loadAsync(require("../sounds/Tuner_low_E.m4a"));
+      this.A.loadAsync(require("../sounds/Tuner_A.m4a"));
+      this.D.loadAsync(require("../sounds/Tuner_D.m4a"));
+      this.G.loadAsync(require("../sounds/Tuner_G.m4a"));
+      this.B.loadAsync(require("../sounds/Tuner_B.m4a"));
+      this.high_E.loadAsync(require("../sounds/Tuner_high_E.m4a"));
+    } catch (error) {
+      console.log("Failed to load metronome sounds: " + error);
+    }
+  }
 
   _onRecordingStatusUpdate = RecordingStatus => {
     if (!RecordingStatus.isLoaded) {
@@ -78,6 +98,39 @@ export default function TunerScreen() {
     } 
   }
 
+  function playString(note) {
+
+    switch (note){
+      case "A":
+        this.A.setPositionAsync(0);
+        this.A.playAsync();
+        break;
+      case "D":
+        this.D.setPositionAsync(0);
+        this.D.playAsync();
+        break;
+      case "G":
+        this.G.setPositionAsync(0);
+        this.G.playAsync();
+        break;
+      case "B":
+        this.B.setPositionAsync(0);
+        this.B.playAsync();
+        break;
+      case "high_E":
+        this.high_E.setPositionAsync(0);
+        this.high_E.playAsync();
+        break;
+      case "low_E":
+        this.low_E.setPositionAsync(0);
+        this.low_E.playAsync();
+    }
+      
+
+
+    
+  }
+  
   async function stopRecording() {
     console.log("Stopping recording..");
     setRecording(undefined);
@@ -140,37 +193,37 @@ export default function TunerScreen() {
 
 
       <TouchableOpacity
-          onPress = { () => alert('')}
+          onPress = {playString("D")}
           style={styles.button5}>
         <Text style = {styles.buttonText}>D</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          onPress = { () => alert('')}
+          onPress = {playString("A")}
           style={styles.button6}>
         <Text style = {styles.buttonText}>A</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          onPress = { () => alert('')}
+          onPress = {playString("low_E")}
           style={styles.button7}>
         <Text style = {styles.buttonText}>E</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          onPress = { () => alert('')}
+          onPress = {playSound("G")}
           style={styles.button8}>
         <Text style = {styles.buttonText}>G</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          onPress = { () => alert('')}
+          onPress = {playString('B')}
           style={styles.button9}>
         <Text style = {styles.buttonText}>B</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          onPress = { () => alert('')}
+          onPress = {playString('high_E')}
           style={styles.button10}>
         <Text style = {styles.buttonText}>E</Text>
       </TouchableOpacity>
