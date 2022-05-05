@@ -11,18 +11,36 @@ import {findPitch} from 'pitchy';
 import colors from "../config/colors";
 import {useState} from "react";
 import { PitchDetector } from "pitchy";
+import { Recording } from "expo-av/build/Audio";
+
 
 export default function TunerScreen() {
   const [recording, setRecording] = React.useState();
   const [selectedValue, setSelectedValue] = useState("4String");
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
-  PitchDetector.forNumberArray(60)
+  this.count = 0
+  this.duration = 0
 
 
-  function updateRecording() {
-    console.log("test")
-  }
+  _onRecordingStatusUpdate = RecordingStatus => {
+    if (!RecordingStatus.isLoaded) {
+      // Update your UI for the unloaded state
+      if (RecordingStatus.error) {
+        console.log(`Encountered a fatal error during playback: ${playbackStatus.error}`);
+        // Send Expo team the error on Slack or the forums so we can help you debug!
+      }
+
+      this.duration = RecordingStatus.durationMillis;
+
+      let sampleRate = this.recording._options.android.sampleRate;
+
+      console.log(this.recording)
+      // const detector = PitchDetector.forFloat32Array(128);
+      // const input = new Float32Array(detector.inputLength);
+      // updatePitch(this.recording, detector, input, sampleRate)
+    }
+  };
 
   async function startRecording() {
     try {
@@ -31,19 +49,33 @@ export default function TunerScreen() {
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
+        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
       });      
 
       console.log("Starting recording..");
-      const { recording: recording, status } = await Audio.Recording.createAsync(
-        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
-      );
+      this.recording = new Audio.Recording();
+      this.recording.setOnRecordingStatusUpdate(this._onRecordingStatusUpdate);
+      this.recording.setProgressUpdateInterval(200);
 
-      recording.setOnRecordingStatusUpdate(() => {updateRecording})
-      await recording.startAsync()
+      await this.recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
+      setRecording(this.recording)
+      await this.recording.startAsync();
       console.log("Recording started");
+
+    //   console.log("Starting recording..");
+    //   const { recording: recording, status } = await Audio.Recording.createAsync(
+    //     Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+    //   );
+
+    //   recording.setOnRecordingStatusUpdate(() => {updateRecording})
+    //   await recording.startAsync()
+    //   console.log("Recording started");
     } catch (error) {
-      console.error("Failed to start recording", err);
-    }
+      console.error("Failed to start recording", error);
+    } 
   }
 
   async function stopRecording() {
