@@ -5,7 +5,7 @@ orbs:
 
 jobs:     
 
-  install-node-modules:
+  install-and-test:
     build:
     docker:
       - image: cimg/node:16.13.2
@@ -21,17 +21,27 @@ jobs:
           command: "ls;"
 
       - run: 
-          name: "Install npm modules"
+          name: "Install npm modules in musician"
           command: "cd musician; npm install; npm install jest; npm install --save jest-coverage-badges; sudo npm install -g codecov"
 
+      - run:
+          name: "Install npm modules in outer folder"
+          command: "npm run setup"
+        
       - run: 
-          name: "Run tests"
-          command: "cd musician; npm test"
+          name: "Initialize the coveage file location"
+          command: "npm run initialize-coverage"
 
-      - codecov/upload
+      - run: 
+          name: "Run the jest tests"
+          command: "cd musician; npm test"
+      
+      - run:
+          name: "Generate badges from coverage-summary.json"
+          command: "npm run badges"
 
 
 workflows:
-  say-hello-workflow:
+  Install-and-test:
     jobs:
-      - install-node-modules
+      - install-and-test
