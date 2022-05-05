@@ -258,13 +258,6 @@ export default class MetronomeScreen extends Component {
           resizeMode="stretch"
           style={styles.metronomeImage}
         >
-<<<<<<< HEAD
-          <Text style={styles.buttonText}>"START/STOP"</Text>
-        </TouchableOpacity>
-        <ImageBackground source={require("../../assets/metronome-image-wb.png")} resizeMode='stretch' style={styles.metronomeImage} >
-
-=======
->>>>>>> b3772cb125411c86773b1b953d691dd9ae360f17
           <Text
             //time signature text
             style={styles.timeSignatureText}
