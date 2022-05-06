@@ -1,5 +1,0 @@
-# SCRUM_OF_THE_EARTH
-The repository for the SCRUM of the Earth group in Software development, wits university, 2022
-https://coveralls.io/github/CiaranOtter/SCRUM_OF_THE_EARTH?
-branch=main[image:https://coveralls.io/github/CiaranOtter/SCRUM_OF_THE_EARTH/badge.svg?
-branch=main[Coverage Status]]
