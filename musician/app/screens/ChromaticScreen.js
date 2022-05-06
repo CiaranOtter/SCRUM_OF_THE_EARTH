@@ -1,15 +1,25 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, Text } from 'react-native';
 
+const pitchNoteC = require("../classes/pitchNoteClassification.js");
+
 export default function ChromaticScreen(){
+  
+  pitchNoteClass = new pitchNoteC();
 
-    return (
+  pitch = 1040;
 
-        <SafeAreaView style={styles.container}>
-          <Text style={styles.title}>A</Text>
-          <Text style={styles.indicator}>Too High/Too Low/Perfect</Text>
-        </SafeAreaView>
-    );
+  note = pitchNoteClass.getNote(pitch);
+  classification = pitchNoteClass.getClassification(pitch);
+
+  return (
+
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>{note}</Text>
+      <Text style={styles.frequency}>{pitch}Hz</Text>
+      <Text style={styles.indicator}>{classification}</Text>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -20,10 +30,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 300,
+    fontSize: 150,
     color: 'gray',
   },
   indicator:{
     fontSize: 24
+  },
+  frequency: {
+    fontSize: 30,
+    color: 'red'
   }
 });
