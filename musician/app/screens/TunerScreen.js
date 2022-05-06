@@ -19,29 +19,27 @@ export default function TunerScreen() {
   const [selectedValue, setSelectedValue] = useState("4String");
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
+  const low_E = new Audio.Sound();
+  const A_string = new Audio.Sound();
+  const D_string = new Audio.Sound();
+  const G_string = new Audio.Sound();
+  const B_string = new Audio.Sound();
+  const high_E = new Audio.Sound();
+
+  try {
+    low_E.loadAsync(require("../sounds/Tuner_low_E.m4a"));
+    A_string.loadAsync(require("../sounds/Tuner_A.m4a"));
+    D_string.loadAsync(require("../sounds/Tuner_D.m4a"));
+    G_string.loadAsync(require("../sounds/Tuner_G.m4a"));
+    B_string.loadAsync(require("../sounds/Tuner_B.m4a"));
+    high_E.loadAsync(require("../sounds/Tuner_high_E.m4a"));
+  } catch (error) {
+    console.log("Failed to load metronome sounds: " + error);
+  }
+
   this.count = 0
   this.duration = 0;
 
-  function componentDidMount() {
-    this.low_E = new Audio.Sound();
-    this.A = new Audio.Sound();
-    this.D = new Audio.Sound();
-    this.G = new Audio.Sound();
-    this.B = new Audio.Sound();
-    this.high_E = new Audio.Sound();
-
-    //try to load the audio, and if it fails debug the error
-    try {
-      this.low_E.loadAsync(require("../sounds/Tuner_low_E.m4a"));
-      this.A.loadAsync(require("../sounds/Tuner_A.m4a"));
-      this.D.loadAsync(require("../sounds/Tuner_D.m4a"));
-      this.G.loadAsync(require("../sounds/Tuner_G.m4a"));
-      this.B.loadAsync(require("../sounds/Tuner_B.m4a"));
-      this.high_E.loadAsync(require("../sounds/Tuner_high_E.m4a"));
-    } catch (error) {
-      console.log("Failed to load metronome sounds: " + error);
-    }
-  }
 
   _onRecordingStatusUpdate = RecordingStatus => {
     if (!RecordingStatus.isLoaded) {
@@ -102,32 +100,30 @@ export default function TunerScreen() {
 
     switch (note){
       case "A":
-        this.A.setPositionAsync(0);
-        this.A.playAsync();
+        A_string.setPositionAsync(0);
+        A_string.playAsync();
         break;
       case "D":
-        this.D.setPositionAsync(0);
-        this.D.playAsync();
+        D_string.setPositionAsync(0);
+        D_string.playAsync();
         break;
       case "G":
-        this.G.setPositionAsync(0);
-        this.G.playAsync();
+        G_string.setPositionAsync(0);
+        G_string.playAsync();
         break;
       case "B":
-        this.B.setPositionAsync(0);
-        this.B.playAsync();
+        B_string.setPositionAsync(0);
+        B_string.playAsync();
         break;
       case "high_E":
-        this.high_E.setPositionAsync(0);
-        this.high_E.playAsync();
+        high_E.setPositionAsync(0);
+        high_E.playAsync();
         break;
       case "low_E":
-        this.low_E.setPositionAsync(0);
-        this.low_E.playAsync();
+        low_E.setPositionAsync(0);
+        low_E.playAsync();
+        break;
     }
-      
-
-
     
   }
   
@@ -145,10 +141,6 @@ export default function TunerScreen() {
     let[pitch, clarity] = findPitch(data, sampleRate);
   }
 
-  function detectPitch(){
-    
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       {/* <Text>{pitch}</Text>
@@ -156,7 +148,7 @@ export default function TunerScreen() {
 
       <Button
       title="Detect Pitch"
-      onPress={detectPitch}
+      // onPress={detectPitch}
       />
       
       <Button
@@ -193,37 +185,37 @@ export default function TunerScreen() {
 
 
       <TouchableOpacity
-          onPress = {playString("D")}
+          onPress = {() => playString("D")}
           style={styles.button5}>
         <Text style = {styles.buttonText}>D</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          onPress = {playString("A")}
+          onPress = {() => playString("A")}
           style={styles.button6}>
         <Text style = {styles.buttonText}>A</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          onPress = {playString("low_E")}
+          onPress = {() => playString("low_E")}
           style={styles.button7}>
         <Text style = {styles.buttonText}>E</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          onPress = {playSound("G")}
+          onPress = {() => playString("G")}
           style={styles.button8}>
         <Text style = {styles.buttonText}>G</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          onPress = {playString('B')}
+          onPress = {() => playString('B')}
           style={styles.button9}>
         <Text style = {styles.buttonText}>B</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          onPress = {playString('high_E')}
+          onPress = {() => playString('high_E')}
           style={styles.button10}>
         <Text style = {styles.buttonText}>E</Text>
       </TouchableOpacity>
