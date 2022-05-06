@@ -28,7 +28,7 @@ export default function App() {
       <NavigationContainer ref={nav} >
                 <Stack.Navigator >
                     <Stack.Screen name="metronome" component={MetronomeScreen} />
-                    <Stack.Screen name="tuner" component={ManualTunerScreen} />
+                    <Stack.Screen name="tuner" component={TunerScreen} />
                     <Stack.Screen name="tools" component={ToolScreen} />
                     <Stack.Screen name="practice" component={PracticeScreen} />
                     <Stack.Screen name="settings" component={SettingsScreen} />
