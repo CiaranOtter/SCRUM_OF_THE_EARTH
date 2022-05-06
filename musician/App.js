@@ -1,7 +1,7 @@
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import {Button, StyleSheet, Text, View, Pressable, Image} from 'react-native';
+import {Button, StyleSheet, Text, View, Pressable, Image, SafeAreaView} from 'react-native';
 import logo from './assets/6String.jpg';
 
 import MetronomeScreen from './app/screens/MetronomeScreen';
@@ -9,6 +9,9 @@ import TunerScreen from './app/screens/TunerScreen';
 import ToolScreen from './app/screens/ToolScreen';
 import PracticeScreen from './app/screens/PracticeScreen';
 import SettingsScreen from './app/screens/SettingsScreen';
+
+//manual tuner screen for testing purposes
+import ManualTunerScreen from './app/screens/ManualTunerScreen';
 
 import { Icon } from 'react-native-elements';
 
@@ -22,6 +25,7 @@ export default function App() {
   const Stack = new createStackNavigator();
 
   return (
+
     <View style={{ flex: 1 }}>
       <NavigationContainer ref={nav} >
                 <Stack.Navigator >
