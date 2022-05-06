@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     borderColor: 'red',
   },
   bpmText: {
-    paddingTop: "10%",
+    paddingTop: "3%",
     color: colors.black,
     fontSize: 15,
     width: '100%',
@@ -309,20 +309,20 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     fontSize: 20,
-    paddingLeft: 20,
+    padding: 8,
     color: colors.black,
   },
   metronomeImage: {
-    // margin:10,
-    // width: "100%",
-    // height: "90%",
+    marginLeft:10,
+    width: "98%",
+    height: "88%",
     alignItems: "center",
   },
   pickerMenu: {
     borderWidth: 1,
     borderColor: colors.black,
     paddingTop: 50,
-    marginTop: 20,
+    marginTop: 5,
     width: 200,
     fontSize: 15,
     color: colors.black,
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
   },
 
   timeSignatureText: {
-    paddingTop: 400,
+    paddingTop: 375,
     color: "#ffffff",
     fontSize: 20,
     justifyContent: "center",

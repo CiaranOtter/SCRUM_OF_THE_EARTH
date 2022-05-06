@@ -271,15 +271,15 @@ const styles = StyleSheet.create({
     height: 50,
     width: 250,
     color:"red",
-    bottom: "75%",
-    left: -100,
+    bottom: "53%",
+    left: 70,
 
 
   },
 
 
   switch:{
-    bottom:"75%",
+    bottom:"65%",
 
   },
 

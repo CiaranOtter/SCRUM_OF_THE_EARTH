@@ -1,11 +1,13 @@
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'react-native';
 import {Button, StyleSheet, Text, View, Pressable, Image} from 'react-native';
 import logo from './assets/6String.jpg';
 
 import MetronomeScreen from './app/screens/MetronomeScreen';
-import TunerScreen from './app/screens/TunerScreen';
+import _6SMTunerScreen from './app/screens/TunerScreen';
+import _4SMTunerScreen from './app/screens/4_StringManualTunerScreen';
+import _4SATunerScreen from './app/screens/4_StringAutomaticTunerScreen';
 import ToolScreen from './app/screens/ToolScreen';
 import PracticeScreen from './app/screens/PracticeScreen';
 import SettingsScreen from './app/screens/SettingsScreen';
@@ -23,10 +25,16 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }}>
+      <StatusBar
+        backgroundColor={"#fff"}
+        barStyle={"dark-content"}
+      />
       <NavigationContainer ref={nav} >
                 <Stack.Navigator >
-                    <Stack.Screen options={{ headerShown: false }} name="metronome" component={MetronomeScreen} />
-                    <Stack.Screen options={{ headerShown: false }}  name="tuner" component={TunerScreen} />
+                    <Stack.Screen options={{ headerShown: false }}  name="metronome" component={MetronomeScreen} />
+                    <Stack.Screen options={{ headerShown: false }} name="6SMTuner" component={_6SMTunerScreen} />
+                    <Stack.Screen options={{ headerShown: false }} name="4SMTuner" component={_4SMTunerScreen}/>
+                    <Stack.Screen options={{ headerShown: false }} name="4SATuner" component={_4SATunerScreen}/>
                     <Stack.Screen options={{ headerShown: false }}  name="tools" component={ToolScreen} />
                     <Stack.Screen options={{ headerShown: false }}  name="practice" component={PracticeScreen} />
                     <Stack.Screen options={{ headerShown: false }}  name="settings" component={SettingsScreen} />
@@ -34,7 +42,7 @@ export default function App() {
       </NavigationContainer>
 
       <View style={styles.nav_container}>
-        <Pressable onPress={() => {nav.navigate('tuner')}} style={styles.icon_container}>
+        <Pressable onPress={() => {nav.navigate('4SMTuner')}} style={styles.icon_container}>
           <Icon name="audiotrack" />
           <Text>Tuner</Text>
         </Pressable>
