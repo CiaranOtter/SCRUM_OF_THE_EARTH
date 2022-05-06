@@ -6,7 +6,7 @@ import { Audio } from "expo-av";
 import logo from './6String.jpg';
 import {findPitch} from 'pitchy';
 
-//import React, {useState} from "react";
+
 
 import colors from "../config/colors";
 import {useState} from "react";
@@ -56,7 +56,7 @@ export default function TunerScreen() {
   }
 
   function detectPitch(){
-    
+  
   }
 
   return (
