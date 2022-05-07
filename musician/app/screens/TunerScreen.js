@@ -5,12 +5,16 @@ import {Button, View, Text, StyleSheet, Image, Picker, Switch, TouchableOpacity,
 import { Audio } from "expo-av";
 import logo from './6String.jpg';
 import {findPitch} from 'pitchy';
+import ChromaticTuner from "./ChromaticTuner";
+import StringTuner from "./StringTuner";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //import React, {useState} from "react";
 
 import colors from "../config/colors";
 import {useState} from "react";
 import { PitchDetector } from "pitchy";
+import StringTuner from "./StringTuner";
 
 export default function TunerScreen() {
   const [recording, setRecording] = React.useState();
@@ -77,6 +81,15 @@ export default function TunerScreen() {
       />
 
       <Image source={logo} style={styles.logo}/>
+
+      <div className='TunerScreen'>
+        <Router>
+          <Switch>
+            <Route exact path = "/" component = {StringTuner}/>
+            <Route  path = "/" component = {ChromaticTuner}/>
+          </Switch>
+        </Router>
+      </div>
 
       <Picker
           selectedValue={selectedValue}

@@ -262,7 +262,7 @@ export default class MetronomeScreen extends Component {
             //time signature text
             style={styles.timeSignatureText}
           >
-            {beatsPerMeasure} / 4
+            {beatsPerMeasure}
           </Text>
 
           <Text
@@ -303,8 +303,7 @@ const styles = StyleSheet.create({
     color: colors.black,
     backgroundColor: colors.userInputElement,
     margin: 'auto',
-    borderWidth: 1,
-    borderColor: 'red'
+
   },
   buttonText: {
     textAlign: "center",
