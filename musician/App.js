@@ -12,6 +12,9 @@ import ToolScreen from './app/screens/ToolScreen';
 import PracticeScreen from './app/screens/PracticeScreen';
 import SettingsScreen from './app/screens/SettingsScreen';
 
+//manual tuner screen for testing purposes
+import ManualTunerScreen from './app/screens/ManualTunerScreen';
+
 import { Icon } from 'react-native-elements';
 
 import Navigator from './app/components/navigate';
@@ -24,6 +27,7 @@ export default function App() {
   const Stack = new createStackNavigator();
 
   return (
+
     <View style={{ flex: 1 }}>
       <StatusBar
         backgroundColor={"#fff"}
