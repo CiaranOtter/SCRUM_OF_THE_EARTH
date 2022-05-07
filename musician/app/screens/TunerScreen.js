@@ -3,19 +3,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/stack";
 import {Button, View, Text, StyleSheet, Image, Switch, TouchableOpacity, SafeAreaView} from "react-native";
 import { Picker } from "@react-native-picker/picker"
-// import { Audio } from "expo-av";
 import logo from './6String.jpg';
-// import {findPitch} from 'pitchy';
-
-//import React, {useState} from "react";
-
 import PitchTracker from 'react-native-pitch-tracker';
-
-
 import colors from "../config/colors";
 import {useState} from "react";
-// import { PitchDetector } from "pitchy";
-// import { Recording } from "expo-av/build/Audio";
 
 const Sound = require('react-native-sound');
 Sound.setCategory('Alarm');

@@ -39,14 +39,6 @@ export default class MetronomeScreen extends Component {
       // loaded successfully
       console.log('duration in seconds: ' + this.hardclick.getDuration() + ' number of channels: ' + this.hardclick.getNumberOfChannels());
     
-      // Play the sound with an onEnd callback
-      this.hardclick.play((success) => {
-        if (success) {
-          console.log('successfully finished playing');
-        } else {
-          console.log('playback failed due to audio decoding errors');
-        }
-      });
     });
 
     this.click1 = new Sound('click.mp3', Sound.MAIN_BUNDLE, (error) => {
@@ -57,14 +49,6 @@ export default class MetronomeScreen extends Component {
       // loaded successfully
       console.log('duration in seconds: ' + this.click1.getDuration() + ' number of channels: ' + this.click1.getNumberOfChannels());
     
-      // Play the sound with an onEnd callback
-      this.click1.play((success) => {
-        if (success) {
-          console.log('successfully finished playing');
-        } else {
-          console.log('playback failed due to audio decoding errors');
-        }
-      });
     });
     //initial state of the app and its componets/functions
     // this.state = {
@@ -194,6 +178,7 @@ export default class MetronomeScreen extends Component {
     const count = this.MetronomeClass.getCount();
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
     console.log(count);
+    this.click1.stop();
     this.click1.setCurrentTime(0);
     this.click1.play();
     // if (count % beatsPerMeasure === 0) {
@@ -228,17 +213,21 @@ export default class MetronomeScreen extends Component {
       <SafeAreaView style={styles.container} forceInset={{ top: 'never'}}>
         
           {/* Text for bpm input */}
-          <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>
+          
 
           {/* input for the bpm */}
-          <View style={styles.centeredView}>
-            <TextInput
-              style={styles.bpmTextInput}
-              onChangeText={text => {this.handleBpmChange(text)}} //text to indicate that the user should enter a bpm and a bpm text input
-              number={bpm}></TextInput>
-            </View>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>
+            <View style={styles.centeredView}>
+              <TextInput
+                style={styles.bpmTextInput}
+                onChangeText={text => {this.handleBpmChange(text)}} //text to indicate that the user should enter a bpm and a bpm text input
+                number={bpm}></TextInput>
+              </View>
+          </View>
           
           {/* input picker for the beats per measure */}
+          <View styel={{ flex: 2 }}>
           <View style={styles.centeredView}>
             <Picker
               style={styles.pickerMenu}
@@ -279,9 +268,10 @@ export default class MetronomeScreen extends Component {
               <Picker.Item label="12" value="12"></Picker.Item>
             </Picker>
           </View>
+        </View>
 
         {/* input button for starting and stopping the metronome */}
-        <View style={styles.centeredView}>
+        <View style={{ flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
           <TouchableOpacity
             style={styles.playButton}
             onPress={this.startStop} // a button to start or stop the metronome sound
@@ -292,7 +282,7 @@ export default class MetronomeScreen extends Component {
 
         <ImageBackground
           source={require("../../assets/metronome-image-wb.png")}
-          resizeMode="stretch"
+          resizeMode="contain"
           style={styles.metronomeImage}
         >
           <Text
@@ -301,13 +291,13 @@ export default class MetronomeScreen extends Component {
           >
             {beatsPerMeasure} / 4
           </Text>
-
+{/* 
           <Text
             //bpm text
             style={styles.speedText}
           >
             {this.MetronomeClass.getTempoText}
-          </Text>
+          </Text> */}
         </ImageBackground>
       </SafeAreaView>
     );
@@ -317,8 +307,9 @@ export default class MetronomeScreen extends Component {
 const styles = StyleSheet.create({
   //styles for elements listed in Alphabetical order (with the exception of container - which is always on top)
   container: {
-    flex: 1,
     backgroundColor: colors.white,
+    flexDirection: 'column',
+    flex: 1,
   },
   bpmText: {
     paddingTop: "10%",
@@ -345,10 +336,12 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   metronomeImage: {
-    margin:10,
+    // margin:10,
+    flex: 4,
     width: "100%",
-    height: "90%",
-    alignItems: "center",
+    height: '100%',
+    borderColor:'red',
+    borderWidth: 1,
   },
   pickerMenu: {
     borderWidth: 1,
@@ -371,9 +364,9 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   speedText: {
-    paddingTop: 50,
+    paddingTop: 40,
     paddingLeft: 90,
-    color: colors.black,
+    color: "black",
     fontSize: 17,
     justifyContent: "center",
     alignContent: "center",
@@ -381,7 +374,7 @@ const styles = StyleSheet.create({
   },
 
   timeSignatureText: {
-    paddingTop: 400,
+    // paddingTop: 400,
     color: "#ffffff",
     fontSize: 20,
     justifyContent: "center",
