@@ -1,0 +1,33 @@
+version: 2.1
+
+jobs:     
+
+  install-and-test:
+    build:
+    docker:
+      - image: cimg/node:16.13.2
+    
+    steps: 
+      - checkout
+
+      - run: 
+          name: "List files"
+          command: "ls;"
+
+      - run: 
+          name: "Install npm modules in musician"
+          command: "cd musician; npm install;"
+
+      - run: 
+          name: "Run the jest unit tests"
+          command: "cd musician; npm test"
+      
+      - run:
+          name: "Generate badges from coverage-summary.json"
+          command: "npm run badges"
+
+
+workflows:
+  Install-and-test:
+    jobs:
+      - install-and-test

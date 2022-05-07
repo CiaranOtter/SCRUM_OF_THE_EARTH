@@ -1,0 +1,24 @@
+{
+  "name": "scrum_of_the_earth",
+  "version": "1.0.0",
+  "description": "The repository for the SCRUM of the Earth group in Software development, wits university, 2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "badges": "npm install coverage-badge-creator && coverage-badge-creator"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CiaranOtter/SCRUM_OF_THE_EARTH/issues"
+  },
+  "homepage": "https://github.com/CiaranOtter/SCRUM_OF_THE_EARTH#readme",
+  "dependencies": {
+    "coverage-badge-creator": "^1.0.11"
+  }
+}

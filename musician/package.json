@@ -2,12 +2,27 @@
   "name": "musician",
   "version": "0.0.1",
   "private": true,
+  "jest": {
+    "coverageDirectory": "../coverage",
+    "preset": "react-native",
+    "coverageReporters": [
+      "clover",
+      "json",
+      "lcov",
+      "text"
+    ]
+  },
+  "coverage-badge-creator": {
+    "coverage_file_path": "../coverage/json-summary.json"
+  },
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "setup": "npm install --save-dev jest && npm install --save-dev coverage-badge-creator",
+    "test": "jest --coverage --coverageReporters='json-summary'",
+    "badges": "coverage-badge-creator"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.11",
@@ -29,13 +44,11 @@
     "@babel/runtime": "7.17.9",
     "@react-native-community/eslint-config": "2.0.0",
     "babel-jest": "26.6.3",
+    "coverage-badge-creator": "^1.0.11",
     "eslint": "7.32.0",
     "jest": "26.6.3",
     "metro-react-native-babel-preset": "0.67.0",
     "react-native-sound": "^0.11.2",
     "react-test-renderer": "17.0.2"
-  },
-  "jest": {
-    "preset": "react-native"
   }
 }
