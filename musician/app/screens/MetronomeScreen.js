@@ -34,8 +34,6 @@ export default class MetronomeScreen extends Component {
     this.MetronomeClass = new metronome();
     // this.navigation = navigation;
 
-    this.MetronomeClass = new metronome();
-
     //initial state of the app and its componets/functions
     // this.state = {
     //   playing: false, // there is nothing being played yet

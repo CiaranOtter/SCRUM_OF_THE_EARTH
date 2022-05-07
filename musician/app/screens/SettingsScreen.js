@@ -14,7 +14,7 @@ export default class PracticeScreen extends Component {
         render() {
             return (
                 <SafeAreaView style={ styles.container }>
-                    <Text>Screen for Practce log</Text>
+                    <Text>Screen for Practice</Text>
                 </SafeAreaView>
             )    
         }
@@ -27,3 +27,4 @@ const styles = StyleSheet.create({    //styles for elements listed in Alphabetic
       backgroundColor:colors.white,
     }
 });
+
