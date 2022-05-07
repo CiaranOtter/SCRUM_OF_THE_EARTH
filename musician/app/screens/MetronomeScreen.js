@@ -11,22 +11,19 @@ import {
   TextInput,
   Button,
   Modal,
-  Picker,
+  // Picker,
   View,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { Audio } from "expo-av";
-
-import click1 from "../sounds/click1.mp3"; //objects and libraries imported from within our project
-import hardClick from "../sounds/hardClick.mp3";
 import colors from "../config/colors";
 
-const metronome = require("../classes/metronome.js");
+import { Picker } from "@react-native-picker/picker"
 
-let startstopText = "Start";
+const metronome = require("../classes/metronome.js");
+const Sound = require("react-native-sound");
+
+Sound.setCategory("Alarm")
+
 export default class MetronomeScreen extends Component {
-  // const[range, setRange] = useState('50%')
-  // const[sliding, setSliding] = useState('Inactive')
 
   constructor() {
     super();
@@ -34,7 +31,41 @@ export default class MetronomeScreen extends Component {
     this.MetronomeClass = new metronome();
     // this.navigation = navigation;
 
+    this.hardclick = new Sound('hardclick.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the hard click', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.hardclick.getDuration() + ' number of channels: ' + this.hardclick.getNumberOfChannels());
+    
+      // Play the sound with an onEnd callback
+      this.hardclick.play((success) => {
+        if (success) {
+          console.log('successfully finished playing');
+        } else {
+          console.log('playback failed due to audio decoding errors');
+        }
+      });
+    });
 
+    this.click1 = new Sound('click.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.click1.getDuration() + ' number of channels: ' + this.click1.getNumberOfChannels());
+    
+      // Play the sound with an onEnd callback
+      this.click1.play((success) => {
+        if (success) {
+          console.log('successfully finished playing');
+        } else {
+          console.log('playback failed due to audio decoding errors');
+        }
+      });
+    });
     //initial state of the app and its componets/functions
     // this.state = {
     //   playing: false, // there is nothing being played yet
@@ -48,17 +79,9 @@ export default class MetronomeScreen extends Component {
 
   //load the sound we're going to use for the metronome
   async componentDidMount() {
-    this.click1 = new Audio.Sound();
-    this.hardClick = new Audio.Sound();
-
-    //try to load the audio, and if it fails debug the error
-    try {
-      this.click1.loadAsync(require("../sounds/click1.mp3"));
-      this.hardClick.loadAsync(require("../sounds/hardClick.mp3"));
-    } catch (error) {
-      console.log("Failed to load metronome sounds: " + error);
-    }
+    
   }
+
 
   handleBeatsPerMeasureChange = (e) => {
     this.MetronomeClass.setBeatPerMeasure(e.target.value);
@@ -170,14 +193,29 @@ export default class MetronomeScreen extends Component {
   playClick = () => {
     const count = this.MetronomeClass.getCount();
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
-    console.log(count)
-    if (count % beatsPerMeasure === 0) {
-      this.hardClick.setPositionAsync(0); //reset the playback position of the Async so that the sound can play continuosly
-      this.hardClick.playAsync(); //play the sound
-    } else {
-      this.click1.setPositionAsync(0); //reset the playback position of the Async so that the sound can play continuosly
-      this.click1.playAsync(); //play the sound
-    }
+    console.log(count);
+    this.click1.setCurrentTime(0);
+    this.click1.play();
+    // if (count % beatsPerMeasure === 0) {
+    //   this.click1.setCurrentTime(0);
+    //   this.
+
+    //   this.click1.play((success) => {
+    //     if (success) {
+    //       console.log('successfully finished playing');
+    //     } else {
+    //       console.log('playback failed due to audio decoding errors');
+    //     }
+    //   }); //play the sound
+    // } else {
+    //   this.click1.play((success) => {
+    //     if (success) {
+    //       console.log('successfully finished playing');
+    //     } else {
+    //       console.log('playback failed due to audio decoding errors');
+    //     }
+    //   }); //play the sound
+    // }
     this.MetronomeClass.updateCount();
   };
 
@@ -281,8 +319,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: 'red',
   },
   bpmText: {
     paddingTop: "10%",

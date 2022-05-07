@@ -1,45 +1,45 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/stack";
-import {Button, View, Text, StyleSheet, Image, Picker, Switch, TouchableOpacity, SafeAreaView} from "react-native";
-import { Audio } from "expo-av";
+import {Button, View, Text, StyleSheet, Image, Switch, TouchableOpacity, SafeAreaView} from "react-native";
+import { Picker } from "@react-native-picker/picker"
+// import { Audio } from "expo-av";
 import logo from './6String.jpg';
-import {findPitch} from 'pitchy';
+// import {findPitch} from 'pitchy';
 
 //import React, {useState} from "react";
 
+import PitchTracker from 'react-native-pitch-tracker';
+
+
 import colors from "../config/colors";
 import {useState} from "react";
-import { PitchDetector } from "pitchy";
-import { Recording } from "expo-av/build/Audio";
+// import { PitchDetector } from "pitchy";
+// import { Recording } from "expo-av/build/Audio";
 
+const Sound = require('react-native-sound');
+Sound.setCategory('Alarm');
 
 export default function TunerScreen() {
-  const [recording, setRecording] = React.useState();
+  const [recording, setRecording] = useState(false);
   const [selectedValue, setSelectedValue] = useState("4String");
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
-  const low_E = new Audio.Sound();
-  const A_string = new Audio.Sound();
-  const D_string = new Audio.Sound();
-  const G_string = new Audio.Sound();
-  const B_string = new Audio.Sound();
-  const high_E = new Audio.Sound();
+  const low_e = new Sound ('tuner_low_e.m4a', Sound.MAIN_BUNDLE, (e) => {});
+  const high_e = new Sound ('tuner_high_e.m4a', Sound.MAIN_BUNDLE, (e) => {});
+  const a_string = new Sound ('tuner_a.m4a', Sound.MAIN_BUNDLE, (e) => {});
+  const d_string = new Sound ('tuner_d.m4a', Sound.MAIN_BUNDLE, (e) => {});
+  const g_string = new Sound ('tuner_g.m4a', Sound.MAIN_BUNDLE, (e) => {});
+  const b_string = new Sound ('tuner_b.m4a', Sound.MAIN_BUNDLE, (e) => {});
 
-  try {
-    low_E.loadAsync(require("../sounds/Tuner_low_E.m4a"));
-    A_string.loadAsync(require("../sounds/Tuner_A.m4a"));
-    D_string.loadAsync(require("../sounds/Tuner_D.m4a"));
-    G_string.loadAsync(require("../sounds/Tuner_G.m4a"));
-    B_string.loadAsync(require("../sounds/Tuner_B.m4a"));
-    high_E.loadAsync(require("../sounds/Tuner_high_E.m4a"));
-  } catch (error) {
-    console.log("Failed to load metronome sounds: " + error);
-  }
+  PitchTracker.prepare();
 
-  this.count = 0
-  this.duration = 0;
-
+  PitchTracker.noteOn((res) => {
+    console.log('Note On: ' + res['midiNum']);
+  }); // Note On: 60
+  PitchTracker.noteOff((res) => {
+    console.log('Note Off: ' + res['midiNum']);
+  });
 
   _onRecordingStatusUpdate = RecordingStatus => {
     if (!RecordingStatus.isLoaded) {
@@ -61,27 +61,27 @@ export default function TunerScreen() {
   };
 
   async function startRecording() {
-    try {
-      console.log("Requesting Permissions..");
-      await Audio.requestPermissionsAsync();
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: true,
-        playsInSilentModeIOS: true,
-        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-        playsInSilentModeIOS: true,
-        shouldDuckAndroid: true,
-        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-      });      
+    // try {
+    //   console.log("Requesting Permissions..");
+    //   await Audio.requestPermissionsAsync();
+    //   await Audio.setAudioModeAsync({
+    //     allowsRecordingIOS: true,
+    //     playsInSilentModeIOS: true,
+    //     interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+    //     playsInSilentModeIOS: true,
+    //     shouldDuckAndroid: true,
+    //     interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+    //   });      
 
-      console.log("Starting recording..");
-      this.recording = new Audio.Recording();
-      this.recording.setOnRecordingStatusUpdate(this._onRecordingStatusUpdate);
-      this.recording.setProgressUpdateInterval(200);
+    //   console.log("Starting recording..");
+    //   this.recording = new Audio.Recording();
+    //   this.recording.setOnRecordingStatusUpdate(this._onRecordingStatusUpdate);
+    //   this.recording.setProgressUpdateInterval(200);
 
-      await this.recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
-      setRecording(this.recording)
-      await this.recording.startAsync();
-      console.log("Recording started");
+    //   await this.recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
+    //   setRecording(this.recording)
+    //   await this.recording.startAsync();
+    //   console.log("Recording started");
 
     //   console.log("Starting recording..");
     //   const { recording: recording, status } = await Audio.Recording.createAsync(
@@ -91,55 +91,62 @@ export default function TunerScreen() {
     //   recording.setOnRecordingStatusUpdate(() => {updateRecording})
     //   await recording.startAsync()
     //   console.log("Recording started");
-    } catch (error) {
-      console.error("Failed to start recording", error);
-    } 
+    // } catch (error) {
+    //   console.error("Failed to start recording", error);
+    // } 
+    setRecording(true);
+    PitchTracker.start()
   }
 
   function playString(note) {
 
     switch (note){
       case "A":
-        A_string.setPositionAsync(0);
-        A_string.playAsync();
+        a_string.stop();
+        a_string.play();
         break;
       case "D":
-        D_string.setPositionAsync(0);
-        D_string.playAsync();
+        d_string.stop();
+        d_string.play()
         break;
       case "G":
-        G_string.setPositionAsync(0);
-        G_string.playAsync();
+        g_string.stop();
+        g_string.play()
         break;
       case "B":
-        B_string.setPositionAsync(0);
-        B_string.playAsync();
+        b_string.stop();
+        b_string.play()
         break;
       case "high_E":
-        high_E.setPositionAsync(0);
-        high_E.playAsync();
+        high_e.stop();
+        high_e.play()
         break;
       case "low_E":
-        low_E.setPositionAsync(0);
-        low_E.playAsync();
+        low_e.stop();
+        low_e.play();
         break;
     }
     
   }
   
   async function stopRecording() {
-    console.log("Stopping recording..");
-    setRecording(undefined);
-    await recording.stopAndUnloadAsync();
-    const uri = recording.getURI();
-    console.log("Recording stopped and stored at", uri);
+  //   console.log("Stopping recording..");
+  //   setRecording(undefined);
+  //   await recording.stopAndUnloadAsync();
+  //   const uri = recording.getURI();
+  //   console.log("Recording stopped and stored at", uri);
+  console.log("recording is: "+recording);
+
+  setRecording(false);
+  console.log("stopping pitch tracker... ");
+  PitchTracker.stop();
   }
 
-  function updatePitch(analyserNode,sampleRate){
-    let data = new Float32Array(analyserNode.fftSize);
-    analyserNode.getFloatTimeDomainData(data);
-    let[pitch, clarity] = findPitch(data, sampleRate);
-  }
+  // function updatePitch(analyserNode,sampleRate){
+  //   let data = new Float32Array(analyserNode.fftSize);
+  //   analyserNode.getFloatTimeDomainData(data);
+  //   let[pitch, clarity] = findPitch(data, sampleRate);
+  // }
 
   return (
     <SafeAreaView style={styles.container}>
