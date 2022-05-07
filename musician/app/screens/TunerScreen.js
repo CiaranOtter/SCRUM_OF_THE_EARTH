@@ -6,8 +6,6 @@ import { Audio } from "expo-av";
 import logo from './6String.jpg';
 import {findPitch} from 'pitchy';
 
-
-
 import colors from "../config/colors";
 import {useState} from "react";
 import { PitchDetector } from "pitchy";

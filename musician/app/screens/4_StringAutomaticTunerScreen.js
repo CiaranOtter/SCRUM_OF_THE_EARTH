@@ -44,6 +44,7 @@ export default class _4SATuner extends Component {
             return this.state.tuner_type[1]
         }
         else if(selectedItem == this.state.tuner_type[2]){
+            this.props.navigation.dispatch(StackActions.replace('Chromatic'));
             return this.state.tuner_type[2]
         }
     }
@@ -51,7 +52,7 @@ export default class _4SATuner extends Component {
     render(){
         return (
             <SafeAreaView style={styles.container}>
-                <TouchableOpacity style={{marginTop:120, marginLeft:20}}>
+                <TouchableOpacity style={{marginTop:160, marginLeft:20}}>
                     <SelectDropdown 
                         data={this.state.tuner_type}
                         onSelect={() => {}}
@@ -70,7 +71,7 @@ export default class _4SATuner extends Component {
 
                 <TouchableOpacity
                     style={[styles.TypeButtonStyle, 
-                            {marginTop:-45, marginLeft: 225}]}
+                            {marginTop:-45, marginLeft: 190}]}
                     onPress={()=>this.props.navigation.dispatch(StackActions.replace('4SMTuner'))}
                 >
                     <Text style={styles.TextStyle}>Manual</Text>
@@ -78,7 +79,7 @@ export default class _4SATuner extends Component {
 
                 <TouchableOpacity
                     style={[styles.TypeButtonStyle, 
-                        {width:90, marginTop:-40, marginLeft: 300}]}
+                        {width:90, marginTop:-40, marginLeft: 265}]}
                     onPress={()=>this.props.navigation.dispatch(StackActions.replace('4SATuner'))}
                 >
                     <Text style={styles.TextStyle}>Automatic</Text>
@@ -89,7 +90,7 @@ export default class _4SATuner extends Component {
                 </View>
 
                 <TouchableOpacity
-                    style={styles.RecordingButton}
+                    style={[styles.RecordingButton, {marginLeft: 250}]}
                     activeOpacity = {.9} 
                     onPress={this.record}
                 >
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
     TypeButtonStyle: {
         width:70,
         height:40,
-        backgroundColor: '#55B7AD',
+        backgroundColor: '#55B7AD'
     },
     RecordingButton: {
         width:90, 

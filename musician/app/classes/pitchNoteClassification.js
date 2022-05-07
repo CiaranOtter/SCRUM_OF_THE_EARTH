@@ -4,9 +4,9 @@ module.exports = class pitchNoteClassification {
     constructor() {
         this.noteClass = new noteClass();
 
-        this.note = "A4",
-        this.pitch = 440,
-        this.classification = "The Note is In-Tune"
+        this.note = "--",
+        this.pitch = 0,
+        this.classification = "--"
     }
 
     // name the note that is being played, by using the pitch/frequency given
