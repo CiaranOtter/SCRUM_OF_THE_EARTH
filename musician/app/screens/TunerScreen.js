@@ -9,15 +9,14 @@ import ChromaticTuner from "./ChromaticTuner";
 import StringTuner from "./StringTuner";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-//import React, {useState} from "react";
-
 import colors from "../config/colors";
 import {useState} from "react";
 import { PitchDetector } from "pitchy";
 import StringTuner from "./StringTuner";
 
 export default function TunerScreen() {
-  const [recording, setRecording] = React.useState();
+  const [recording, setRecording] = React.useState();   //the recording recorded in this session
+  const [recordings,setRecordings] = React.useState([]);
   const [selectedValue, setSelectedValue] = useState("4String");
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
@@ -27,30 +26,58 @@ export default function TunerScreen() {
   async function startRecording() {
     try {
       console.log("Requesting Permissions..");
-      await Audio.requestPermissionsAsync();
+      await Audio.requestPermissionsAsync();   //request access to the mic
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
       });      
 
-      console.log("Starting recording..");
-      const { recording } = await Audio.Recording.createAsync(
+      //console.log("Starting recording..");
+      const { recording } = await Audio.Recording.createAsync(  
         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
       );
 
       setRecording(recording);
       console.log("Recording started");
     } catch (error) {
-      console.error("Failed to start recording", err);
+      console.error("Failed to start recording", err);  //debug whatever error occurs while trying to record
     }
   }
 
   async function stopRecording() {
     console.log("Stopping recording..");
-    setRecording(undefined);
-    await recording.stopAndUnloadAsync();
-    const uri = recording.getURI();
-    console.log("Recording stopped and stored at", uri);
+    setRecording(undefined);  
+    await recording.stopAndUnloadAsync();  //stop recording
+
+    let updateRecordings = [...recordings];
+    const {sound, status} = await recording.createNewLoadedSoundAsync();
+    updateRecordings.push({
+      sound:sound,
+      duration: getDurationFormatted(status.durationMillis),
+      file: recording.getURI()
+    });
+    // const uri = recording.getURI();
+    // console.log("Recording stopped and stored at", uri);
+    setRecordings(updateRecordings);
+  }
+
+  function getDurationFormatted(millis){
+    const minutes = millis/1000/60;
+    const minuteDisplay = Math.floor(minutes);
+    const seconds = Math.round((minutes-minuteDisplay)*60);
+    const secondsDisplay = seconds <10? `0${seconds}` :seconds;
+    return `${minuteDisplay} : ${secondsDisplay}`;
+  }
+
+  function getRecordingLines() {
+    return recordings.map((recordingLine, index) => {
+      return (
+        <View key={index} style={styles.row}>
+          <Text style={styles.fill}>Recording {index + 1} - {recordingLine.duration}</Text>
+          <Button style={styles.button} onPress={() => recordingLine.sound.replayAsync()} title="Play"></Button>
+        </View>
+      );
+    });
   }
 
   function updatePitch(analyserNode,sampleRate){
@@ -60,7 +87,7 @@ export default function TunerScreen() {
   }
 
   function detectPitch(){
-    
+  
   }
 
   return (
@@ -74,11 +101,9 @@ export default function TunerScreen() {
       />
       
       <Button
-        title={recording ? "Stop Recording" : "Start Recording"}
-
-        onPress={recording ? stopRecording : startRecording}
-
-      />
+        title={recording ? 'Stop Recording' : 'Start Recording'}
+        onPress={recording ? stopRecording : startRecording} />
+      {getRecordingLines()}
 
       <Image source={logo} style={styles.logo}/>
 
@@ -172,6 +197,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  button: {
+    margin: 16
+  },
+
   logo: {
     width: 220,
     height: 550,
@@ -253,7 +282,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 250,
     color:"red",
-    bottom: 370,
+    bottom: "53%",
     left: 70,
 
 
@@ -261,7 +290,7 @@ const styles = StyleSheet.create({
 
 
   switch:{
-    bottom:465,
+    bottom:"65%",
 
   },
 

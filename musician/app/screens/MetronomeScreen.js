@@ -34,8 +34,6 @@ export default class MetronomeScreen extends Component {
     this.MetronomeClass = new metronome();
     // this.navigation = navigation;
 
-    this.MetronomeClass = new metronome();
-
     //initial state of the app and its componets/functions
     // this.state = {
     //   playing: false, // there is nothing being played yet
@@ -187,6 +185,8 @@ export default class MetronomeScreen extends Component {
     const playing = this.MetronomeClass.isPlaying();
     const bpm = this.MetronomeClass.getBPM();
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
+    const tempoText = this.MetronomeClass.getTempoText();
+
     return (
       <SafeAreaView style={styles.container} forceInset={{ top: 'never'}}>
         
@@ -269,7 +269,7 @@ export default class MetronomeScreen extends Component {
             //bpm text
             style={styles.speedText}
           >
-            {this.MetronomeClass.getTempoText}
+            {tempoText}
           </Text>
         </ImageBackground>
       </SafeAreaView>
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     borderColor: 'red',
   },
   bpmText: {
-    paddingTop: "10%",
+    paddingTop: "3%",
     color: colors.black,
     fontSize: 15,
     width: '100%',
@@ -308,20 +308,20 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     fontSize: 20,
-    paddingLeft: 20,
+    padding: 8,
     color: colors.black,
   },
   metronomeImage: {
-    // margin:10,
-    // width: "100%",
-    // height: "90%",
+    marginLeft:10,
+    width: "98%",
+    height: "88%",
     alignItems: "center",
   },
   pickerMenu: {
     borderWidth: 1,
     borderColor: colors.black,
     paddingTop: 50,
-    marginTop: 20,
+    marginTop: 5,
     width: 200,
     fontSize: 15,
     color: colors.black,
@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
   },
 
   timeSignatureText: {
-    paddingTop: 400,
+    paddingTop: 375,
     color: "#ffffff",
     fontSize: 20,
     justifyContent: "center",

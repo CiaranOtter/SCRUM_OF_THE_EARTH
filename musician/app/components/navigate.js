@@ -2,7 +2,7 @@ import React, { Component, createFactory } from 'react';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 // import { createStackNavigator } from '@react-navigation/stack';
 import MetronomeScreen from '../screens/MetronomeScreen';
-import TunerScreen from '../screens/TunerScreen';
+import _4SMTunerScreen from '../screens/4_StringManualTunerScreen';
 
 import { Button, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -18,7 +18,7 @@ export default class Navigator extends Component{
     }
 
     openTuner = (e) => {
-        this.Page = <TunerScreen></TunerScreen>
+        this.Page = <_4SMTunerScreen/>
         this.render();
         console.log("Running change page");
     }
