@@ -56,7 +56,7 @@ export default class ChromaticScreen extends Component{
                 }}
                 defaultButtonText={this.state.tuner_type[2]}
                 buttonStyle={styles.DropDownStyle}
-                buttonTextStyle={{fontSize:15}}
+                buttonTextStyle={styles.textStyle}
                 rowTextStyle={{fontSize: 15}}
             />
         </TouchableOpacity>
@@ -90,5 +90,11 @@ const styles = StyleSheet.create({
   frequency: {
     fontSize: 30,
     color: '#55B7AD'
-  }
+  },
+    textStyle:{
+      fontSize:15,
+        color:'white',
+        fontWeight:'bold',
+
+    },
 });

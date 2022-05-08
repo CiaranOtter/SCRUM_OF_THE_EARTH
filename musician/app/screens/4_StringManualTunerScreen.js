@@ -116,25 +116,25 @@ export default class _4SMTuner extends Component {
                         }}
                         defaultButtonText={this.state.tuner_type[0]}
                         buttonStyle={styles.DropDownStyle}
-                        buttonTextStyle={{fontSize:15}}
+                        buttonTextStyle={styles.drops}
                         rowTextStyle={{fontSize: 15}}
                     />
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[styles.TypeButtonStyle, 
+                    style={[styles.TypeButtonStyle,
                             {marginTop:-45, marginLeft: 190}]}
                     onPress={()=>this.props.navigation.dispatch(StackActions.replace('4SMTuner'))}
                 >
-                    <Text style={[styles.TextStyle, {margin:7}]}>Manual</Text>
+                    <Text style={[styles.TextStyle2, {margin:7}]}>Manual</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[styles.TypeButtonStyle, 
+                    style={[styles.TypeButtonStyle,
                         {width:90, marginTop:-40, marginLeft: 265}]}
                     onPress={()=>this.props.navigation.dispatch(StackActions.replace('4SATuner'))}
                 >
-                    <Text style={[styles.TextStyle, {margin:7}]}>Automatic</Text>
+                    <Text style={[styles.TextStyle2, {margin:7}]}>Automatic</Text>
                 </TouchableOpacity>
 
                 <ImageBackground source={require('../../assets/4String.png')} resizeMode='contain' style={styles.Tunerstyle}>
@@ -197,6 +197,15 @@ const styles = StyleSheet.create({
     },
     TextStyle: {
         margin: 12,
+
+        alignSelf: 'center',
+    },
+
+    TextStyle2: {
+        margin: 12,
+        color:'white',
+        fontSize: 15,
+        fontWeight: 'bold',
         alignSelf:'center',
     },
     Tunerstyle: {
@@ -210,5 +219,11 @@ const styles = StyleSheet.create({
         width:70,
         height:40,
         backgroundColor: '#55B7AD'
+    },
+    drops:{
+        fontSize: 15,
+        color: "white",
+        fontWeight: 'bold',
+
     },
 });

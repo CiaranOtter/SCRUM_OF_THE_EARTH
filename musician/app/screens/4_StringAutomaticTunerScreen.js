@@ -168,6 +168,12 @@ const styles = StyleSheet.create({
         height:40,
         backgroundColor: '#55B7AD'
     },
+    drops:{
+        fontSize: 15,
+        color: "white",
+        fontWeight: 'bold',
+
+    },
     RecordingButton: {
         width:90, 
         height: 55,
@@ -188,7 +194,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#d4f3ee',
     },
     TextStyle: {
-        margin: 7,
-        textAlign: 'center'
+        fontSize: 15,
+        // position:'absolute',
+        color: "white",
+        fontWeight: 'bold',
+        textAlign: 'center',
     }
 });
