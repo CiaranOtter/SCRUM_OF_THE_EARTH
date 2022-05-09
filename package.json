@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/CiaranOtter/SCRUM_OF_THE_EARTH#readme",
   "dependencies": {
-    "coverage-badge-creator": "^1.0.11"
+    "coverage-badge-creator": "^1.0.11",
+    "react-native-cli": "^2.0.1"
   }
 }
