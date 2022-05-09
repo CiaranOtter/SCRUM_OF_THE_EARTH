@@ -5,7 +5,7 @@ import { StackActions } from "@react-navigation/native";
 
 export default class _4SATuner extends Component {
 
-    
+    // Constructing class and initializing state and dropdown data
     constructor(){
         super();
         this.state = {
@@ -14,26 +14,29 @@ export default class _4SATuner extends Component {
         }
     }
 
+    // Called to play E String soudn back to user 
     SoundEButton = () => {
         this.setState({playedNote: "E"});
     }
-
+    // Called to play A String soudn back to user 
     SoundAButton = () => {
         this.setState({playedNote: "A"});
     }
-
+    // Called to play D String soudn back to user 
     SoundDButton = () => {
         this.setState({playedNote: "D"});
     }
-
+    // Called to play G String soudn back to user 
     SoundGButton = () => {
         this.setState({playedNote: "G"});
     }
-
+    
+    // Claaed to make a request to record
     record = () => {
         Alert.alert("recording");
     }
 
+    // Funtion to change scrive screens based on (selectedItem) the user's choice
     selectedTuner = (selectedItem) =>{
         if(selectedItem == this.state.tuner_type[0]){
             this.props.navigation.dispatch(StackActions.replace('4SMTuner'));
@@ -53,6 +56,7 @@ export default class _4SATuner extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <TouchableOpacity style={{marginTop:160, marginLeft:20}}>
+                    {/* Drrop down choice menu */}
                     <SelectDropdown 
                         data={this.state.tuner_type}
                         onSelect={() => {}}
@@ -69,6 +73,7 @@ export default class _4SATuner extends Component {
                     />
                 </TouchableOpacity>
 
+                {/* Button to select manual tuner */}
                 <TouchableOpacity
                     style={[styles.TypeButtonStyle, 
                             {marginTop:-45, marginLeft: 190}]}
@@ -77,6 +82,7 @@ export default class _4SATuner extends Component {
                     <Text style={styles.TextStyle}>Manual</Text>
                 </TouchableOpacity>
 
+                {/* Button to select the Automatic version of the tuner */}
                 <TouchableOpacity
                     style={[styles.TypeButtonStyle, 
                         {width:90, marginTop:-40, marginLeft: 265}]}
@@ -89,6 +95,7 @@ export default class _4SATuner extends Component {
                     <Text style={[styles.TextStyle, {margin:20, fontSize:30}]}>{this.state.playedNote}</Text>
                 </View>
 
+                {/* Button to start making a request to reord */}
                 <TouchableOpacity
                     style={[styles.RecordingButton, {marginLeft: 250}]}
                     activeOpacity = {.9} 
@@ -97,7 +104,10 @@ export default class _4SATuner extends Component {
                     <Text style={[styles.TextStyle, {fontSize:11}]}>Start Recording</Text>
                 </TouchableOpacity>
 
+
+                {/* $ String background image for the tuner app */}
                 <ImageBackground source={require('../../assets/4String.png')} resizeMode='contain' style={styles.Tunerstyle}>
+                    {/* Button to play the E String sound */}
                     <TouchableOpacity 
                         style={[styles.SoundButtonStyle,
                                 {marginTop:35, marginLeft: 130}]} 
@@ -106,6 +116,8 @@ export default class _4SATuner extends Component {
                     >
                         <Text style={styles.TextStyle}>E</Text>
                     </TouchableOpacity>
+
+                    {/* Button to play the A String sound */}
                     <TouchableOpacity 
                         style={[styles.SoundButtonStyle, 
                                 {marginTop:25, marginLeft: 85}]} 
@@ -114,6 +126,8 @@ export default class _4SATuner extends Component {
                     >
                         <Text style={styles.TextStyle}>A</Text>
                     </TouchableOpacity>
+
+                    {/* Button to play the D String sound */}
                     <TouchableOpacity 
                         style={[styles.SoundButtonStyle,
                                 {marginTop:25, marginLeft: 50}]} 
@@ -122,6 +136,8 @@ export default class _4SATuner extends Component {
                     >
                         <Text style={styles.TextStyle}>D</Text>
                     </TouchableOpacity>
+
+                    {/* Button to play the G String sound */}
                     <TouchableOpacity 
                         style={[styles.SoundButtonStyle, 
                                 {marginTop:20, marginLeft: 15}]} 
@@ -135,6 +151,8 @@ export default class _4SATuner extends Component {
         )
     }
 }
+
+// styles 
 
 const styles = StyleSheet.create({
     container: {
