@@ -25,9 +25,9 @@ jobs:
           name: "Generate badges from coverage-summary.json"
           command: "npm run badges"
 
-      - run:
-          name: "Build android app" 
-          command: "cd musician;sudo npm i -g --force react-native-cli;sudo npm i -g react-native;react-native run-android"
+      # - run:
+      #     name: "Build android app" 
+      #     command: "cd musician;sudo npm i -g --force react-native-cli;sudo npm i -g react-native;react-native run-android"
 
 
 workflows:
