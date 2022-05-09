@@ -23,6 +23,8 @@ target 'musician' do
 
   pod 'RNSound', :path => '../node_modules/react-native-sound'
 
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'musicianTests' do
     inherit! :complete
     # Pods for testing
