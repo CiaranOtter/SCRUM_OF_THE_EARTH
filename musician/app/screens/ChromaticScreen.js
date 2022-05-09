@@ -1,3 +1,5 @@
+// making needed imports
+
 import React, {Component, useState} from 'react';
 import {StyleSheet, SafeAreaView, Text, TouchableOpacity} from 'react-native';
 //import {ImageBackground, SafeAreaView, StyleSheet, TouchableOpacity, Alert, View } from "react-native";
@@ -10,6 +12,8 @@ import colors from '../config/colors';
 const pitchNoteC = require('../classes/pitchNoteClassification.js');
 
 export default class ChromaticScreen extends Component {
+  
+  // comstructin class and initilizing states
   constructor() {
     super();
 
@@ -24,13 +28,16 @@ export default class ChromaticScreen extends Component {
       note: note,
     };
 
+    // Preparing the Ptchtracker to begin listening to sounds from the microphone
     PitchTracker.prepare();
 
+    // Setting the callback fucntion for PitcTracker to run when a note goes off
     PitchTracker.noteOff(res => {
       console.log(res);
 
       const pitch = res['midiNum'] * 10;
 
+      // setting the state of the detetcted sound (pitch and note class)
       this.setState({
         note: this.pitchNoteClass.getNote(pitch),
         NoteClass: this.pitchNoteClass.getClassification(pitch),
@@ -40,11 +47,13 @@ export default class ChromaticScreen extends Component {
       console.log('note: ' + this.state.note);
     });
 
+    // setting callback function to be run when Pitchtrack starts hearinga sound 
     PitchTracker.noteOn(res => {
       console.log(res);
 
       const pitch = res['midiNum'] * 10;
 
+      // setting the state for the detected sound
       this.setState({
         note: this.pitchNoteClass.getNote(pitch),
         NoteClass: this.pitchNoteClass.getClassification(pitch),
@@ -54,13 +63,16 @@ export default class ChromaticScreen extends Component {
       console.log('note: ' + this.state.note);
     });
 
+    // Starting the pitch tracker to begin listening to sounds
     PitchTracker.start();
   }
 
+  // stop the pitch tune from listening when the class is released 
   endTunerSession = () => {
     PitchTracker.stop();
   };
 
+  // selcting the net active screen adn running this functio to change between them
   selectedTuner = selectedItem => {
     PitchTracker.stop();
     if (selectedItem == this.state.tuner_type[0]) {
@@ -83,6 +95,7 @@ export default class ChromaticScreen extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <TouchableOpacity style={{marginTop: -100, marginLeft: -160}}>
+          {/* dropdown menu for selecting the tuner type */}
           <SelectDropdown
             data={this.state.tuner_type}
             onSelect={() => {}}
@@ -98,14 +111,18 @@ export default class ChromaticScreen extends Component {
             rowTextStyle={{fontSize: 15}}
           />
         </TouchableOpacity>
+        {/* display the note name rom the detected sound */}
         <Text style={styles.title}>{this.state.note}</Text>
-        <Text style={styles.frequency}>{this.state.pitch}Hz</Text>
+        {/* display the detected frequency */}
+         <Text style={styles.frequency}>{this.state.pitch}Hz</Text>
+        {/* display the classification of the note (sharp, in-tune or flat) */}
         <Text style={styles.indicator}>{this.state.NoteClass}</Text>
       </SafeAreaView>
     );
   }
 }
 
+// styles for the chromatc tuner screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
