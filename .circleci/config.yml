@@ -26,7 +26,7 @@ jobs:
           command: "npm run badges"
 
       - run:
-          name: "Build android app"
+          name: "Build android app" 
           command: "cd musician;sudo npm i -g --force react-native-cli;sudo npm i -g react-native;react-native run-android"
 
 
