@@ -27,7 +27,7 @@ jobs:
 
       - run:
           name: "Build android app"
-          command: "cd musician;sudo npm i -g react-native-cli;sudo npm i -g react-native;react-native bundle --dev false --platform android --entry-file index.android.js --bundle-output ./android/app/build/intermediates/assets/debug/index.android.bundle --assets-dest ./android/app/build/intermediates/res/merged/debug"
+          command: "cd musician;sudo npm i -g --force react-native-cli;sudo npm i -g react-native;react-native bundle --dev false --platform android --entry-file index.android.js --bundle-output ./android/app/build/intermediates/assets/debug/index.android.bundle --assets-dest ./android/app/build/intermediates/res/merged/debug"
 
 
 workflows:
