@@ -31,7 +31,7 @@ export default class TunerScreen extends Component {
     this.state = {
       tuner_type: ['4 String Tuner', '6 String Tuner', 'Chromatic Tuner'],
       recording: false,
-      isEnabled: false,
+      isEnabled: true,
     };
 
     PitchTracker.prepare();
@@ -141,6 +141,8 @@ export default class TunerScreen extends Component {
         <View style={styles.toggleElements}>
           <View style={styles.switchMA}>
             <Switch
+              activeTextStyle={styles.drops}
+              inactiveTextStyle={styles.drops}
               value={this.state.isEnabled}
               onValueChange={this.toggleSwitch}
               disabled={false}
@@ -151,8 +153,8 @@ export default class TunerScreen extends Component {
               circleBorderWidth={3}
               backgroundActive={colors.sixStringButtonFill}
               backgroundInactive={colors.pressableElement}
-              circleActiveColor={colors.sixStringAutoBG}
-              circleInActiveColor={colors.sixStringAutoBG}
+              circleActiveColor={colors.black}
+              circleInActiveColor={colors.black}
               //renderInsideCircle={() => <CustomComponent />} // custom component to render inside the Switch circle (Text, Image, etc.)
               changeValueImmediately={true} // if rendering inside circle, change state immediately or wait for animation to complete
               //innerCircleStyle={{alignItems: 'center', justifyContent: 'center'}} // style for inner animated circle for what you (may) be rendering inside the circle
@@ -170,7 +172,7 @@ export default class TunerScreen extends Component {
                 data={this.state.tuner_type}
                 onSelect={() => {}}
                 buttonTextAfterSelection={(selectedItem, index) => {
-                  return this.selectedTuner(selectedItem);
+                  return this.selectTuner(selectedItem);
                 }}
                 rowTextForSelection={(item, index) => {
                   return item;
@@ -313,12 +315,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    color: 'white',
+    color: colors.black,
     fontWeight: 'bold',
   },
   DropDownStyle: {
     width: 150,
-    backgroundColor: colors.pressableElement,
+    backgroundColor: colors.userInputElement,
     height: 40,
     marginRight: -235,
     bottom: 40,
@@ -328,7 +330,7 @@ const styles = StyleSheet.create({
   },
   drops: {
     fontSize: 15,
-    color: 'white',
+    color: colors.black,
     fontWeight: 'bold',
   },
   guitarImage: {
@@ -351,7 +353,8 @@ const styles = StyleSheet.create({
   },
   toggleElements: {
     flex: 1,
-    bottom: 420,
+    bottom: 440,
+    //top: 20,
   },
   TypeButtonStyle: {
     width: 70,

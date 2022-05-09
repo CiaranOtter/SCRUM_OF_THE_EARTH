@@ -8,4 +8,6 @@ export default {
   sixStringButtonFill: '#8091B2',
   sixStringToggleBg: '#DCDEE0',
   sixStringAutoBG: '#6B6E77',
+  fourStringToggleBG: '#383A3B',
+  fourStringGrey: '#DCDEE0',
 };
