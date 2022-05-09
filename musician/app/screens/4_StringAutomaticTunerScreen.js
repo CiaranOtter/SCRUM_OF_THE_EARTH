@@ -60,7 +60,7 @@ export default class _4SATuner extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <TouchableOpacity style={{marginTop:160, marginLeft:20}}>
-                    // screen selector dropdown 
+                    {/* screen selector dropdown */}
                     <SelectDropdown 
                         data={this.state.tuner_type}
                         onSelect={() => {}}
@@ -77,7 +77,7 @@ export default class _4SATuner extends Component {
                     />
                 </TouchableOpacity>
 
-                // Button that switches to the Manual tuner for the 4 string tuner
+                {/* Button that switches to the Manual tuner for the 4 string tuner */}
                 <TouchableOpacity
                     style={[styles.TypeButtonStyle, 
                             {marginTop:-45, marginLeft: 190}]}
@@ -86,7 +86,7 @@ export default class _4SATuner extends Component {
                     <Text style={styles.TextStyle}>Manual</Text>
                 </TouchableOpacity>
 
-                // Button that switches to the Automatic tuner for the 4 string tuner 
+                {/* Button that switches to the Automatic tuner for the 4 string tuner  */}
                 <TouchableOpacity
                     style={[styles.TypeButtonStyle, 
                         {width:90, marginTop:-40, marginLeft: 265}]}
@@ -99,7 +99,7 @@ export default class _4SATuner extends Component {
                     <Text style={[styles.TextStyle, {margin:20, fontSize:30}]}>{this.state.playedNote}</Text>
                 </View>
 
-                // Button for user to request to begin recording
+                {/* Button for user to request to begin recording */}
                 <TouchableOpacity
                     style={[styles.RecordingButton, {marginLeft: 250}]}
                     activeOpacity = {.9} 
@@ -108,7 +108,7 @@ export default class _4SATuner extends Component {
                     <Text style={[styles.TextStyle, {fontSize:11}]}>Start Recording</Text>
                 </TouchableOpacity>
 
-                // 4 String tuner background image
+                {/* 4 String tuner background image */}
                 <ImageBackground source={require('../../assets/4String.png')} resizeMode='contain' style={styles.Tunerstyle}>
                     // Button to play the sound for the E string
                     <TouchableOpacity 
@@ -120,7 +120,7 @@ export default class _4SATuner extends Component {
                         <Text style={styles.TextStyle}>E</Text>
                     </TouchableOpacity>
     
-                    // Button to play the sound for the A string
+                    {/* Button to play the sound for the A string */}
                     <TouchableOpacity 
                         style={[styles.SoundButtonStyle, 
                                 {marginTop:25, marginLeft: 85}]} 
@@ -130,7 +130,7 @@ export default class _4SATuner extends Component {
                         <Text style={styles.TextStyle}>A</Text>
                     </TouchableOpacity>
 
-                    // Button to play the sound for the D string
+                    {/* Button to play the sound for the D string */}
                     <TouchableOpacity 
                         style={[styles.SoundButtonStyle,
                                 {marginTop:25, marginLeft: 50}]} 
@@ -140,7 +140,7 @@ export default class _4SATuner extends Component {
                         <Text style={styles.TextStyle}>D</Text>
                     </TouchableOpacity>
 
-                    // Button to play the sound for the G string
+                    {/* Button to play the sound for the G string */}
                     <TouchableOpacity 
                         style={[styles.SoundButtonStyle, 
                                 {marginTop:20, marginLeft: 15}]} 
