@@ -35,7 +35,9 @@ export default class _4SMTuner extends Component {
     this.b_string = new Sound('tuner_b.m4a', Sound.MAIN_BUNDLE, e => {});
   } //end async function
 
-  toggleSwitch = () => this.setState({isEnabled: !this.state.isEnabled});
+  //toggleSwitch = () => this.setState({isEnabled: !this.state.isEnabled});
+  toggleSwitch = () =>
+    this.props.navigation.dispatch(StackActions.replace('4SATuner'));
 
   //functions to play each note--Needs to be abstacted
 

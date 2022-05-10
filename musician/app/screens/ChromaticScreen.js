@@ -12,7 +12,6 @@ import colors from '../config/colors';
 const pitchNoteC = require('../classes/pitchNoteClassification.js');
 
 export default class ChromaticScreen extends Component {
-  
   // comstructin class and initilizing states
   constructor() {
     super();
@@ -47,7 +46,7 @@ export default class ChromaticScreen extends Component {
       console.log('note: ' + this.state.note);
     });
 
-    // setting callback function to be run when Pitchtrack starts hearinga sound 
+    // setting callback function to be run when Pitchtrack starts hearinga sound
     PitchTracker.noteOn(res => {
       console.log(res);
 
@@ -67,7 +66,7 @@ export default class ChromaticScreen extends Component {
     PitchTracker.start();
   }
 
-  // stop the pitch tune from listening when the class is released 
+  // stop the pitch tune from listening when the class is released
   endTunerSession = () => {
     PitchTracker.stop();
   };
@@ -114,7 +113,7 @@ export default class ChromaticScreen extends Component {
         {/* display the note name rom the detected sound */}
         <Text style={styles.title}>{this.state.note}</Text>
         {/* display the detected frequency */}
-         <Text style={styles.frequency}>{this.state.pitch}Hz</Text>
+        <Text style={styles.frequency}>{this.state.pitch}Hz</Text>
         {/* display the classification of the note (sharp, in-tune or flat) */}
         <Text style={styles.indicator}>{this.state.NoteClass}</Text>
       </SafeAreaView>
@@ -122,7 +121,7 @@ export default class ChromaticScreen extends Component {
   }
 }
 
-// styles for the chromatc tuner screen
+// styles for the chromatic tuner screen listed in alphabetical order
 const styles = StyleSheet.create({
   container: {
     flex: 1,
