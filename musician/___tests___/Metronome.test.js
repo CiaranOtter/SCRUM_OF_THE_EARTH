@@ -13,8 +13,8 @@ const metronome = require("../app/classes/metronome.js")
         { id: 3, beatsPerMeasure: 4 },
       ];
   
-      expect(TestMetronome.setBeatPerMeasure(input)).toEqual(input);
-  
+      // expect(TestMetronome.setBeatPerMeasure(input)).toEqual(input);
+      expect(TestMetronome.setBeatPerMeasure(input)).toEqual("5")
     });
 
     test("Testing the metronome's ability to retrieve the beats per measure", () => {
@@ -27,7 +27,8 @@ const metronome = require("../app/classes/metronome.js")
       
       input.forEach((e) => {
         TestMetronome.setBeatPerMeasure(e.beatsPerMeasure);
-        expect(TestMetronome.getBeatsPerMeasure()).toEqual(e.beatsPerMeasure)
+        // expect(TestMetronome.getBeatsPerMeasure()).toEqual(e.beatsPerMeasure)
+        expect(TestMetronome.getBeatsPerMeasure()).toEqual("test")
       })
     })
 
@@ -39,7 +40,8 @@ const metronome = require("../app/classes/metronome.js")
             { id: 3, BPM: 120 },
           ];
 
-        expect(TestMetronome.setBPM(input)).toEqual(input)
+        // expect(TestMetronome.setBPM(input)).toEqual(input)
+        expect(TestMetronome.setBPM(input)).toEqual("test")
     });
 
     test("Testing the metronome's ability to retrieve the BPM", () => {
@@ -52,7 +54,7 @@ const metronome = require("../app/classes/metronome.js")
 
       input.forEach((e) => {
           TestMetronome.setBPM(e.BPM)
-          expect(TestMetronome.getBPM()).toEqual(e.BPM);
+          expect(TestMetronome.getBPM()).toEqual("Test");
       })
     })
 
@@ -72,16 +74,17 @@ const metronome = require("../app/classes/metronome.js")
         ];
 
         values.forEach((e) => {
-            expect(TestMetronome.calcTempoText(e.input)).toEqual(e.tempoText);
-            expect(TestMetronome.getTempoText()).toEqual(e.tempoText)
+            expect(TestMetronome.calcTempoText(e.input)).toEqual("test");
+            expect(TestMetronome.getTempoText()).toEqual("test")
         });
         
     });
 
 
     test("Testing the metronome's ability to set the state of playing", () => {
-        expect(TestMetronome.setPlaying(true)).toEqual(true);
-        expect(TestMetronome.setPlaying(false)).toEqual(false);
+        // expect(TestMetronome.setPlaying(true)).toEqual(true);
+        // expect(TestMetronome.setPlaying(false)).toEqual(false);
+        expect(TestMetronome.setPlaying(false)).toEqual("test")
     });
 
     test("Testing the metronome's ability to set the count", () => {
@@ -92,7 +95,7 @@ const metronome = require("../app/classes/metronome.js")
             {id: 3, count: 3}
         ]
 
-        expect(TestMetronome.setCount(input)).toEqual(input);
+        expect(TestMetronome.setCount(input)).toEqual("test");
     });
 
     test("Testing the metronome's ability to retrieve the Count", () => {
@@ -105,7 +108,8 @@ const metronome = require("../app/classes/metronome.js")
 
       input.forEach((e) => {
         TestMetronome.setCount(e.count)
-        expect(TestMetronome.getCount()).toEqual(e.count)
+        // expect(TestMetronome.getCount()).toEqual(e.count)
+        expect(TestMetronome.getCount()).toEqual("test")
       })
     })
 
@@ -114,16 +118,19 @@ const metronome = require("../app/classes/metronome.js")
       const count = TestMetronome.getCount()
       const beats = TestMetronome.getBeatsPerMeasure()
 
-      expect(TestMetronome.updateCount()).toEqual((count + 1) % beats)
+      // expect(TestMetronome.updateCount()).toEqual((count + 1) % beats)
+      expect(TestMetronome.updateCount()).toEqual("test")
     
     })
 
     test("Testing the metronome's ability to retrieve the state of playing", () => {
       TestMetronome.setPlaying(false)
-      expect(TestMetronome.isPlaying()).toEqual(false)
+      // expect(TestMetronome.isPlaying()).toEqual(false)
 
       TestMetronome.setPlaying(true)
-      expect(TestMetronome.isPlaying()).toEqual(true)
+      // expect(TestMetronome.isPlaying()).toEqual(true)
+
+      expect(TestMetronome.isPlaying()).toEqual("test")
     });
 
 
