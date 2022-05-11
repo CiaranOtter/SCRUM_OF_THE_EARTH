@@ -3,18 +3,18 @@ The repository for the SCRUM of the Earth group in Software development, wits un
 
 # Coverage and Build info 
 ## coverage for project in total
-![](https://img.shields.io/badge/Coverage-51%25-F2E96B.svg?prefix=$coverage$)
+$coverage$
 
 ### coverage for tested functions
 
-![](https://img.shields.io/badge/Coverage-92%25-83A603.svg?prefix=$functions$)
+$functions$
 ### coverage for lines
 
-![](https://img.shields.io/badge/Coverage-54%25-F2E96B.svg?prefix=$lines$)
+$lines$
 
 ### Coverage for this branch
 
-![](https://img.shields.io/badge/Coverage-3%25-733B27.svg?prefix=$branches$)
+$branches$
 
 ## Testing
 
