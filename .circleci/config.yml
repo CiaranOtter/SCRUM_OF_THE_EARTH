@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs: 
-  codecov: codecov/codecov@3.2.2
-
 commands:
   run-tests:
     steps:
@@ -10,6 +7,7 @@ commands:
   push-to-remote:
     steps:
       - run: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH}"
+      
 jobs:     
 
   install-and-test:
