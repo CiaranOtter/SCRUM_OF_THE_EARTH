@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1652268887409" clover="3.2.0">
-  <project timestamp="1652268887409" name="All files">
+<coverage generated="1652281516725" clover="3.2.0">
+  <project timestamp="1652281516726" name="All files">
     <metrics statements="46" coveredstatements="25" conditionals="40" coveredconditionals="1" methods="12" coveredmethods="11" elements="98" coveredelements="37" complexity="0" loc="46" ncloc="46" packages="1" files="1" classes="1"/>
-    <file name="metronome.js" path="/home/ciaran/Documents/School_stuff/SCRUM_OF_THE_EARTH/musician/app/classes/metronome.js">
+    <file name="metronome.js" path="/Users/ciaranotter/Documents/SCRUM_OF_THE_EARTH/musician/app/classes/metronome.js">
       <metrics statements="46" coveredstatements="25" conditionals="40" coveredconditionals="1" methods="12" coveredmethods="11"/>
       <line num="2" count="1" type="stmt"/>
       <line num="4" count="1" type="stmt"/>
       <line num="5" count="1" type="stmt"/>
       <line num="6" count="1" type="stmt"/>
       <line num="7" count="1" type="stmt"/>
-      <line num="12" count="2" type="stmt"/>
-      <line num="13" count="2" type="stmt"/>
-      <line num="14" count="2" type="stmt"/>
+      <line num="12" count="5" type="stmt"/>
+      <line num="13" count="5" type="stmt"/>
+      <line num="14" count="5" type="stmt"/>
       <line num="18" count="2" type="stmt"/>
       <line num="19" count="2" type="stmt"/>
       <line num="20" count="2" type="stmt"/>
@@ -48,7 +48,7 @@
       <line num="101" count="1" type="stmt"/>
       <line num="105" count="1" type="stmt"/>
       <line num="109" count="2" type="stmt"/>
-      <line num="113" count="2" type="stmt"/>
+      <line num="113" count="5" type="stmt"/>
       <line num="117" count="0" type="stmt"/>
     </file>
   </project>
