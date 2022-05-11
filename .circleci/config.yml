@@ -54,7 +54,7 @@ jobs:
 
       - run:
           name: "push to currently active branch to insert and update the coverbages"
-          command: "git push -q git push -q https://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@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH}"
+          command: "git push -q git push -q https://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@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH}"
 
 
 workflows:
