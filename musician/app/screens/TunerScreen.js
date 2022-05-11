@@ -9,6 +9,7 @@ import {NavigationContainer, StackActions} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/stack";
 //import {Text, StyleSheet, Image, Picker, Switch, TouchableOpacity, SafeAreaView} from "react-native";
 import { Audio } from "expo-av";
+<<<<<<< Updated upstream
 //import logo from './6String.jpg';
 import {findPitch} from 'pitchy';
 //import ToggleSwitch from './ToggleSwitch/ToggleSwitch';
@@ -21,9 +22,76 @@ import { PitchDetector } from "pitchy";
 import SelectDropdown from "react-native-select-dropdown";
 import {isEnabled} from "react-native/Libraries/Pressability/PressabilityDebug";
 import {setIsEnabledAsync} from "expo-av/build/Audio/AudioAvailability";
+=======
+import logo from './6String.jpg';
+
+
+// import PitchTracker from "react-native-pitch-tracker";
+// import {findPitch} from 'pitchy';
+
+import colors from "../config/colors";
+import {useState} from "react";
+
+import { Recording } from "expo-av/build/Audio";
+
+import { Platform } from 'react-native';
+
+console.log(Platform.OS)
+
+Audio.requestPermissionsAsync();
+
+
+
+
+export default function TunerScreen() {
+  const [recording, setRecording] = React.useState();
+  let inputRecording = new Audio.Recording();
+  const [selectedValue, setSelectedValue] = useState("4String");
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState)
+  const low_E = new Audio.Sound();
+  const A_string = new Audio.Sound();
+  const D_string = new Audio.Sound();
+  const G_string = new Audio.Sound();
+  const B_string = new Audio.Sound();
+  const high_E = new Audio.Sound();
+
+  // PitchTracker.prepare();
+
+  // PitchTracker.noteOn((res) => {
+  //   console.log("Note on: " + res['midiNum'])
+  // })
+
+  // PitchTracker.noteOff((res) => {
+  //   console.log("note off: " + res["midiNum"])
+  // })
+
+  try {
+    low_E.loadAsync(require("../sounds/Tuner_low_E.m4a"));
+    A_string.loadAsync(require("../sounds/Tuner_A.m4a"));
+    D_string.loadAsync(require("../sounds/Tuner_D.m4a"));
+    G_string.loadAsync(require("../sounds/Tuner_G.m4a"));
+    B_string.loadAsync(require("../sounds/Tuner_B.m4a"));
+    high_E.loadAsync(require("../sounds/Tuner_high_E.m4a"));
+  } catch (error) {
+    console.log("Failed to load metronome sounds: " + error);
+  }
+
+
+  // function updatePitch(Node, sampleRate) {
+  //   let data = new Float32Array(2048);
+  //   console.log("data is: "+ data)
+  //   Node.getFloatTimeDomainData(data);
+  //   let [pitch, clarity] = findPitch(data, sampleRate);
+
+  //   console.log("pitch is: "+ pitch);
+  //   console.log("clarity is: "+clarity);
+  // }
+>>>>>>> Stashed changes
 
 export default class _4SATuner extends Component {
 
+<<<<<<< Updated upstream
 
 
   constructor(){
@@ -40,6 +108,104 @@ export default class _4SATuner extends Component {
 
   SoundAButton = () => {
     this.setState({playedNote: "A"});
+=======
+  const _onRecordingStatusUpdate = RecordingStatus => {
+    if (!RecordingStatus.isLoaded) {
+      // Update your UI for the unloaded state
+      if (RecordingStatus.error) {
+        console.log(`Encountered a fatal error during playback: ${playbackStatus.error}`);
+        // Send Expo team the error on Slack or the forums so we can help you debug!
+      }
+
+      // let duration = RecordingStatus.durationMillis;
+
+      // let sampleRate = inputRecording._options.android.sampleRate;
+
+      // updatePitch(inputRecording, sampleRate)
+
+      console.log(inputRecording)
+      // const detector = PitchDetector.forFloat32Array(128);
+      // const input = new Float32Array(detector.inputLength);
+      // updatePitch(this.recording, detector, input, sampleRate)
+    }
+  };
+
+  async function startRecording() {
+    // try {
+    //   console.log("Requesting Permissions..");
+    //   await Audio.requestPermissionsAsync();
+    //   await Audio.setAudioModeAsync({
+    //     allowsRecordingIOS: true,
+    //     playsInSilentModeIOS: true,
+    //     interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+    //     playsInSilentModeIOS: true,
+    //     shouldDuckAndroid: true,
+    //     interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+    //   });      
+
+    //   console.log("Starting recording..");
+    //   inputRecording.setOnRecordingStatusUpdate(_onRecordingStatusUpdate);
+    //   inputRecording.setProgressUpdateInterval(200);
+
+    //   await inputRecording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
+    //   setRecording(inputRecording)
+    //   await inputRecording.startAsync();
+    //   console.log("Recording started");
+
+    // //   console.log("Starting recording..");
+    // //   const { recording: recording, status } = await Audio.Recording.createAsync(
+    // //     Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+    // //   );
+
+    // //   recording.setOnRecordingStatusUpdate(() => {updateRecording})
+    // //   await recording.startAsync()
+    // //   console.log("Recording started");
+    // } catch (error) {
+    //   console.error("Failed to start recording", error);
+    // } 
+
+    PitchTracker.start();
+  }
+
+  function playString(note) {
+
+    switch (note){
+      case "A":
+        A_string.setPositionAsync(0);
+        A_string.playAsync();
+        break;
+      case "D":
+        D_string.setPositionAsync(0);
+        D_string.playAsync();
+        break;
+      case "G":
+        G_string.setPositionAsync(0);
+        G_string.playAsync();
+        break;
+      case "B":
+        B_string.setPositionAsync(0);
+        B_string.playAsync();
+        break;
+      case "high_E":
+        high_E.setPositionAsync(0);
+        high_E.playAsync();
+        break;
+      case "low_E":
+        low_E.setPositionAsync(0);
+        low_E.playAsync();
+        break;
+    }
+    
+  }
+  
+  async function stopRecording() {
+    // console.log("Stopping recording..");
+    // setRecording(undefined);
+    // await inputRecording.stopAndUnloadAsync();
+    // const uri = inputRecording.getURI();
+    // console.log("Recording stopped and stored at", uri);
+    PitchTracker.stop();
+>>>>>>> Stashed changes
   }
 
   SoundDButton = () => {
