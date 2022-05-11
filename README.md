@@ -14,7 +14,7 @@ The repository for the SCRUM of the Earth group in Software development, wits un
 
 ### Coverage for this branch
 
-$branches$
+![](https://img.shields.io/badge/Coverage-3%25-733B27.svg?prefix=$branches$)
 
 ## Testing
 
