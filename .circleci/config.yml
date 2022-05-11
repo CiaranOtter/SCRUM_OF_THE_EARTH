@@ -7,6 +7,9 @@ commands:
   run-tests:
     steps:
       - run: "cd musician; npm test"
+  push-to-remote:
+    steps:
+      - run: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH}"
 jobs:     
 
   install-and-test:
@@ -66,7 +69,7 @@ jobs:
         
       - run:
           name: "push to currently active branch to insert and update the coverbages"
-          command: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH}"
+          command: push-to-remote || true
 
 
 workflows:
