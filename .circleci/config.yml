@@ -62,7 +62,7 @@ jobs:
 
       - run: 
           name: "merging"
-          command: "git merge origin/${CIRCLE_BRANCH}"    
+          command: "git merge origin/${CIRCLE_BRANCH}" 
         
       - run:
           name: "push to currently active branch to insert and update the coverbages"
