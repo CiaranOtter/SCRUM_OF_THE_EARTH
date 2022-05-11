@@ -3,11 +3,10 @@ version: 2.1
 commands:
   push-to-origin:
     steps:
-      - run: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH}"
-      
+      - run: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH} then exit 0"
   run-tests:
     steps:
-      - run: "cd musician; npm test"
+      - run: "cd musician; npm test then exit o"
 
   
 
@@ -40,9 +39,7 @@ jobs:
           name: "Initialize the coveage file location"
           command: "npm run initialize-coverage"
 
-      - run: 
-          name: "Run jest tests"
-          command: run-test || true
+      - run-tests
       
       - run:
           name: "Generate badges from coverage-summary.json"
@@ -67,10 +64,9 @@ jobs:
       - run: 
           name: "merging"
           command: "git merge origin/${CIRCLE_BRANCH}" 
+
+      - push-to-origin
         
-      - run:
-          name: "push to currently active branch to insert and update the coverbages"
-          command: push-to-origin || true
 
 
 workflows:
