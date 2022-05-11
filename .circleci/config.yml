@@ -5,8 +5,9 @@ commands:
     steps:
       - run: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH} then exit 0"
   run-tests:
+    description: "run the jest unit tests"
     steps:
-      - run: "npm test then exit o"
+      - run: "./run-tests.sh"
 
   
 
