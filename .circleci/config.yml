@@ -66,10 +66,12 @@ jobs:
         
       - run:
           name: "push to currently active branch to insert and update the coverbages"
-          command: "git push -q https://${GITHUB_PERSONAL_TOKEN}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH}"
+          command: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH}"
 
 
 workflows:
   Install-and-test:
     jobs:
-      - install-and-test
+      - install-and-test:
+          context:
+            - github-access
