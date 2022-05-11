@@ -49,8 +49,12 @@ jobs:
           command: " git config --global user.email 'ciaranjotter@gmail.com'; git config --global user.name 'Ciaran Otter'"
           
       - run:
-          name: "Git commit and push"
+          name: "commit to the git"
           command: "git commit -a -m 'circle ci commit for badge push'"
+
+      - run:
+          name: "push to currently active branch to insert and update the coverbages"
+          command: "git push -q git push -q https://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@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH}"
 
 
 workflows:
