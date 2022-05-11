@@ -7,7 +7,7 @@ commands:
   run-tests:
     description: "run the jest unit tests"
     steps:
-      - run: "./run-tests.sh"
+      - run: "./circleci-scripts/run-tests.sh"
 
   
 
