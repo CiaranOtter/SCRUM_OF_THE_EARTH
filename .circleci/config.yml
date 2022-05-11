@@ -50,7 +50,7 @@ jobs:
           
       - run:
           name: "Git commit and push"
-          command: "git commit -m 'circle ci commit for badge push'; git push origin ${CIRCLE_BRANCH}"
+          command: "git commit -a -m 'circle ci commit for badge push'; git push origin ${CIRCLE_BRANCH}"
 
 
 workflows:
