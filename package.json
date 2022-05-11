@@ -6,7 +6,7 @@
     "badges": "coverage-badge-creator"
   },
   "jest": {
-    "coverageDirectory": "../coverage" 
+    "coverageDirectory": "../coverage"
   },
   "dependencies": {
     "expo-cli": "^5.3.0"
