@@ -44,6 +44,10 @@ jobs:
           name: "Generate badges from coverage-summary.json"
           command: "npm run badges"
 
+      - run:
+          name: "Git commit and push"
+          command: "git commit -m 'circle ci commit for badge push'; git push origin ${CIRCLE_BRANCH}"
+
 
 workflows:
   Install-and-test:
