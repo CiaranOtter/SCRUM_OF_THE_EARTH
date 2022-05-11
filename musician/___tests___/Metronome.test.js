@@ -13,8 +13,7 @@ const metronome = require("../app/classes/metronome.js")
         { id: 3, beatsPerMeasure: 4 },
       ];
   
-      // expect(TestMetronome.setBeatPerMeasure(input)).toEqual(input);
-      expect(TestMetronome.setBeatPerMeasure(input)).toEqual("5")
+      expect(TestMetronome.setBeatPerMeasure(input)).toEqual(input);
     });
 
     test("Testing the metronome's ability to retrieve the beats per measure", () => {
@@ -27,8 +26,7 @@ const metronome = require("../app/classes/metronome.js")
       
       input.forEach((e) => {
         TestMetronome.setBeatPerMeasure(e.beatsPerMeasure);
-        // expect(TestMetronome.getBeatsPerMeasure()).toEqual(e.beatsPerMeasure)
-        expect(TestMetronome.getBeatsPerMeasure()).toEqual("test")
+        expect(TestMetronome.getBeatsPerMeasure()).toEqual(e.beatsPerMeasure)
       })
     })
 
