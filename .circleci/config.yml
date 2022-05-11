@@ -3,6 +3,10 @@ version: 2.1
 orbs: 
   codecov: codecov/codecov@3.2.2
 
+commands:
+  run-tests:
+    steps:
+      - run: "cd musician; npm test"
 jobs:     
 
   install-and-test:
@@ -32,7 +36,9 @@ jobs:
           name: "Initialize the coveage file location"
           command: "npm run initialize-coverage"
 
-      - run: "cd musician; npm test" || true
+      - run: 
+          name: "Run jest tests"
+          command: run-test || true
       
       - run:
           name: "Generate badges from coverage-summary.json"
