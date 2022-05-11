@@ -185,6 +185,8 @@ export default class MetronomeScreen extends Component {
     const playing = this.MetronomeClass.isPlaying();
     const bpm = this.MetronomeClass.getBPM();
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
+    const tempoText = this.MetronomeClass.getTempoText();
+
     return (
       <SafeAreaView style={styles.container} forceInset={{ top: 'never'}}>
         
@@ -260,14 +262,14 @@ export default class MetronomeScreen extends Component {
             //time signature text
             style={styles.timeSignatureText}
           >
-            {beatsPerMeasure} / 4
+            {beatsPerMeasure}
           </Text>
 
           <Text
             //bpm text
             style={styles.speedText}
           >
-            {this.MetronomeClass.getTempoText}
+            {tempoText}
           </Text>
         </ImageBackground>
       </SafeAreaView>
@@ -301,8 +303,7 @@ const styles = StyleSheet.create({
     color: colors.black,
     backgroundColor: colors.userInputElement,
     margin: 'auto',
-    borderWidth: 1,
-    borderColor: 'red'
+
   },
   buttonText: {
     textAlign: "center",

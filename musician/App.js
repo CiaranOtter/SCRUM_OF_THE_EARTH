@@ -19,6 +19,7 @@ import { Icon } from 'react-native-elements';
 
 import Navigator from './app/components/navigate';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import ChromaticScreen from './app/screens/ChromaticScreen';
 
 // const nav = useNavigationContainerRef();
 
@@ -39,6 +40,7 @@ export default function App() {
                     <Stack.Screen options={{ headerShown: false }} name="6SMTuner" component={_6SMTunerScreen} />
                     <Stack.Screen options={{ headerShown: false }} name="4SMTuner" component={_4SMTunerScreen}/>
                     <Stack.Screen options={{ headerShown: false }} name="4SATuner" component={_4SATunerScreen}/>
+                    <Stack.Screen options={{ headerShown: false }} name="Chromatic" component={ChromaticScreen}/>
                     <Stack.Screen options={{ headerShown: false }}  name="tools" component={ToolScreen} />
                     <Stack.Screen options={{ headerShown: false }}  name="practice" component={PracticeScreen} />
                     <Stack.Screen options={{ headerShown: false }}  name="settings" component={SettingsScreen} />
