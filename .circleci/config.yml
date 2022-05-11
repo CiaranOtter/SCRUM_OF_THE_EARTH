@@ -47,14 +47,14 @@ jobs:
       - run: 
           name: "configure git user"
           command: " git config --global user.email 'ciaranjotter@gmail.com'; git config --global user.name 'Ciaran Otter'"
-          
+
       - run:
           name: "commit to the SCRUM_OF_THE_EARTH repository"
           command: "git commit -a -m 'circle ci commit for badge push'"
 
       - run:
           name: "pulling remote repository"
-          command: "git pull"
+          command: "git pull origin/${CIRCLE_BRANCH}"
 
       - run:
           name: "checkout branch"
