@@ -6,7 +6,7 @@ commands:
       - run: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH} then exit 0"
   run-tests:
     steps:
-      - run: "cd musician; npm test then exit o"
+      - run: "npm test then exit o"
 
   
 
