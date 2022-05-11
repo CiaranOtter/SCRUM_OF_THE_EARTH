@@ -44,6 +44,10 @@ jobs:
           name: "Generate badges from coverage-summary.json"
           command: "npm run badges"
 
+      - run: 
+          name: "configure git user"
+          command: " git config --global user.email 'ciaranjotter@gmail.com'; git config --global user.name 'Ciaran Otter'"
+          
       - run:
           name: "commit to the SCRUM_OF_THE_EARTH repository"
           command: "git commit -a -m 'circle ci commit for badge push'"
@@ -59,9 +63,6 @@ jobs:
       - run: 
           name: "merging"
           command: "git merge origin/${CIRCLE_BRANCH}"    
-      - run: 
-          name: "setup git"
-          command: " git config --global user.email 'ciaranjotter@gmail.com'; git config --global user.name 'Ciaran Otter'"
         
       - run:
           name: "push to currently active branch to insert and update the coverbages"
