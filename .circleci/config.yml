@@ -50,7 +50,7 @@ jobs:
 
       - run:
           name: "commit to the SCRUM_OF_THE_EARTH repository"
-          command: "git commit -a -m 'circle ci commit for badge push'"
+          command: "git commit -a -m 'circle ci commit for badge push [ci skip]'"
 
       - run:
           name: "pulling remote repository"
