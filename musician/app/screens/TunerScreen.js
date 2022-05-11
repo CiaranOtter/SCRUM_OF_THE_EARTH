@@ -9,7 +9,6 @@ import {NavigationContainer, StackActions} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/stack";
 //import {Text, StyleSheet, Image, Picker, Switch, TouchableOpacity, SafeAreaView} from "react-native";
 import { Audio } from "expo-av";
-<<<<<<< Updated upstream
 //import logo from './6String.jpg';
 import {findPitch} from 'pitchy';
 //import ToggleSwitch from './ToggleSwitch/ToggleSwitch';
@@ -22,7 +21,6 @@ import { PitchDetector } from "pitchy";
 import SelectDropdown from "react-native-select-dropdown";
 import {isEnabled} from "react-native/Libraries/Pressability/PressabilityDebug";
 import {setIsEnabledAsync} from "expo-av/build/Audio/AudioAvailability";
-=======
 import logo from './6String.jpg';
 
 
@@ -87,12 +85,8 @@ export default function TunerScreen() {
   //   console.log("pitch is: "+ pitch);
   //   console.log("clarity is: "+clarity);
   // }
->>>>>>> Stashed changes
 
 export default class _4SATuner extends Component {
-
-<<<<<<< Updated upstream
-
 
   constructor(){
     super();
@@ -108,104 +102,6 @@ export default class _4SATuner extends Component {
 
   SoundAButton = () => {
     this.setState({playedNote: "A"});
-=======
-  const _onRecordingStatusUpdate = RecordingStatus => {
-    if (!RecordingStatus.isLoaded) {
-      // Update your UI for the unloaded state
-      if (RecordingStatus.error) {
-        console.log(`Encountered a fatal error during playback: ${playbackStatus.error}`);
-        // Send Expo team the error on Slack or the forums so we can help you debug!
-      }
-
-      // let duration = RecordingStatus.durationMillis;
-
-      // let sampleRate = inputRecording._options.android.sampleRate;
-
-      // updatePitch(inputRecording, sampleRate)
-
-      console.log(inputRecording)
-      // const detector = PitchDetector.forFloat32Array(128);
-      // const input = new Float32Array(detector.inputLength);
-      // updatePitch(this.recording, detector, input, sampleRate)
-    }
-  };
-
-  async function startRecording() {
-    // try {
-    //   console.log("Requesting Permissions..");
-    //   await Audio.requestPermissionsAsync();
-    //   await Audio.setAudioModeAsync({
-    //     allowsRecordingIOS: true,
-    //     playsInSilentModeIOS: true,
-    //     interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-    //     playsInSilentModeIOS: true,
-    //     shouldDuckAndroid: true,
-    //     interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-    //   });      
-
-    //   console.log("Starting recording..");
-    //   inputRecording.setOnRecordingStatusUpdate(_onRecordingStatusUpdate);
-    //   inputRecording.setProgressUpdateInterval(200);
-
-    //   await inputRecording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
-    //   setRecording(inputRecording)
-    //   await inputRecording.startAsync();
-    //   console.log("Recording started");
-
-    // //   console.log("Starting recording..");
-    // //   const { recording: recording, status } = await Audio.Recording.createAsync(
-    // //     Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
-    // //   );
-
-    // //   recording.setOnRecordingStatusUpdate(() => {updateRecording})
-    // //   await recording.startAsync()
-    // //   console.log("Recording started");
-    // } catch (error) {
-    //   console.error("Failed to start recording", error);
-    // } 
-
-    PitchTracker.start();
-  }
-
-  function playString(note) {
-
-    switch (note){
-      case "A":
-        A_string.setPositionAsync(0);
-        A_string.playAsync();
-        break;
-      case "D":
-        D_string.setPositionAsync(0);
-        D_string.playAsync();
-        break;
-      case "G":
-        G_string.setPositionAsync(0);
-        G_string.playAsync();
-        break;
-      case "B":
-        B_string.setPositionAsync(0);
-        B_string.playAsync();
-        break;
-      case "high_E":
-        high_E.setPositionAsync(0);
-        high_E.playAsync();
-        break;
-      case "low_E":
-        low_E.setPositionAsync(0);
-        low_E.playAsync();
-        break;
-    }
-    
-  }
-  
-  async function stopRecording() {
-    // console.log("Stopping recording..");
-    // setRecording(undefined);
-    // await inputRecording.stopAndUnloadAsync();
-    // const uri = inputRecording.getURI();
-    // console.log("Recording stopped and stored at", uri);
-    PitchTracker.stop();
->>>>>>> Stashed changes
   }
 
   SoundDButton = () => {
@@ -625,6 +521,5 @@ const styles = StyleSheet.create({
     left:-6,
     //bottom: 80,
     //bottom: 100,
-  },
-
-});
+  }
+})
