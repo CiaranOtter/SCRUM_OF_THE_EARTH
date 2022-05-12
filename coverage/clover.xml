@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1652282698072" clover="3.2.0">
-  <project timestamp="1652282698072" name="All files">
+<coverage generated="1652338883583" clover="3.2.0">
+  <project timestamp="1652338883583" name="All files">
     <metrics statements="46" coveredstatements="25" conditionals="40" coveredconditionals="1" methods="12" coveredmethods="11" elements="98" coveredelements="37" complexity="0" loc="46" ncloc="46" packages="1" files="1" classes="1"/>
     <file name="metronome.js" path="/home/circleci/project/musician/app/classes/metronome.js">
       <metrics statements="46" coveredstatements="25" conditionals="40" coveredconditionals="1" methods="12" coveredmethods="11"/>
