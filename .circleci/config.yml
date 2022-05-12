@@ -45,6 +45,10 @@ jobs:
           name: "Initialize the coveage file location"
           command: "npm run initialize-coverage"
 
+      - run:
+          name: "install mdmerge"
+          command: "pip install mdmerge"
+
       - generate-readme
 
       - run-tests
