@@ -3,11 +3,16 @@ version: 2.1
 commands:
   push-to-origin:
     steps:
-      - run: "./circleci-scripts/push-to-origin.sh"
+      - run: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH} then exit 0"
   run-tests:
     description: "run the jest unit tests"
     steps:
       - run: "./circleci-scripts/run-tests.sh"
+      
+  generate-readme:
+    description: "generatign the REAME.md fie with all necessary data"
+    steps:
+      - run: "./circleci-scripts/readme-setup.sh"
 
   
 
@@ -39,6 +44,8 @@ jobs:
       - run: 
           name: "Initialize the coveage file location"
           command: "npm run initialize-coverage"
+
+      - generate-readme
 
       - run-tests
       
