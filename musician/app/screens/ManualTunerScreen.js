@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Button, SafeAreaView, View } from 'react-native';
-import {Audio} from 'expo-av';
 
 export default class ManualTunerScreen extends Component {
 

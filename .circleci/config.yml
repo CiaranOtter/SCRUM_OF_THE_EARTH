@@ -1,10 +1,6 @@
 version: 2.1
 
-orbs: 
-  codecov: codecov/codecov@3.2.2
-
 jobs:     
-
   install-and-test:
     build:
     docker:
@@ -13,32 +9,25 @@ jobs:
     steps: 
       - checkout
 
-      # - run:
-      #     name: "Install codecov"
-      #     command: "curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov"
       - run: 
           name: "List files"
           command: "ls;"
 
       - run: 
           name: "Install npm modules in musician"
-          command: "cd musician; npm install; npm install jest; npm install --save jest-coverage-badges; sudo npm install -g codecov"
-
-      - run:
-          name: "Install npm modules in outer folder"
-          command: "npm run setup"
-        
-      - run: 
-          name: "Initialize the coveage file location"
-          command: "npm run initialize-coverage"
+          command: "cd musician; npm install;"
 
       - run: 
-          name: "Run the jest tests"
+          name: "Run the jest unit tests"
           command: "cd musician; npm test"
       
       - run:
           name: "Generate badges from coverage-summary.json"
           command: "npm run badges"
+
+      # - run:
+      #     name: "Build android app" 
+      #     command: "cd musician;sudo npm i -g --force react-native-cli;sudo npm i -g react-native;react-native run-android"
 
 
 workflows:
