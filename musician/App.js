@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   NavigationContainer,
   useNavigationContainerRef,
 } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {StatusBar} from 'react-native';
 import {Button, StyleSheet, Text, View, Pressable, Image} from 'react-native';
-import { mdiMusicCircle } from '@mdi/js';
-
-import MetronomeScreen from './app/screens/MetronomeScreen.js';
+import logo from './assets/6String.jpg';
+import MetronomeScreen from './app/screens/MetronomeScreen';
 import _6SMTunerScreen from './app/screens/TunerScreen';
 import _4SMTunerScreen from './app/screens/4_StringManualTunerScreen';
 import _4SATunerScreen from './app/screens/4_StringAutomaticTunerScreen';
-import ChromaticScreen from './app/screens/ChromaticScreen';
 import ToolScreen from './app/screens/ToolScreen';
 import PracticeScreen from './app/screens/PracticeScreen';
 import SettingsScreen from './app/screens/SettingsScreen';
-import BeatMakerScreen from './app/screens/BeatMakerScreen.js';
-
+import BeatMakerScreen from './app/screens/BeatMakerScreen';
+//manual tuner screen for testing purposes
+import ManualTunerScreen from './app/screens/ManualTunerScreen';
 import {Icon} from 'react-native-elements';
-
+import Navigator from './app/components/navigate';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import ChromaticScreen from './app/screens/ChromaticScreen';
+
+// const nav = useNavigationContainerRef();
 
 export default function App() {
   const nav = useNavigationContainerRef();
@@ -27,13 +30,9 @@ export default function App() {
 
   return (
     <View style={{flex: 1}}>
+      <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'} />
       <NavigationContainer ref={nav}>
         <Stack.Navigator>
-          <Stack.Screen
-            options={{headerShown: false}}
-            name="beatMaker"
-            component={BeatMakerScreen}
-          />
           <Stack.Screen
             options={{headerShown: false}}
             name="metronome"
@@ -74,35 +73,23 @@ export default function App() {
             name="settings"
             component={SettingsScreen}
           />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="beatMaker"
+            component={BeatMakerScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
 
-      
-        <View style={styles.nav_container}>
-          <Pressable onPress={() => {nav.navigate('Chromatic')}} style={styles.icon_container}>
-            <Icon name='{mdiMusicCircle' />
-            <Text>Tuner</Text>
-          </Pressable>
-        
-          <Pressable onPress={() => {nav.navigate('metronome')}} style={styles.icon_container}>
-            <Icon name="details" />
-            <Text>Metronome</Text>
-          </Pressable>
-        
-          <Pressable onPress={() => {nav.navigate('tools')}} style={styles.icon_container}>
-            <Icon name="construction" />
-            <Text>Tools</Text>
-          </Pressable>
-        
-          <Pressable onPress={() => {nav.navigate('practice')}} style={styles.icon_container}>
-            <Icon name="content-paste" />
-            <Text>Practice</Text>
-          </Pressable>
-        
-          <Pressable onPress={() => {nav.navigate('settings')}} style={styles.icon_container}>
-            <Icon name="settings" />
-            <Text>Settings</Text>
-          </Pressable>
+      <View style={styles.nav_container}>
+        <Pressable
+          onPress={() => {
+            nav.navigate('4SMTuner');
+          }}
+          style={styles.icon_container}>
+          <Icon name="audiotrack" />
+          <Text>Tuner</Text>
+        </Pressable>
 
         <Pressable
           onPress={() => {
@@ -115,7 +102,7 @@ export default function App() {
 
         <Pressable
           onPress={() => {
-            nav.navigate('beatMaker');
+            nav.navigate('Chromatic');
           }}
           style={styles.icon_container}>
           <Icon name="construction" />
