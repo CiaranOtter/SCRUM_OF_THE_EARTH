@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
+import colors from "../config/colors";
 
 export default class Note extends PureComponent {
   render() {
@@ -21,14 +22,14 @@ const style = StyleSheet.create({
   },
   name: {
     fontSize: 128,
+    color: colors.black,
     fontWeight: "600",
-    color: "#c62828",
     flexDirection: "row",
   },
   sharp: {
     fontSize: 32,
-    color: "#c62828",
     position: "absolute",
+    color: colors.black,
     right: 0,
     top: 32,
     ...Platform.select({
@@ -40,7 +41,7 @@ const style = StyleSheet.create({
   },
   octave: {
     fontSize: 32,
-    color: "#c62828",
+    color: colors.black,
     position: "absolute",
     right: 0,
     bottom: 0,

@@ -9,6 +9,7 @@ import {
 import Tuner from "../components/Tuner.js";
 import Note from "../components/Notes.js";
 import Meter from "../components/Meter.js";
+import colors from "../config/colors.js";
 
 export default class ChromaticScreen extends Component {
   state = {
@@ -45,7 +46,7 @@ export default class ChromaticScreen extends Component {
     return (
       <View style={style.body}>
         <StatusBar backgroundColor="#000" translucent />
-        <Meter cents={this.state.note.cents} />
+        <Meter cents={this.state.note.cents} type={"radial"} />
         <Note {...this.state.note} />
         <Text style={style.frequency}>
           {this.state.note.frequency.toFixed(1)} Hz
@@ -63,6 +64,6 @@ const style = StyleSheet.create({
   },
   frequency: {
     fontSize: 28,
-    color: "#37474f",
+    color: colors.white
   },
 });
