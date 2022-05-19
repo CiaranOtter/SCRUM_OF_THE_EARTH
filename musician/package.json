@@ -16,9 +16,9 @@
     "coverage_file_path": "../coverage/json-summary.json"
   },
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
+    "android": "npx react-native run-android",
+    "ios": "npx react-native run-ios",
+    "start": "npx react-native start",
     "lint": "eslint .",
     "setup": "npm install --save-dev jest && npm install --save-dev coverage-badge-creator",
     "test": "jest --coverage --coverageReporters='json-summary'",
