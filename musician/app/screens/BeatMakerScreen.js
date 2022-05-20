@@ -155,11 +155,13 @@ export default class BeatMakerScreen extends Component {
     console.log('Tempo selector tapped ' + this.currentTempo);
   }
 
+  //function that gets called whenever an item on the grid gets tapped
   gridItemTapped = (item, index) => {
     console.log(item);
     //console.log(index);
   };
 
+  //function that gets called to determine the track header color
   trackActivityColor = item => {
     let bgColor = colors.white;
     switch (item) {
@@ -177,8 +179,10 @@ export default class BeatMakerScreen extends Component {
         bgColor = colors.white;
         break;
     }
-    console.log('Error with settting rack header color');
+    console.log('Error with settting track header color');
   };
+
+  trackHeaderTapped(item) {}
 
   //function that gets called by plus button and adds sounds to grid
   // addMoreSounds = () => {
