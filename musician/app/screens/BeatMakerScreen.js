@@ -17,6 +17,7 @@ import {
   Pressable,
 } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
+import {SectionGrid} from 'react-native-super-grid';
 
 import colors from '../config/colors';
 
@@ -95,13 +96,25 @@ export default class BeatMakerScreen extends Component {
       numActiveTracks: 0,
       numBars: 4,
       numBeatsPerBar: 4,
-      gridData: [],
+      //gridData: [{title: null, data: []}],
+      gridData: [
+        {
+          title: 1,
+          data: [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20,
+          ],
+        },
+        {title: 2, data: [1, 2, 3, 4, 5]},
+        {title: 3, data: [1, 2, 3, 4, 5]},
+      ],
     };
 
     this.viewArrayIndex = 0;
   }
 
   populateGridData = (bars, beats, tracks) => {
+    this.state.gridData = [];
     let cols = tracks;
     let rows = bars * beats;
     let numBloks = cols * rows;
@@ -120,10 +133,15 @@ export default class BeatMakerScreen extends Component {
         data.push(indexSectionSize);
       }
       //this.printArray(data);
-      let sectionArray = [title, data];
+      let sectionArray = {title: title, data: data};
+      //let array = this.state.gridData;
+      //array.push(sectionArray);
+      //this.setState(array);
       this.state.gridData.push(sectionArray);
       //this.printArray(this.state.gridData);
     }
+    this.setState(this.state.gridData);
+    this.printArray(this.state.gridData);
   };
 
   //test function to print out array to make sure correct numbers are being outputted
@@ -134,7 +152,7 @@ export default class BeatMakerScreen extends Component {
   }
 
   //function that gets called when user selects a bar
-  barSelector(selectedBar) {
+  barSelector = selectedBar => {
     this.currentBar = selectedBar;
     this.state.numBars = selectedBar;
     //console.log('Bar selector tapped ' + this.currentBar);
@@ -143,7 +161,7 @@ export default class BeatMakerScreen extends Component {
       this.state.numBeatsPerBar,
       this.state.numTracks,
     );
-  }
+  };
 
   //functionthat gets called when user selects a time signature
   tSSelector() {
@@ -314,7 +332,42 @@ export default class BeatMakerScreen extends Component {
           </TouchableOpacity>
         </View>
 
-        <Button
+        <SectionGrid
+          itemDimension={30}
+          // staticDimension={300}
+          // fixed
+          // spacing={20}
+          sections={this.state.gridData}
+          // sections={[
+          //   {
+          //     title: 'Title1',
+          //     data: [0, 6],
+          //   },
+          //   {
+          //     title: 'Title2',
+          //     data: [0, 12],
+          //   },
+          //   {
+          //     title: 'Title3',
+          //     data: [12, 20],
+          //   },
+          // ]}
+          style={styles.gridView}
+          renderItem={({item, section, index}) => (
+            <View
+              style={[
+                styles.itemContainer,
+                {backgroundColor: colors.sixStringAutoBG},
+              ]}>
+              <Text style={styles.itemName}>{item}</Text>
+            </View>
+          )}
+          renderSectionHeader={({section}) => (
+            <Text style={styles.sectionHeader}>{section.title}</Text>
+          )}
+        />
+
+        {/* <Button
           style={styles.testButton}
           title={'Test'}
           onPress={() =>
@@ -323,7 +376,7 @@ export default class BeatMakerScreen extends Component {
               this.state.numBeatsPerBar,
               this.state.numTracks,
             )
-          }></Button>
+          }></Button> */}
 
         {/* <View style={styles.MainContainer}>
           <ScrollView>
@@ -391,54 +444,85 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  MainContainer: {
-    flex: 1,
-    backgroundColor: '#eee',
-    justifyContent: 'center',
-    paddingTop: Platform.OS == 'ios' ? 20 : 0,
-    //height: '100%',
-  },
+  // MainContainer: {
+  //   flex: 1,
+  //   backgroundColor: '#eee',
+  //   justifyContent: 'center',
+  //   paddingTop: Platform.OS == 'ios' ? 20 : 0,
+  //   //height: '100%',
+  // },
 
-  View_Inside_Text: {
-    color: '#fff',
-    fontSize: 24,
-  },
+  // View_Inside_Text: {
+  //   color: '#fff',
+  //   fontSize: 24,
+  // },
 
-  TouchableOpacityStyle: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 30,
-    bottom: 30,
-  },
+  // TouchableOpacityStyle: {
+  //   position: 'absolute',
+  //   width: 50,
+  //   height: 50,
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   right: 30,
+  //   bottom: 30,
+  // },
 
-  FloatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50,
-  },
-  item: {
-    backgroundColor: colors.fourStringGrey,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    margin: 1,
-    //height: Dimensions.get('window').width / this.state.columns, // approximate a square
-    //height: Dimensions.get('window').width / 3,
-    height: 32.5,
-    //width: 500,
-  },
-  itemInvisible: {
-    backgroundColor: 'transparent',
-  },
-  itemText: {
-    color: '#fff',
-  },
+  // FloatingButtonStyle: {
+  //   resizeMode: 'contain',
+  //   width: 50,
+  //   height: 50,
+  // },
+  // item: {
+  //   backgroundColor: colors.fourStringGrey,
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   flex: 1,
+  //   margin: 1,
+  //   //height: Dimensions.get('window').width / this.state.columns, // approximate a square
+  //   //height: Dimensions.get('window').width / 3,
+  //   height: 32.5,
+  //   //width: 500,
+  // },
+  // itemInvisible: {
+  //   backgroundColor: 'transparent',
+  // },
+  // itemText: {
+  //   color: '#fff',
+  // },
   testButton: {
     backgroundColor: colors.fourStringGrey,
     width: 50,
     height: 50,
+  },
+  gridView: {
+    marginTop: 20,
+    flex: 1,
+    backgroundColor: colors.fourStringGrey,
+    //height: 200,
+  },
+  itemContainer: {
+    justifyContent: 'flex-end',
+    borderRadius: 5,
+    padding: 10,
+    height: 50,
+  },
+  itemName: {
+    fontSize: 16,
+    color: '#fff',
+    fontWeight: '600',
+  },
+  itemCode: {
+    fontWeight: '600',
+    fontSize: 12,
+    color: '#fff',
+  },
+  sectionHeader: {
+    flex: 1,
+    fontSize: 15,
+    fontWeight: '600',
+    alignItems: 'center',
+    backgroundColor: '#636e72',
+    color: 'white',
+    padding: 10,
   },
 });
