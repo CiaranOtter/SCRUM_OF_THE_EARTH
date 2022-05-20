@@ -1,20 +1,13 @@
 import React, {Component} from 'react';
 import {
-  Button,
   View,
   Text,
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
-  AppRegistry,
   Animated,
-  ScrollView,
-  Platform,
-  Image,
   FlatList,
-  Dimensions,
-  SectionList,
-  Pressable,
+  Modal,
 } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import {SectionGrid} from 'react-native-super-grid';
@@ -80,10 +73,17 @@ export default class BeatMakerScreen extends Component {
         },
       ],
       tracks: [0, 1, 1, 1, 1], //array for flatlist for tracks 0=+button, 1=unactive track, 2=active track
+      tsModalVisible: false,
+      tsValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      tsNote: 4,
     };
 
     this.viewArrayIndex = 0;
   }
+
+  openTSSelector = visible => {
+    this.setState({tsModalVisible: visible});
+  };
 
   //function to populate the grid that makes the track grid on screen based on bars, beats and number of tracks
   populateGridData = (bars, beats, tracks) => {
@@ -138,8 +138,12 @@ export default class BeatMakerScreen extends Component {
   };
 
   //functionthat gets called when user selects a time signature
-  tSSelector() {
-    console.log('Time Signature selector tapped');
+  tSSelector(beats, note) {
+    //console.log('Time Signature selector tapped' + beats + '/' + note);
+    this.setState({numBeatsPerBar: beats});
+    this.setState({tsNote: note});
+    this.populateGridData(this.state.numBars, beats, this.state.numTracks);
+    this.openTSSelector(!this.state.tsModalVisible);
   }
 
   //function that gets called when user selects tempo
@@ -270,8 +274,59 @@ export default class BeatMakerScreen extends Component {
               rowTextStyle={styles.dropDownRow}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
-            <SelectDropdown
+          <TouchableOpacity
+            onPress={() => {
+              this.openTSSelector(!this.state.tsModalVisible);
+            }}>
+            <View style={styles.tsSelection}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                onRequestClose={() => {
+                  this.openTSSelector(!this.state.tsModalVisible);
+                }}
+                visible={this.state.tsModalVisible}>
+                <View style={styles.tsContainer}>
+                  <SelectDropdown
+                    data={this.state.tsValues}
+                    onSelect={selectedItem =>
+                      this.tSSelector(selectedItem, this.state.tsNote)
+                    }
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                      return selectedItem;
+                    }}
+                    rowTextForSelection={(item, index) => {
+                      return item;
+                    }}
+                    defaultButtonText={this.state.numBeatsPerBar}
+                    buttonStyle={styles.barDownStyle}
+                    buttonTextStyle={styles.dropDownText}
+                    rowTextStyle={{fontSize: 15}}
+                  />
+                  <SelectDropdown
+                    data={this.state.tsValues}
+                    onSelect={selectedItem =>
+                      this.tSSelector(this.state.numBeatsPerBar, selectedItem)
+                    }
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                      return selectedItem;
+                    }}
+                    rowTextForSelection={(item, index) => {
+                      return item;
+                    }}
+                    defaultButtonText={this.state.tsNote}
+                    buttonStyle={styles.barDownStyle}
+                    buttonTextStyle={styles.dropDownText}
+                    rowTextStyle={{fontSize: 15}}
+                  />
+                </View>
+              </Modal>
+              <Text style={[styles.dropDownText, {fontSize: 18}]}>
+                {this.state.numBeatsPerBar}/{this.state.tsNote}
+              </Text>
+            </View>
+
+            {/* <SelectDropdown
               data={this.state.bars}
               onSelect={() => {}}
               buttonTextAfterSelection={(selectedItem, index) => {
@@ -284,7 +339,7 @@ export default class BeatMakerScreen extends Component {
               buttonStyle={styles.barDownStyle}
               buttonTextStyle={styles.dropDownText}
               rowTextStyle={{fontSize: 15}}
-            />
+            /> */}
           </TouchableOpacity>
           <TouchableOpacity>
             <SelectDropdown
@@ -414,10 +469,26 @@ const styles = StyleSheet.create({
     backgroundColor: colors.sixStringAutoBG,
     padding: 15,
     height: 50,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     margin: 5,
     top: 5,
     left: 5,
     borderRadius: 5,
+  },
+  tsContainer: {
+    backgroundColor: colors.white,
+    alignItems: 'center',
+    flex: 1,
+    maxHeight: 100,
+  },
+  tsSelection: {
+    backgroundColor: colors.userInputElement,
+    borderRadius: 10,
+    width: 110,
+    height: 50,
+    borderWidth: 1,
+    borderColor: colors.pressableElement,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
