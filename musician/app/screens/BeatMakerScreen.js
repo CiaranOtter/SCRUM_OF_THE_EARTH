@@ -73,6 +73,9 @@ export default class BeatMakerScreen extends Component {
         },
       ],
       tracks: [0, 1, 1, 1, 1], //array for flatlist for tracks 0=+button, 1=unactive track, 2=active track
+      plusTrackColor: colors.fourStringToggleBG,
+      activeTrackColor: colors.sixStringButtonFill,
+      unactiveTrackColor: colors.sixStringToggleBg,
       tsModalVisible: false,
       tsValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       tsNote: 4,
@@ -138,19 +141,44 @@ export default class BeatMakerScreen extends Component {
   };
 
   //functionthat gets called when user selects a time signature
-  tSSelector(beats, note) {
+  tSSelector = (beats, note) => {
     //console.log('Time Signature selector tapped' + beats + '/' + note);
     this.setState({numBeatsPerBar: beats});
     this.setState({tsNote: note});
     this.populateGridData(this.state.numBars, beats, this.state.numTracks);
     this.openTSSelector(!this.state.tsModalVisible);
-  }
+  };
 
   //function that gets called when user selects tempo
   tempoSelector(selectedTempo) {
     this.currentTempo = selectedTempo;
     console.log('Tempo selector tapped ' + this.currentTempo);
   }
+
+  gridItemTapped = (item, index) => {
+    console.log(item);
+    //console.log(index);
+  };
+
+  trackActivityColor = item => {
+    let bgColor = colors.white;
+    switch (item) {
+      case 0:
+        bgColor = this.state.plusTrackColor;
+        return bgColor;
+      case 1:
+        bgColor = this.state.unactiveTrackColor;
+        return bgColor;
+      case 2:
+        bgColor = this.state.activeTrackColor;
+        return bgColor;
+
+      default:
+        bgColor = colors.white;
+        break;
+    }
+    console.log('Error with settting rack header color');
+  };
 
   //function that gets called by plus button and adds sounds to grid
   // addMoreSounds = () => {
@@ -366,7 +394,11 @@ export default class BeatMakerScreen extends Component {
           data={this.state.tracks}
           horizontal={true}
           renderItem={({item, index}) => (
-            <TouchableOpacity style={styles.trackButtons}>
+            <TouchableOpacity
+              style={[
+                styles.trackButtons,
+                {backgroundColor: this.trackActivityColor(item)},
+              ]}>
               <Text>{item}</Text>
             </TouchableOpacity>
           )}
@@ -379,6 +411,7 @@ export default class BeatMakerScreen extends Component {
           maxItemsPerRow={this.state.numTracks}
           renderItem={({item, section, index}) => (
             <TouchableOpacity
+              onPress={() => this.gridItemTapped(item, index)}
               style={[
                 styles.itemContainer,
                 {backgroundColor: colors.sixStringAutoBG},
@@ -466,7 +499,7 @@ const styles = StyleSheet.create({
   },
   trackButtons: {
     width: 65,
-    backgroundColor: colors.sixStringAutoBG,
+    //backgroundColor: colors.sixStringAutoBG,
     padding: 15,
     height: 50,
     justifyContent: 'center',
