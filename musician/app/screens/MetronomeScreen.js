@@ -340,8 +340,6 @@ const styles = StyleSheet.create({
     flex: 4,
     width: "100%",
     height: '100%',
-    borderColor:'red',
-    borderWidth: 1,
   },
   pickerMenu: {
     borderWidth: 1,

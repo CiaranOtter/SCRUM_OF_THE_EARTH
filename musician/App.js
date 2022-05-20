@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Button, StyleSheet, Text, View, Pressable, Image} from 'react-native';
+import { mdiMusicCircle } from '@mdi/js';
 
 import MetronomeScreen from './app/screens/MetronomeScreen.js';
 import _6SMTunerScreen from './app/screens/TunerScreen';
@@ -76,15 +77,32 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
 
-      <View style={styles.nav_container}>
-        <Pressable
-          onPress={() => {
-            nav.navigate('Chromatic');
-          }}
-          style={styles.icon_container}>
-          <Icon name="audiotrack" />
-          <Text>Tuner</Text>
-        </Pressable>
+      
+        <View style={styles.nav_container}>
+          <Pressable onPress={() => {nav.navigate('Chromatic')}} style={styles.icon_container}>
+            <Icon name='{mdiMusicCircle' />
+            <Text>Tuner</Text>
+          </Pressable>
+        
+          <Pressable onPress={() => {nav.navigate('metronome')}} style={styles.icon_container}>
+            <Icon name="details" />
+            <Text>Metronome</Text>
+          </Pressable>
+        
+          <Pressable onPress={() => {nav.navigate('tools')}} style={styles.icon_container}>
+            <Icon name="construction" />
+            <Text>Tools</Text>
+          </Pressable>
+        
+          <Pressable onPress={() => {nav.navigate('practice')}} style={styles.icon_container}>
+            <Icon name="content-paste" />
+            <Text>Practice</Text>
+          </Pressable>
+        
+          <Pressable onPress={() => {nav.navigate('settings')}} style={styles.icon_container}>
+            <Icon name="settings" />
+            <Text>Settings</Text>
+          </Pressable>
 
         <Pressable
           onPress={() => {
