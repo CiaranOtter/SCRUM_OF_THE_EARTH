@@ -25,7 +25,7 @@ export default class BeatMakerScreen extends Component {
     super();
     this.state = {
       bars: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      currentBar: 1,
+      currentBar: 4,
       tempos: [
         'Larghissimo',
         'Grave',
@@ -44,17 +44,17 @@ export default class BeatMakerScreen extends Component {
       viewArray: [],
       disabledButton: false,
       animatedValue: new Animated.Value(0),
-      soundGrid: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-        39, 40, 42, 41, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56,
-        57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74,
-        75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92,
-        93, 94, 95, 96, 97, 98, 99, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-        13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-        31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 42, 41, 43, 44, 45, 46, 47, 48,
-        49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
-      ],
+      // soundGrid: [
+      //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      //   21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+      //   39, 40, 42, 41, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56,
+      //   57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74,
+      //   75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92,
+      //   93, 94, 95, 96, 97, 98, 99, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+      //   13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      //   31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 42, 41, 43, 44, 45, 46, 47, 48,
+      //   49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+      // ],
       // soundGrid: [
       //   {
       //     title: '',
@@ -89,23 +89,60 @@ export default class BeatMakerScreen extends Component {
       //     ],
       //   },
       // ],
-      numColumns: 10,
+      //numColumns: 10,
+
+      numTracks: 5,
+      numActiveTracks: 0,
+      numBars: 4,
+      numBeatsPerBar: 4,
+      gridData: [],
     };
 
     this.viewArrayIndex = 0;
-    //this.numColumns = 3;
-    //this.animatedValue = new Animated.Value(0);
-    //this.state.animatedValue = this.state.animatedValue.bind(this);
+  }
+
+  populateGridData = (bars, beats, tracks) => {
+    let cols = tracks;
+    let rows = bars * beats;
+    let numBloks = cols * rows;
+    console.log(numBloks);
+    let sectionSize = beats * tracks;
+
+    for (let indexBar = 1; indexBar < bars + 1; indexBar++) {
+      let title = indexBar;
+      //console.log(title);
+      let data = [];
+      for (
+        let indexSectionSize = 1;
+        indexSectionSize < sectionSize + 1;
+        indexSectionSize++
+      ) {
+        data.push(indexSectionSize);
+      }
+      //this.printArray(data);
+      let sectionArray = [title, data];
+      this.state.gridData.push(sectionArray);
+      //this.printArray(this.state.gridData);
+    }
+  };
+
+  //test function to print out array to make sure correct numbers are being outputted
+  printArray(array) {
+    array.forEach(element => {
+      console.log(element);
+    });
   }
 
   //function that gets called when user selects a bar
   barSelector(selectedBar) {
     this.currentBar = selectedBar;
-    console.log('Bar selector tapped ' + this.currentBar);
-    for (let index = 0; index < selectedBar; index++) {
-      this.addMoreSounds();
-      console.log(index);
-    }
+    this.state.numBars = selectedBar;
+    //console.log('Bar selector tapped ' + this.currentBar);
+    this.populateGridData(
+      this.state.numBars,
+      this.state.numBeatsPerBar,
+      this.state.numTracks,
+    );
   }
 
   //functionthat gets called when user selects a time signature
@@ -277,7 +314,18 @@ export default class BeatMakerScreen extends Component {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.MainContainer}>
+        <Button
+          style={styles.testButton}
+          title={'Test'}
+          onPress={() =>
+            this.populateGridData(
+              this.state.numBars,
+              this.state.numBeatsPerBar,
+              this.state.numTracks,
+            )
+          }></Button>
+
+        {/* <View style={styles.MainContainer}>
           <ScrollView>
             <View style={{flex: 1, padding: 2}}>{Render_Animated_View}</View>
           </ScrollView>
@@ -294,7 +342,7 @@ export default class BeatMakerScreen extends Component {
               style={styles.FloatingButtonStyle}
             />
           </TouchableOpacity>
-        </View>
+        </View> */}
       </SafeAreaView>
     );
   }
@@ -387,5 +435,10 @@ const styles = StyleSheet.create({
   },
   itemText: {
     color: '#fff',
+  },
+  testButton: {
+    backgroundColor: colors.fourStringGrey,
+    width: 50,
+    height: 50,
   },
 });
