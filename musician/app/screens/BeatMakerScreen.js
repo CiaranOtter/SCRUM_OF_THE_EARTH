@@ -42,61 +42,13 @@ export default class BeatMakerScreen extends Component {
         'Prestissimo',
       ],
       currentTempo: 'Adagio',
-      viewArray: [],
-      disabledButton: false,
+      //viewArray: [],
+      //disabledButton: false,
       animatedValue: new Animated.Value(0),
-      // soundGrid: [
-      //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      //   21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-      //   39, 40, 42, 41, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56,
-      //   57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74,
-      //   75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92,
-      //   93, 94, 95, 96, 97, 98, 99, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-      //   13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-      //   31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 42, 41, 43, 44, 45, 46, 47, 48,
-      //   49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
-      // ],
-      // soundGrid: [
-      //   {
-      //     title: '',
-      //     data: [
-      //       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-      //       20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-      //       37, 38, 39, 40,
-      //     ],
-      //   },
-      //   {
-      //     title: '',
-      //     data: [
-      //       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-      //       20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-      //       37, 38, 39, 40,
-      //     ],
-      //   },
-      //   {
-      //     title: '',
-      //     data: [
-      //       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-      //       20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-      //       37, 38, 39, 40,
-      //     ],
-      //   },
-      //   {
-      //     title: '',
-      //     data: [
-      //       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-      //       20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-      //       37, 38, 39, 40,
-      //     ],
-      //   },
-      // ],
-      //numColumns: 10,
-
       numTracks: 5,
       numActiveTracks: 0,
       numBars: 4,
       numBeatsPerBar: 4,
-      //gridData: [{title: null, data: []}],
       gridData: [
         {
           title: 1,
@@ -105,23 +57,45 @@ export default class BeatMakerScreen extends Component {
             20,
           ],
         },
-        {title: 2, data: [1, 2, 3, 4, 5]},
-        {title: 3, data: [1, 2, 3, 4, 5]},
+        {
+          title: 2,
+          data: [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20,
+          ],
+        },
+        {
+          title: 3,
+          data: [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20,
+          ],
+        },
+        {
+          title: 4,
+          data: [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20,
+          ],
+        },
       ],
+      tracks: [0, 1, 1, 1, 1], //array for flatlist for tracks 0=+button, 1=unactive track, 2=active track
     };
 
     this.viewArrayIndex = 0;
   }
 
+  //function to populate the grid that makes the track grid on screen based on bars, beats and number of tracks
   populateGridData = (bars, beats, tracks) => {
-    this.state.gridData = [];
-    let cols = tracks;
-    let rows = bars * beats;
-    let numBloks = cols * rows;
-    console.log(numBloks);
-    let sectionSize = beats * tracks;
+    this.state.gridData = []; //empty the grid before repopulating it
+    //let cols = tracks;
+    //let rows = bars * beats;
+    //let numBloks = cols * rows; //the number of blocks in the grid
+    //console.log(numBloks);
+    let sectionSize = beats * tracks; //the number of blocks in a section (sectioned by bars)
 
     for (let indexBar = 1; indexBar < bars + 1; indexBar++) {
+      //for loop to populate the gridArray with the different sections and the blocks in them
       let title = indexBar;
       //console.log(title);
       let data = [];
@@ -140,8 +114,8 @@ export default class BeatMakerScreen extends Component {
       this.state.gridData.push(sectionArray);
       //this.printArray(this.state.gridData);
     }
-    this.setState(this.state.gridData);
-    this.printArray(this.state.gridData);
+    this.setState(this.state.gridData); //updtae the new gridData array
+    //this.printArray(this.state.gridData);
   };
 
   //test function to print out array to make sure correct numbers are being outputted
@@ -175,105 +149,105 @@ export default class BeatMakerScreen extends Component {
   }
 
   //function that gets called by plus button and adds sounds to grid
-  addMoreSounds = () => {
-    this.state.animatedValue.setValue(0);
-    let newlyAddedValue = {viewArrayIndex: this.viewArrayIndex};
-    this.setState(
-      {
-        disabledButton: true,
-        viewArray: [...this.state.viewArray, newlyAddedValue],
-      },
-      () => {
-        Animated.timing(this.state.animatedValue, {
-          toValue: 1,
-          duration: 400,
-          useNativeDriver: true,
-        }).start(() => {
-          this.viewArrayIndex = this.viewArrayIndex + 1;
-          this.setState({disabledButton: false});
-        });
-      },
-    );
-  };
+  // addMoreSounds = () => {
+  //   this.state.animatedValue.setValue(0);
+  //   let newlyAddedValue = {viewArrayIndex: this.viewArrayIndex};
+  //   this.setState(
+  //     {
+  //       disabledButton: true,
+  //       viewArray: [...this.state.viewArray, newlyAddedValue],
+  //     },
+  //     () => {
+  //       Animated.timing(this.state.animatedValue, {
+  //         toValue: 1,
+  //         duration: 400,
+  //         useNativeDriver: true,
+  //       }).start(() => {
+  //         this.viewArrayIndex = this.viewArrayIndex + 1;
+  //         this.setState({disabledButton: false});
+  //       });
+  //     },
+  //   );
+  // };
 
   //function for when grid item is tapped
-  gridItemTapped = () => {
-    console.log('grid item tapped');
-  };
+  // gridItemTapped = () => {
+  //   console.log('grid item tapped');
+  // };
 
   render() {
-    let renderItem = ({item, index}) => {
-      if (item.empty == true) {
-        return <View style={[styles.item, styles.itemInvisible]} />;
-      }
-      return (
-        // <Pressable style={styles.item} onPress={this.gridItemTapped(item)}>
-        //   {/* <Text style={styles.itemText}>{item.key}</Text> */}
-        // </Pressable>
-        // <Pressable onPress={this.gridItemTapped}>
+    // let renderItem = ({item, index}) => {
+    //   if (item.empty == true) {
+    //     return <View style={[styles.item, styles.itemInvisible]} />;
+    //   }
+    //   return (
+    //     // <Pressable style={styles.item} onPress={this.gridItemTapped(item)}>
+    //     //   {/* <Text style={styles.itemText}>{item.key}</Text> */}
+    //     // </Pressable>
+    //     // <Pressable onPress={this.gridItemTapped}>
 
-        // </Pressable>
+    //     // </Pressable>
 
-        <TouchableOpacity onPress={this.gridItemTapped} style={styles.item}>
-          <Text style={styles.itemText}>{item.key}</Text>
-        </TouchableOpacity>
-      );
-    };
+    //     <TouchableOpacity onPress={this.gridItemTapped} style={styles.item}>
+    //       <Text style={styles.itemText}>{item.key}</Text>
+    //     </TouchableOpacity>
+    //   );
+    // };
 
-    const animationValue = this.state.animatedValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [-59, 0],
-    });
+    // const animationValue = this.state.animatedValue.interpolate({
+    //   inputRange: [0, 1],
+    //   outputRange: [-59, 0],
+    // });
 
-    let Render_Animated_View = this.state.viewArray.map((item, key) => {
-      if (key == this.viewArrayIndex) {
-        return (
-          <Animated.View
-            key={key}
-            style={[
-              styles.barView,
-              {
-                opacity: this.state.animatedValue,
-                transform: [{translateY: animationValue}],
-              },
-            ]}>
-            {/* <Text style={styles.View_Inside_Text}>
-              {' '}
-              This Is Bar {item.viewArrayIndex}{' '}
-            </Text> */}
-            <FlatList
-              data={this.state.soundGrid}
-              style={styles.gridContainer}
-              renderItem={renderItem}
-              horizontal={false}
-              //scrollEnabled={false}
-              numColumns={this.state.numColumns}></FlatList>
-            {/* <SectionList
-              sections={this.state.soundGrid}
-              keyExtractor={(item, index) => item + index}
-              renderSectionHeader={''}
-              numColumns={this.state.numColumns}
-              renderItem={renderItem}></SectionList> */}
-          </Animated.View>
-        );
-      } else {
-        return (
-          <View key={key} style={styles.barView}>
-            {/* <Text style={styles.View_Inside_Text}>
-              This Is Bar {item.viewArrayIndex}{' '}
-            </Text> */}
-            <FlatList
-              data={this.state.soundGrid}
-              style={styles.gridContainer}
-              renderItem={renderItem}
-              horizontal={false}
-              //vertical={true}
-              scrollEnabled={false}
-              numColumns={this.state.numColumns}></FlatList>
-          </View>
-        );
-      }
-    });
+    // let Render_Animated_View = this.state.viewArray.map((item, key) => {
+    //   if (key == this.viewArrayIndex) {
+    //     return (
+    //       <Animated.View
+    //         key={key}
+    //         style={[
+    //           styles.barView,
+    //           {
+    //             opacity: this.state.animatedValue,
+    //             transform: [{translateY: animationValue}],
+    //           },
+    //         ]}>
+    //         {/* <Text style={styles.View_Inside_Text}>
+    //           {' '}
+    //           This Is Bar {item.viewArrayIndex}{' '}
+    //         </Text> */}
+    //         <FlatList
+    //           data={this.state.soundGrid}
+    //           style={styles.gridContainer}
+    //           renderItem={renderItem}
+    //           horizontal={false}
+    //           //scrollEnabled={false}
+    //           numColumns={this.state.numColumns}></FlatList>
+    //         {/* <SectionList
+    //           sections={this.state.soundGrid}
+    //           keyExtractor={(item, index) => item + index}
+    //           renderSectionHeader={''}
+    //           numColumns={this.state.numColumns}
+    //           renderItem={renderItem}></SectionList> */}
+    //       </Animated.View>
+    //     );
+    //   } else {
+    //     return (
+    //       <View key={key} style={styles.barView}>
+    //         {/* <Text style={styles.View_Inside_Text}>
+    //           This Is Bar {item.viewArrayIndex}{' '}
+    //         </Text> */}
+    //         <FlatList
+    //           data={this.state.soundGrid}
+    //           style={styles.gridContainer}
+    //           renderItem={renderItem}
+    //           horizontal={false}
+    //           //vertical={true}
+    //           scrollEnabled={false}
+    //           numColumns={this.state.numColumns}></FlatList>
+    //       </View>
+    //     );
+    //   }
+    // });
 
     return (
       <SafeAreaView style={styles.container}>
@@ -332,70 +306,34 @@ export default class BeatMakerScreen extends Component {
           </TouchableOpacity>
         </View>
 
-        <SectionGrid
-          itemDimension={30}
-          // staticDimension={300}
-          // fixed
-          // spacing={20}
-          sections={this.state.gridData}
-          // sections={[
-          //   {
-          //     title: 'Title1',
-          //     data: [0, 6],
-          //   },
-          //   {
-          //     title: 'Title2',
-          //     data: [0, 12],
-          //   },
-          //   {
-          //     title: 'Title3',
-          //     data: [12, 20],
-          //   },
-          // ]}
-          style={styles.gridView}
-          renderItem={({item, section, index}) => (
-            <View
-              style={[
-                styles.itemContainer,
-                {backgroundColor: colors.sixStringAutoBG},
-              ]}>
-              <Text style={styles.itemName}>{item}</Text>
-            </View>
-          )}
-          renderSectionHeader={({section}) => (
-            <Text style={styles.sectionHeader}>{section.title}</Text>
+        <FlatList
+          style={styles.soundBar}
+          data={this.state.tracks}
+          horizontal={true}
+          renderItem={({item, index}) => (
+            <TouchableOpacity style={styles.trackButtons}>
+              <Text>{item}</Text>
+            </TouchableOpacity>
           )}
         />
 
-        {/* <Button
-          style={styles.testButton}
-          title={'Test'}
-          onPress={() =>
-            this.populateGridData(
-              this.state.numBars,
-              this.state.numBeatsPerBar,
-              this.state.numTracks,
-            )
-          }></Button> */}
-
-        {/* <View style={styles.MainContainer}>
-          <ScrollView>
-            <View style={{flex: 1, padding: 2}}>{Render_Animated_View}</View>
-          </ScrollView>
-
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles.TouchableOpacityStyle}
-            disabled={this.state.disabledButton}
-            onPress={this.addMoreSounds}>
-            <Image
-              source={{
-                uri: 'https://reactnativecode.com/wp-content/uploads/2017/11/Floating_Button.png',
-              }}
-              style={styles.FloatingButtonStyle}
-            />
-          </TouchableOpacity>
-        </View> */}
+        <SectionGrid
+          itemDimension={30}
+          sections={this.state.gridData}
+          style={styles.gridView}
+          maxItemsPerRow={this.state.numTracks}
+          renderItem={({item, section, index}) => (
+            <TouchableOpacity
+              style={[
+                styles.itemContainer,
+                {backgroundColor: colors.sixStringAutoBG},
+              ]}></TouchableOpacity>
+          )}
+          renderSectionHeader={({section}) => (
+            // <Text style={styles.sectionHeader}></Text>nasheandsizweseatingonatreekissing
+            <View style={styles.sectionHeader}></View>
+          )}
+        />
       </SafeAreaView>
     );
   }
@@ -413,7 +351,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 10,
     justifyContent: 'space-evenly',
-    maxHeight: 85,
+    maxHeight: 75,
   },
   barDownStyle: {
     backgroundColor: colors.userInputElement,
@@ -444,58 +382,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  // MainContainer: {
-  //   flex: 1,
-  //   backgroundColor: '#eee',
-  //   justifyContent: 'center',
-  //   paddingTop: Platform.OS == 'ios' ? 20 : 0,
-  //   //height: '100%',
-  // },
-
-  // View_Inside_Text: {
-  //   color: '#fff',
-  //   fontSize: 24,
-  // },
-
-  // TouchableOpacityStyle: {
-  //   position: 'absolute',
-  //   width: 50,
-  //   height: 50,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   right: 30,
-  //   bottom: 30,
-  // },
-
-  // FloatingButtonStyle: {
-  //   resizeMode: 'contain',
-  //   width: 50,
-  //   height: 50,
-  // },
-  // item: {
-  //   backgroundColor: colors.fourStringGrey,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   flex: 1,
-  //   margin: 1,
-  //   //height: Dimensions.get('window').width / this.state.columns, // approximate a square
-  //   //height: Dimensions.get('window').width / 3,
-  //   height: 32.5,
-  //   //width: 500,
-  // },
-  // itemInvisible: {
-  //   backgroundColor: 'transparent',
-  // },
-  // itemText: {
-  //   color: '#fff',
-  // },
-  testButton: {
-    backgroundColor: colors.fourStringGrey,
-    width: 50,
-    height: 50,
-  },
   gridView: {
-    marginTop: 20,
+    ///marginTop: 20,
     flex: 1,
     backgroundColor: colors.fourStringGrey,
     //height: 200,
@@ -503,18 +391,8 @@ const styles = StyleSheet.create({
   itemContainer: {
     justifyContent: 'flex-end',
     borderRadius: 5,
-    padding: 10,
+    padding: 2.5,
     height: 50,
-  },
-  itemName: {
-    fontSize: 16,
-    color: '#fff',
-    fontWeight: '600',
-  },
-  itemCode: {
-    fontWeight: '600',
-    fontSize: 12,
-    color: '#fff',
   },
   sectionHeader: {
     flex: 1,
@@ -523,6 +401,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#636e72',
     color: 'white',
-    padding: 10,
+    padding: 5,
+  },
+  soundBar: {
+    //height: 70,
+    maxHeight: 70,
+    flex: 1,
+    backgroundColor: colors.userInputElement,
+  },
+  trackButtons: {
+    width: 65,
+    backgroundColor: colors.sixStringAutoBG,
+    padding: 15,
+    height: 50,
+    justifyContent: 'flex-end',
+    margin: 5,
+    top: 5,
+    left: 5,
+    borderRadius: 5,
   },
 });
