@@ -14,7 +14,7 @@ import {
   Picker,
   View,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
+// import {Picker} from '@react-native-picker/picker';
 import { Audio } from "expo-av";
 
 import click1 from "../sounds/click1.mp3"; //objects and libraries imported from within our project
@@ -35,14 +35,14 @@ export default class MetronomeScreen extends Component {
     // this.navigation = navigation;
 
     //initial state of the app and its componets/functions
-    // this.state = {
-    //   playing: false, // there is nothing being played yet
-    //   count: 0,
-    //   bpm: 100, // initial beats per minute value
-    //   beatsPerMeasure: 4, // initial beats per measure value
-    //   tempoText: "Moderato (moderately)" // initial tempo marking based on the bpm value
-
-    // };
+    this.state = {
+      bpMeasure: "beats per measure"
+      // playing: false, // there is nothing being played yet
+      // count: 0,
+      // bpm: 100, // initial beats per minute value
+      // beatsPerMeasure: 4, // initial beats per measure value
+      // tempoText: "Moderato (moderately)" // initial tempo marking based on the bpm value
+    };
   }
 
   //load the sound we're going to use for the metronome
@@ -60,7 +60,9 @@ export default class MetronomeScreen extends Component {
   }
 
   handleBeatsPerMeasureChange = (e) => {
-    this.MetronomeClass.setBeatPerMeasure(e.target.value);
+    this.MetronomeClass.setBeatPerMeasure(e.target.value); 
+    // this.MetronomeClass.setBeatPerMeasure(e);
+    // this.setState({bpMeasure: e})
   };
 
   //   calcTempoText(bpm) {
@@ -205,7 +207,10 @@ export default class MetronomeScreen extends Component {
           <View style={styles.centeredView}>
             <Picker
               style={styles.pickerMenu}
-              onChange={this.handleBeatsPerMeasureChange} //beats per measure dropdown menu, and function to be called when a value is picked
+              onChange={this.MetronomeClass.handleBeatsPerMeasureChange}
+              // selectedValue={this.state.bpMeasure}
+              // onValueChange={(itemValue) => this.handleBeatsPerMeasureChange(itemValue)} 
+              //beats per measure dropdown menu, and function to be called when a value is picked
             >
               <Picker.Item label="beats per measure" value="0"></Picker.Item>
               <Picker.Item label="2" value="2"></Picker.Item>

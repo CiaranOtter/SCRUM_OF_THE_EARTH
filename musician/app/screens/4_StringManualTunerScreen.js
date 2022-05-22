@@ -1,9 +1,9 @@
-import React, { Component } from "react";
 import { Text, ImageBackground, SafeAreaView, StyleSheet, TouchableOpacity, Alert, View } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { StackActions } from "@react-navigation/native";
 import {Audio} from "expo-av";
 
+import MidiPlayback from 'react-native-midi-playback';
 export default class _4SMTuner extends Component {   
     
     constructor(){
