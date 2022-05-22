@@ -1,3 +1,4 @@
+import react, {Component} from 'react';
 import { Text, ImageBackground, SafeAreaView, StyleSheet, TouchableOpacity, Alert, View } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { StackActions } from "@react-navigation/native";
