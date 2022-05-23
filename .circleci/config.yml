@@ -1,5 +1,24 @@
 version: 2.1
 
+orbs: 
+  python: circleci/python@2.0.3
+
+commands:
+  push-to-origin:
+    steps:
+      - run: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH}"
+  run-tests:
+    description: "run the jest unit tests"
+    steps:
+      - run: "./circleci-scripts/run-tests.sh"
+      
+  generate-readme:
+    description: "generatign the REAME.md fie with all necessary data"
+    steps:
+      - run: "./circleci-scripts/readme-setup.sh"
+
+  
+
 jobs:     
   install-and-test:
     build:
@@ -15,22 +34,54 @@ jobs:
 
       - run: 
           name: "Install npm modules in musician"
-          command: "cd musician; npm install;"
+          command: "cd musician; npm install; sudo npm install -g merge-md;"
 
-      - run: 
-          name: "Run the jest unit tests"
-          command: "cd musician; npm test"
+      - run-tests
+      - generate-readme
       
       - run:
           name: "Generate badges from coverage-summary.json"
           command: "npm run badges"
 
+      - run: 
+          name: "configure git user"
+          command: " git config --global user.email 'ciaranjotter@gmail.com'; git config --global user.name 'Ciaran Otter'"
+
       # - run:
-      #     name: "Build android app" 
-      #     command: "cd musician;sudo npm i -g --force react-native-cli;sudo npm i -g react-native;react-native run-android"
+      #     name: "Checkout current branch"
+      #     command: "git remote update; git fetch; git checkout --track origin/${CIRCLE_BRANCH}"
+             
+      - run:
+          name: "ad all unstaged file"
+          command: "git add --all"
+
+      - run:
+          name: "commit to the SCRUM_OF_THE_EARTH repository"
+          command: "git commit --allow-empty -m 'circle ci commit for badge push [ci skip]'"
+
+      - run:
+          name: "pulling remote repository"
+          command: "git pull https://github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH} --rebase"
+
+      - run:
+          name: "checkout branch"
+          command: "git checkout ${CIRCLE_BRANCH}"
+
+      - run: 
+          name: "merging"
+          command: "git merge origin/${CIRCLE_BRANCH}" 
+
+      - run:
+          name: "check variables"
+          command: "echo ${token}" 
+
+      - push-to-origin
+        
 
 
 workflows:
   Install-and-test:
     jobs:
-      - install-and-test
+      - install-and-test:
+          context:
+            - github-access

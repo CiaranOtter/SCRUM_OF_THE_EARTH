@@ -4,7 +4,6 @@
   "description": "The repository for the SCRUM of the Earth group in Software development, wits university, 2022",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "badges": "npm install coverage-badge-creator && coverage-badge-creator"
   },
   "repository": {
@@ -19,7 +18,10 @@
   },
   "homepage": "https://github.com/CiaranOtter/SCRUM_OF_THE_EARTH#readme",
   "dependencies": {
-    "coverage-badge-creator": "^1.0.11",
+    "mdmerge": "^1.3.1",
     "react-native-cli": "^2.0.1"
+  },
+  "devDependencies": {
+    "coverage-badge-creator": "^1.0.11"
   }
 }

@@ -25,8 +25,85 @@ import StringGuitarImage from '../../assets/Tuner_6String_Activity.png';
 const Sound = require('react-native-sound');
 Sound.setCategory('Alarm');
 
+<<<<<<< HEAD
+import colors from "../config/colors";
+import {useState} from "react";
+import { PitchDetector } from "pitchy";
+import SelectDropdown from "react-native-select-dropdown";
+import {isEnabled} from "react-native/Libraries/Pressability/PressabilityDebug";
+import {setIsEnabledAsync} from "expo-av/build/Audio/AudioAvailability";
+import logo from './6String.jpg';
+
+
+// import PitchTracker from "react-native-pitch-tracker";
+// import {findPitch} from 'pitchy';
+
+import colors from "../config/colors";
+import {useState} from "react";
+
+import { Recording } from "expo-av/build/Audio";
+
+import { Platform } from 'react-native';
+
+console.log(Platform.OS)
+
+Audio.requestPermissionsAsync();
+
+
+
+
+export default function TunerScreen() {
+  const [recording, setRecording] = React.useState();
+  let inputRecording = new Audio.Recording();
+  const [selectedValue, setSelectedValue] = useState("4String");
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState)
+  const low_E = new Audio.Sound();
+  const A_string = new Audio.Sound();
+  const D_string = new Audio.Sound();
+  const G_string = new Audio.Sound();
+  const B_string = new Audio.Sound();
+  const high_E = new Audio.Sound();
+
+  // PitchTracker.prepare();
+
+  // PitchTracker.noteOn((res) => {
+  //   console.log("Note on: " + res['midiNum'])
+  // })
+
+  // PitchTracker.noteOff((res) => {
+  //   console.log("note off: " + res["midiNum"])
+  // })
+
+  try {
+    low_E.loadAsync(require("../sounds/Tuner_low_E.m4a"));
+    A_string.loadAsync(require("../sounds/Tuner_A.m4a"));
+    D_string.loadAsync(require("../sounds/Tuner_D.m4a"));
+    G_string.loadAsync(require("../sounds/Tuner_G.m4a"));
+    B_string.loadAsync(require("../sounds/Tuner_B.m4a"));
+    high_E.loadAsync(require("../sounds/Tuner_high_E.m4a"));
+  } catch (error) {
+    console.log("Failed to load metronome sounds: " + error);
+  }
+
+
+  // function updatePitch(Node, sampleRate) {
+  //   let data = new Float32Array(2048);
+  //   console.log("data is: "+ data)
+  //   Node.getFloatTimeDomainData(data);
+  //   let [pitch, clarity] = findPitch(data, sampleRate);
+
+  //   console.log("pitch is: "+ pitch);
+  //   console.log("clarity is: "+clarity);
+  // }
+
+export default class _4SATuner extends Component {
+
+  constructor(){
+=======
 export default class TunerScreen extends Component {
   constructor() {
+>>>>>>> main
     super();
     this.state = {
       tuner_type: ['4 String Tuner', '6 String Tuner', 'Chromatic Tuner'],
@@ -369,6 +446,5 @@ const styles = StyleSheet.create({
     left:-6,
     //bottom: 80,
     //bottom: 100,
-  },
-
-});
+  }
+})
