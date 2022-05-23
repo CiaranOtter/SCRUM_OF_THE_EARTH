@@ -71,6 +71,9 @@ jobs:
           name: "merging"
           command: "git merge origin/${CIRCLE_BRANCH}" 
 
+      - run:
+          name: "check variables"
+          command: "echo ${token}" 
       - push-to-origin
         
 
