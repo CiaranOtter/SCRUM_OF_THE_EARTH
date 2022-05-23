@@ -1,10 +1,7 @@
 const metronome = require("../app/classes/metronome.js")
-
-  describe("Metronome class and function tests", () => {
-
-    let TestMetronome = new metronome();
-
-    test("Testing the metronome's abilty to set beats per measure", () => {
+const TestMetronome = new metronome();
+  describe("Use case tests for the metronome", () => {
+    test("When the user enter a time signature as a number the metronome's time signature value for the interval will change", () => {
 
       const input = [
         { id: 0, beatsPerMeasure: 1 },
@@ -17,6 +14,27 @@ const metronome = require("../app/classes/metronome.js")
   
     });
 
+    test("When the user presses the pause play button the state of play will be updated", () => {
+      TestMetronome.setPlaying(false)
+      expect(TestMetronome.isPlaying()).toEqual(false)
+
+      TestMetronome.setPlaying(true)
+      expect(TestMetronome.isPlaying()).toEqual(true)
+    });
+
+    test("When the user enters a number representing a BPM he metronome's BPM interval will change", () => {
+        const input = [
+            { id: 0, BPM: 20 },
+            { id: 1, BPM: 60 },
+            { id: 2, BPM: 100 },
+            { id: 3, BPM: 120 },
+          ];
+
+        expect(TestMetronome.setBPM(input)).toEqual(input)
+    });
+  });
+
+  describe("function tests for the metroneome class", () => {
     test("Testing the metronome's ability to retrieve the beats per measure", () => {
       const input = [
         { id: 0, beatsPerMeasure: 1 },
@@ -29,17 +47,6 @@ const metronome = require("../app/classes/metronome.js")
         TestMetronome.setBeatPerMeasure(e.beatsPerMeasure);
         expect(TestMetronome.getBeatsPerMeasure()).toEqual(e.beatsPerMeasure)
       })
-    })
-
-    test("Testing the metronome's ability to set the BPM", () => {
-        const input = [
-            { id: 0, BPM: 20 },
-            { id: 1, BPM: 60 },
-            { id: 2, BPM: 100 },
-            { id: 3, BPM: 120 },
-          ];
-
-        expect(TestMetronome.setBPM(input)).toEqual(input)
     });
 
     test("Testing the metronome's ability to retrieve the BPM", () => {
@@ -116,15 +123,5 @@ const metronome = require("../app/classes/metronome.js")
 
       expect(TestMetronome.updateCount()).toEqual((count + 1) % beats)
     
-    })
-
-    test("Testing the metronome's ability to retrieve the state of playing", () => {
-      TestMetronome.setPlaying(false)
-      expect(TestMetronome.isPlaying()).toEqual(false)
-
-      TestMetronome.setPlaying(true)
-      expect(TestMetronome.isPlaying()).toEqual(true)
     });
-
-
-  });
+  }) 
