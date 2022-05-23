@@ -6,7 +6,7 @@ orbs:
 commands:
   push-to-origin:
     steps:
-      - run: "git push -q https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git ${CIRCLE_BRANCH} then exit 0"
+      - run: "git push origin ${CIRCLE_BRANCH}"
   run-tests:
     description: "run the jest unit tests"
     steps:
