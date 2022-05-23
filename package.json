@@ -4,7 +4,6 @@
   "description": "The repository for the SCRUM of the Earth group in Software development, wits university, 2022",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "badges": "npm install coverage-badge-creator && coverage-badge-creator"
   },
   "repository": {
