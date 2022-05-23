@@ -34,7 +34,7 @@ jobs:
 
       - run: 
           name: "Install npm modules in musician"
-          command: "cd musician; npm install; sudo npm install -g mdmerge;"
+          command: "cd musician; npm install; sudo npm install -g merge-md;"
 
       - run-tests
       - generate-readme

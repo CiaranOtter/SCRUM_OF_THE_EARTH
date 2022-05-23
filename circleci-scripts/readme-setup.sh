@@ -6,7 +6,5 @@ if test -f "./README.md"; then
     rm README.md
 fi
 
-cd readme-sources
-ls
-mdmerge main.md coverage.md -o README.md
-mv README.md ../README.md
+merge ./readme-sources
+mv ./readme-sources/merged.md ./README.md

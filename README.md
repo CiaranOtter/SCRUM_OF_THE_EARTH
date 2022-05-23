@@ -1,3 +1,20 @@
+# coverage.md
+# Coverage 
+## coverage for project in total
+$coverage$
+
+### coverage for tested functions
+
+$functions$
+### coverage for lines
+
+$lines$
+
+### Coverage for this branch
+
+$branches$
+
+# main.md
 # Musician
 A react native app containing all the tools a musician would need for any practice session. This project was designed, developed and released by the 
 SCRUM_OF_THE_EARTH software design team as a third year computer science project.
@@ -15,17 +32,3 @@ this project has a continous integration system to build and manage the app. Cir
 unit tests and integrationo tests are contined, managed and handled by jest for react native.
 
 
-# Coverage 
-## coverage for project in total
-$coverage$
-
-### coverage for tested functions
-
-$functions$
-### coverage for lines
-
-$lines$
-
-### Coverage for this branch
-
-$branches$
