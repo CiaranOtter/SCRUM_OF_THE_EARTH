@@ -36,9 +36,7 @@ jobs:
           name: "Install npm modules in musician"
           command: "cd musician; npm install;"
 
-      - run: 
-          name: "Run the jest unit tests"
-          command: "cd musician; npm test"
+      - run-tests
       
       - run:
           name: "Generate badges from coverage-summary.json"
