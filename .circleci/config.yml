@@ -47,6 +47,10 @@ jobs:
           command: " git config --global user.email 'ciaranjotter@gmail.com'; git config --global user.name 'Ciaran Otter'"
 
       - run:
+          name: "Checkout current branch"
+          command: "git remote update; git fetch; git checkout --track origin/${CIRCLE_BRANCH}"
+             
+      - run:
           name: "ad all unstaged file"
           command: "git add ."
 
