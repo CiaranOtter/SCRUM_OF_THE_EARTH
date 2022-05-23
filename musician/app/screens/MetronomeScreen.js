@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react"; //libraries imported from external sources
-import { render } from "react-dom";
+// import { render } from "react-dom";
 import {
   SafeAreaView,
   TouchableHighlight,
