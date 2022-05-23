@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react"; //libraries imported from external sources
-import { render } from "react-dom";
+// import { render } from "react-dom";
 import {
   SafeAreaView,
   TouchableHighlight,
@@ -11,22 +11,19 @@ import {
   TextInput,
   Button,
   Modal,
-  Picker,
+  // Picker,
   View,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { Audio } from "expo-av";
-
-import click1 from "../sounds/click1.mp3"; //objects and libraries imported from within our project
-import hardClick from "../sounds/hardClick.mp3";
 import colors from "../config/colors";
 
-const metronome = require("../classes/metronome.js");
+import { Picker } from "@react-native-picker/picker"
 
-let startstopText = "Start";
+const metronome = require("../classes/metronome.js");
+const Sound = require("react-native-sound");
+
+Sound.setCategory("Alarm")
+
 export default class MetronomeScreen extends Component {
-  // const[range, setRange] = useState('50%')
-  // const[sliding, setSliding] = useState('Inactive')
 
   constructor() {
     super();
@@ -34,6 +31,25 @@ export default class MetronomeScreen extends Component {
     this.MetronomeClass = new metronome();
     // this.navigation = navigation;
 
+    this.hardclick = new Sound('hardclick.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the hard click', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.hardclick.getDuration() + ' number of channels: ' + this.hardclick.getNumberOfChannels());
+    
+    });
+
+    this.click1 = new Sound('click.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.click1.getDuration() + ' number of channels: ' + this.click1.getNumberOfChannels());
+    
+    });
     //initial state of the app and its componets/functions
     // this.state = {
     //   playing: false, // there is nothing being played yet
@@ -47,17 +63,9 @@ export default class MetronomeScreen extends Component {
 
   //load the sound we're going to use for the metronome
   async componentDidMount() {
-    this.click1 = new Audio.Sound();
-    this.hardClick = new Audio.Sound();
-
-    //try to load the audio, and if it fails debug the error
-    try {
-      this.click1.loadAsync(require("../sounds/click1.mp3"));
-      this.hardClick.loadAsync(require("../sounds/hardClick.mp3"));
-    } catch (error) {
-      console.log("Failed to load metronome sounds: " + error);
-    }
+    
   }
+
 
   handleBeatsPerMeasureChange = (e) => {
     this.MetronomeClass.setBeatPerMeasure(e.target.value);
@@ -169,14 +177,30 @@ export default class MetronomeScreen extends Component {
   playClick = () => {
     const count = this.MetronomeClass.getCount();
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
-    console.log(count)
-    if (count % beatsPerMeasure === 0) {
-      this.hardClick.setPositionAsync(0); //reset the playback position of the Async so that the sound can play continuosly
-      this.hardClick.playAsync(); //play the sound
-    } else {
-      this.click1.setPositionAsync(0); //reset the playback position of the Async so that the sound can play continuosly
-      this.click1.playAsync(); //play the sound
-    }
+    console.log(count);
+    this.click1.stop();
+    this.click1.setCurrentTime(0);
+    this.click1.play();
+    // if (count % beatsPerMeasure === 0) {
+    //   this.click1.setCurrentTime(0);
+    //   this.
+
+    //   this.click1.play((success) => {
+    //     if (success) {
+    //       console.log('successfully finished playing');
+    //     } else {
+    //       console.log('playback failed due to audio decoding errors');
+    //     }
+    //   }); //play the sound
+    // } else {
+    //   this.click1.play((success) => {
+    //     if (success) {
+    //       console.log('successfully finished playing');
+    //     } else {
+    //       console.log('playback failed due to audio decoding errors');
+    //     }
+    //   }); //play the sound
+    // }
     this.MetronomeClass.updateCount();
   };
 
@@ -191,17 +215,21 @@ export default class MetronomeScreen extends Component {
       <SafeAreaView style={styles.container} forceInset={{ top: 'never'}}>
         
           {/* Text for bpm input */}
-          <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>
+          
 
           {/* input for the bpm */}
-          <View style={styles.centeredView}>
-            <TextInput
-              style={styles.bpmTextInput}
-              onChangeText={text => {this.handleBpmChange(text)}} //text to indicate that the user should enter a bpm and a bpm text input
-              number={bpm}></TextInput>
-            </View>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>
+            <View style={styles.centeredView}>
+              <TextInput
+                style={styles.bpmTextInput}
+                onChangeText={text => {this.handleBpmChange(text)}} //text to indicate that the user should enter a bpm and a bpm text input
+                number={bpm}></TextInput>
+              </View>
+          </View>
           
           {/* input picker for the beats per measure */}
+          <View styel={{ flex: 2 }}>
           <View style={styles.centeredView}>
             <Picker
               style={styles.pickerMenu}
@@ -242,9 +270,10 @@ export default class MetronomeScreen extends Component {
               <Picker.Item label="12" value="12"></Picker.Item>
             </Picker>
           </View>
+        </View>
 
         {/* input button for starting and stopping the metronome */}
-        <View style={styles.centeredView}>
+        <View style={{ flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
           <TouchableOpacity
             style={styles.playButton}
             onPress={this.startStop} // a button to start or stop the metronome sound
@@ -255,7 +284,7 @@ export default class MetronomeScreen extends Component {
 
         <ImageBackground
           source={require("../../assets/metronome-image-wb.png")}
-          resizeMode="stretch"
+          resizeMode="contain"
           style={styles.metronomeImage}
         >
           <Text
@@ -264,13 +293,13 @@ export default class MetronomeScreen extends Component {
           >
             {beatsPerMeasure}
           </Text>
-
+{/* 
           <Text
             //bpm text
             style={styles.speedText}
           >
-            {tempoText}
-          </Text>
+            {this.MetronomeClass.getTempoText}
+          </Text> */}
         </ImageBackground>
       </SafeAreaView>
     );
@@ -280,10 +309,9 @@ export default class MetronomeScreen extends Component {
 const styles = StyleSheet.create({
   //styles for elements listed in Alphabetical order (with the exception of container - which is always on top)
   container: {
-    flex: 1,
     backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: 'red',
+    flexDirection: 'column',
+    flex: 1,
   },
   bpmText: {
     paddingTop: "3%",
@@ -294,7 +322,6 @@ const styles = StyleSheet.create({
   },
   bpmTextInput: {
     borderWidth: 1,
-    borderColor: "red",
     borderColor: "#777",
     paddingTop: 5,
     width: 200,
@@ -303,7 +330,6 @@ const styles = StyleSheet.create({
     color: colors.black,
     backgroundColor: colors.userInputElement,
     margin: 'auto',
-
   },
   buttonText: {
     textAlign: "center",
@@ -312,10 +338,10 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   metronomeImage: {
-    marginLeft:10,
-    width: "98%",
-    height: "88%",
-    alignItems: "center",
+    // margin:10,
+    flex: 4,
+    width: "100%",
+    height: '100%',
   },
   pickerMenu: {
     borderWidth: 1,
@@ -338,9 +364,9 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   speedText: {
-    paddingTop: 50,
+    paddingTop: 40,
     paddingLeft: 90,
-    color: colors.black,
+    color: "black",
     fontSize: 17,
     justifyContent: "center",
     alignContent: "center",
@@ -348,7 +374,7 @@ const styles = StyleSheet.create({
   },
 
   timeSignatureText: {
-    paddingTop: 375,
+    // paddingTop: 400,
     color: "#ffffff",
     fontSize: 20,
     justifyContent: "center",

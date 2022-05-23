@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "expo": {
     "name": "musician",
     "slug": "musician",
@@ -32,3 +33,8 @@
     }
   }
 }
+=======
+  "name": "musician",
+  "displayName": "musician"
+}
+>>>>>>> main

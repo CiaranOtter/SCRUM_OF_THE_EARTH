@@ -20,7 +20,6 @@ commands:
   
 
 jobs:     
-
   install-and-test:
     build:
     docker:
@@ -29,32 +28,17 @@ jobs:
     steps: 
       - checkout
 
-      # - run:
-      #     name: "Install codecov"
-      #     command: "curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov"
       - run: 
           name: "List files"
           command: "ls;"
 
       - run: 
           name: "Install npm modules in musician"
-          command: "cd musician; npm install"
+          command: "cd musician; npm install;"
 
-      - run:
-          name: "Install npm modules in outer folder"
-          command: "npm run setup"
-        
       - run: 
-          name: "Initialize the coveage file location"
-          command: "npm run initialize-coverage"
-
-      - run:
-          name: "install mdmerge"
-          command: "pip install mdmerge"
-
-      - generate-readme
-
-      - run-tests
+          name: "Run the jest unit tests"
+          command: "cd musician; npm test"
       
       - run:
           name: "Generate badges from coverage-summary.json"

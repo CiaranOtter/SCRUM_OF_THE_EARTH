@@ -1,20 +1,31 @@
-import React, {Component} from "react";
-import {Text, ImageBackground, SafeAreaView, StyleSheet, TouchableOpacity, Alert, View, Switch, Button, Image} from "react-native";
-//import SelectDropdown from "react-native-select-dropdown";
-//import { StackActions } from "@react-navigation/native";
-//import colors from "../config/colors";
-import logo from "./6String.jpg";
-//import * as React from "react";
-import {NavigationContainer, StackActions} from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/stack";
-//import {Text, StyleSheet, Image, Picker, Switch, TouchableOpacity, SafeAreaView} from "react-native";
-import { Audio } from "expo-av";
-//import logo from './6String.jpg';
-import {findPitch} from 'pitchy';
-//import ToggleSwitch from './ToggleSwitch/ToggleSwitch';
+import React, {Component} from 'react';
+import {useState} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/stack';
+import {StackActions} from '@react-navigation/native';
+import SelectDropdown from 'react-native-select-dropdown';
+import logo from './6String.jpg';
+import {
+  Button,
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  //Switch,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
+import {Switch} from 'react-native-switch';
+import {Picker} from '@react-native-picker/picker';
+import PitchTracker from 'react-native-pitch-tracker';
 
+import colors from '../config/colors';
+import StringGuitarImage from '../../assets/Tuner_6String_Activity.png';
 
+const Sound = require('react-native-sound');
+Sound.setCategory('Alarm');
 
+<<<<<<< HEAD
 import colors from "../config/colors";
 import {useState} from "react";
 import { PitchDetector } from "pitchy";
@@ -89,296 +100,229 @@ export default function TunerScreen() {
 export default class _4SATuner extends Component {
 
   constructor(){
+=======
+export default class TunerScreen extends Component {
+  constructor() {
+>>>>>>> main
     super();
     this.state = {
-      playedNote: "",
-      tuner_type: ["4 String Tuner", "6 String Tuner", "Chromatic Tuner"]
+      tuner_type: ['4 String Tuner', '6 String Tuner', 'Chromatic Tuner'],
+      recording: false,
+      isEnabled: true,
+    };
+
+    PitchTracker.prepare();
+
+    PitchTracker.noteOn(res => {
+      console.log('Note On: ' + res['midiNum']);
+    }); // Note On: 60
+    PitchTracker.noteOff(res => {
+      console.log('Note Off: ' + res['midiNum']);
+    });
+  }
+
+  async componentDidMount() {
+    //settings to customise user experience with the audio
+    this.low_e = new Sound('tuner_low_e.m4a', Sound.MAIN_BUNDLE, e => {});
+    this.high_e = new Sound('tuner_high_e.m4a', Sound.MAIN_BUNDLE, e => {});
+    this.a_string = new Sound('tuner_a.m4a', Sound.MAIN_BUNDLE, e => {});
+    this.d_string = new Sound('tuner_d.m4a', Sound.MAIN_BUNDLE, e => {});
+    this.g_string = new Sound('tuner_g.m4a', Sound.MAIN_BUNDLE, e => {});
+    this.b_string = new Sound('tuner_b.m4a', Sound.MAIN_BUNDLE, e => {});
+  }
+
+  toggleSwitch = () => this.setState({isEnabled: !this.state.isEnabled});
+
+  _onRecordingStatusUpdate = RecordingStatus => {
+    if (!RecordingStatus.isLoaded) {
+      // Update your UI for the unloaded state
+      if (RecordingStatus.error) {
+        console.log(
+          `Encountered a fatal error during playback: ${playbackStatus.error}`,
+        );
+        // Send Expo team the error on Slack or the forums so we can help you debug!
+      }
+
+      this.duration = RecordingStatus.durationMillis;
+
+      let sampleRate = this.recording._options.android.sampleRate;
+
+      console.log(this.recording);
+      // const detector = PitchDetector.forFloat32Array(128);
+      // const input = new Float32Array(detector.inputLength);
+      // updatePitch(this.recording, detector, input, sampleRate)
     }
-  }
+  };
 
-  SoundEButton = () => {
-    this.setState({playedNote: "E"});
-  }
+  startRecording = () => {
+    this.setState({recording: true});
+    PitchTracker.start();
+  };
 
-  SoundAButton = () => {
-    this.setState({playedNote: "A"});
-  }
+  playE1 = () => {
+    this.low_e.stop();
+    this.low_e.play();
+  };
 
-  SoundDButton = () => {
-    this.setState({playedNote: "D"});
-  }
+  playB = () => {
+    this.b_string.stop();
+    this.b_string.play();
+  };
 
-  SoundGButton = () => {
-    this.setState({playedNote: "G"});
-  }
+  playG = () => {
+    this.g_string.stop();
+    this.g_string.play();
+  };
 
-  record = () => {
-    Alert.alert("recording");
-  }
+  playD = () => {
+    this.d_string.stop();
+    this.d_string.play();
+  };
 
+  playA = () => {
+    this.a_string.stop();
+    this.a_string.play();
+  };
 
+  playE2 = () => {
+    this.high_e.stop();
+    this.high_e.play();
+  };
 
-  selectedTuner = (selectedItem) =>{
-    if(selectedItem == this.state.tuner_type[0]){
+  stopRecording = () => {
+    console.log('recording is: ' + this.state.recording);
+
+    this.setState({recording: false});
+    console.log('stopping pitch tracker... ');
+    PitchTracker.stop();
+  };
+
+  selectTuner = selectedItem => {
+    if (selectedItem == this.state.tuner_type[0]) {
       this.props.navigation.dispatch(StackActions.replace('4SMTuner'));
       return this.state.tuner_type[0];
-    }
-    else if(selectedItem == this.state.tuner_type[1]){
+    } else if (selectedItem == this.state.tuner_type[1]) {
       this.props.navigation.dispatch(StackActions.replace('6SMTuner'));
-      return this.state.tuner_type[1]
-    }
-    else if(selectedItem == this.state.tuner_type[2]){
+      return this.state.tuner_type[1];
+    } else if (selectedItem == this.state.tuner_type[2]) {
       this.props.navigation.dispatch(StackActions.replace('Chromatic'));
-      return this.state.tuner_type[2]
+      return this.state.tuner_type[2];
     }
-  }
+  };
 
-  // recordings = React.useState();
-  // //the recording recorded in this session
-  // setRecording = React.useState();
-  //
-  //  async startRecording() {
-  //   try {
-  //     console.log("Requesting Permissions..");
-  //     await Audio.requestPermissionsAsync();   //request access to the mic
-  //     await Audio.setAudioModeAsync({
-  //       allowsRecordingIOS: true,
-  //       playsInSilentModeIOS: true,
-  //     });
-  //
-  //     //console.log("Starting recording..");
-  //     const {recording} = await Audio.Recording.createAsync(
-  //         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
-  //     );
-  //
-  //     setRecording(recording);
-  //     console.log("Recording started");
-  //   } catch (error) {
-  //     console.error("Failed to start recording", err);  //debug whatever error occurs while trying to record
-  //   }
-  // }
-  //
-  //  async stopRecording() {
-  //   console.log("Stopping recording..");
-  //   setRecording(undefined);
-  //   await recording.stopAndUnloadAsync();  //stop recording
-  //
-  //   let updateRecordings = [...recordings];
-  //   const {sound, status} = await recording.createNewLoadedSoundAsync();
-  //   updateRecordings.push({
-  //     sound: sound,
-  //     duration: getDurationFormatted(status.durationMillis),
-  //     file: recording.getURI()
-  //   });
-  //   // const uri = recording.getURI();
-  //   // console.log("Recording stopped and stored at", uri);
-  //   setRecordings(updateRecordings);
-  // }
-  //
-  //  getDurationFormatted(millis) {
-  //   const minutes = millis / 1000 / 60;
-  //   const minuteDisplay = Math.floor(minutes);
-  //   const seconds = Math.round((minutes - minuteDisplay) * 60);
-  //   const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds;
-  //   return `${minuteDisplay} : ${secondsDisplay}`;
-  // }
-  //
-  //  getRecordingLines() {
-  //   return recordings.map((recordingLine, index) => {
-  //     return (
-  //         <View key={index} style={styles.row}>
-  //           <Text style={styles.fill}>Recording {index + 1} - {recordingLine.duration}</Text>
-  //           <Button style={styles.button} onPress={() => recordingLine.sound.replayAsync()}
-  //                   title="Play"></Button>
-  //         </View>
-  //     );
-  //   });
-  // }
-  //
-  //  updatePitch(analyserNode, sampleRate) {
-  //   let data = new Float32Array(analyserNode.fftSize);
-  //   analyserNode.getFloatTimeDomainData(data);
-  //   let [pitch, clarity] = findPitch(data, sampleRate);
-  // }
-  //
-  // detectPitch() {
-  //
-  // }
-
-
-
-  render(){
-
+  render() {
     return (
-        <SafeAreaView style={styles.container}>
-          <TouchableOpacity style={{marginTop:-160, marginLeft:20}}>
-            <SelectDropdown
+      <SafeAreaView style={styles.container}>
+        <Image source={StringGuitarImage} style={styles.guitarImage} />
+
+        <View style={styles.toggleElements}>
+          <View style={styles.switchMA}>
+            <Switch
+              activeTextStyle={styles.drops}
+              inactiveTextStyle={styles.drops}
+              value={this.state.isEnabled}
+              onValueChange={this.toggleSwitch}
+              disabled={false}
+              activeText={'Manual'}
+              inActiveText={'Auto'}
+              circleSize={45}
+              barHeight={40}
+              circleBorderWidth={3}
+              backgroundActive={colors.sixStringButtonFill}
+              backgroundInactive={colors.pressableElement}
+              circleActiveColor={colors.black}
+              circleInActiveColor={colors.black}
+              //renderInsideCircle={() => <CustomComponent />} // custom component to render inside the Switch circle (Text, Image, etc.)
+              changeValueImmediately={true} // if rendering inside circle, change state immediately or wait for animation to complete
+              //innerCircleStyle={{alignItems: 'center', justifyContent: 'center'}} // style for inner animated circle for what you (may) be rendering inside the circle
+              //outerCircleStyle={(style = {color: '#000'})} // style for outer animated circle
+              renderActiveText={true}
+              renderInActiveText={true}
+              switchLeftPx={2} // denominator for logic when sliding to TRUE position. Higher number = more space from RIGHT of the circle to END of the slider
+              switchRightPx={1.5} // denominator for logic when sliding to FALSE position. Higher number = more space from LEFT of the circle to BEGINNING of the slider
+              switchWidthMultiplier={3} // multiplied by the `circleSize` prop to calculate total width of the Switch
+              switchBorderRadius={40} // Sets the border Radius of the switch slider. If unset, it remains the circleSize.
+            />
+
+            <TouchableOpacity>
+              <SelectDropdown
                 data={this.state.tuner_type}
                 onSelect={() => {}}
                 buttonTextAfterSelection={(selectedItem, index) => {
-                  return this.selectedTuner(selectedItem)
+                  return this.selectTuner(selectedItem);
                 }}
                 rowTextForSelection={(item, index) => {
-                  return item
+                  return item;
                 }}
                 defaultButtonText={this.state.tuner_type[1]}
                 buttonStyle={styles.DropDownStyle}
                 buttonTextStyle={styles.drops}
                 rowTextStyle={{fontSize: 15}}
-            />
-          </TouchableOpacity>
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
 
-          {/*<Button*/}
-          {/*    title="Detect Pitch"*/}
+        <TouchableOpacity
+          style={[styles.buttonD]}
+          activeOpacity={0.7}
+          onPress={this.playD}>
+          <Text style={styles.buttonText}>D</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.buttonA]}
+          activeOpacity={0.7}
+          onPress={this.playA}>
+          <Text style={styles.buttonText}>A</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.buttonLE]}
+          activeOpacity={0.7}
+          onPress={this.playE1}>
+          <Text style={styles.buttonText}>E</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.buttonG]}
+          activeOpacity={0.7}
+          onPress={this.playG}>
+          <Text style={styles.buttonText}>G</Text>
+        </TouchableOpacity>
 
-          {/*    onPress={detectPitch}*/}
-          {/*/>*/}
+        <TouchableOpacity
+          style={[styles.buttonB]}
+          activeOpacity={0.7}
+          onPress={this.playB}>
+          <Text style={styles.buttonText}>B</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.buttonHE]}
+          activeOpacity={0.7}
+          onPress={this.playE2}>
+          <Text style={styles.buttonText}>E</Text>
+        </TouchableOpacity>
 
-          {/*<Button*/}
-          {/*    title={recording ? 'Stop Recording' : 'Start Recording'}*/}
-          {/*    onPress={recording ? stopRecording : startRecording} />*/}
-          {/*{getRecordingLines()}*/}
-          {/*<Button*/}
-          {/*    title="Detect Pitch"*/}
+        {/* <TouchableOpacity
+          style={[styles.TypeButtonStyle, {marginTop: -45, marginLeft: -150}]}
+          onPress={() =>
+            this.props.navigation.dispatch(StackActions.replace('6SMTuner'))
+          }>
+          <Text style={styles.TextStyle}>Manual</Text>
+        </TouchableOpacity>
 
-          {/*    onPress={detectPitch}*/}
-          {/*/>*/}
-
-          {/*<Button*/}
-          {/*    title={recording ? 'Stop Recording' : 'Start Recording'}*/}
-          {/*    onPress={recording ? stopRecording : startRecording} />*/}
-          {/*{getRecordingLines()}*/}
-
-          <Image source={logo} style={styles.logo}/>
-
-          {/*<Switch*/}
-
-          {/*    trackColor={{ false: "black", true: "grey" }}*/}
-          {/*    thumbColor={isEnabled ? "blue" : "red"}*/}
-          {/*    ios_backgroundColor="#3e3e3e"*/}
-          {/*    style = {styles.switch}*/}
-          {/*    onValueChange={this.toggleSwitch}*/}
-          {/*    value={isEnabled}*/}
-          {/*/>*/}
-          <TouchableOpacity
-              style={[styles.button5]}
-              activeOpacity = {.9}
-              onPress={this.SoundEButton}
-          >
-            <Text style={styles.buttonText}>D</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={[styles.button6]}
-              activeOpacity = {.9}
-              onPress={this.SoundAButton}
-          >
-            <Text style={styles.buttonText}>A</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={[styles.button7]}
-              activeOpacity = {.9}
-              onPress={this.SoundDButton}
-          >
-            <Text style={styles.buttonText}>E</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={[styles.button8]}
-              activeOpacity = {.9}
-              onPress={this.SoundGButton}
-          >
-            <Text style={styles.buttonText}>G</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-              style={[styles.button9]}
-              activeOpacity = {.9}
-              onPress={this.SoundEButton}
-          >
-            <Text style={styles.buttonText}>B</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={[styles.button10]}
-              activeOpacity = {.9}
-              onPress={this.SoundAButton}
-          >
-            <Text style={styles.buttonText}>E</Text>
-          </TouchableOpacity>
-
-
-
-          {/*<TouchableOpacity*/}
-          {/*    onPress = { () => alert('')}*/}
-          {/*    style={styles.button5}>*/}
-          {/*  <Text style = {styles.buttonText}>D</Text>*/}
-          {/*</TouchableOpacity>*/}
-
-          {/*<TouchableOpacity*/}
-          {/*    onPress = { () => alert('')}*/}
-          {/*    style={styles.button6}>*/}
-          {/*  <Text style = {styles.buttonText}>A</Text>*/}
-          {/*</TouchableOpacity>*/}
-
-          {/*<TouchableOpacity*/}
-          {/*    onPress = { () => alert('')}*/}
-          {/*    style={styles.button7}>*/}
-          {/*  <Text style = {styles.buttonText}>E</Text>*/}
-          {/*</TouchableOpacity>*/}
-
-          {/*<TouchableOpacity*/}
-          {/*    onPress = { () => alert('')}*/}
-          {/*    style={styles.button8}>*/}
-          {/*  <Text style = {styles.buttonText}>G</Text>*/}
-          {/*</TouchableOpacity>*/}
-
-          {/*<TouchableOpacity*/}
-          {/*    onPress = { () => alert('')}*/}
-          {/*    style={styles.button9}>*/}
-          {/*  <Text style = {styles.buttonText}>B</Text>*/}
-          {/*</TouchableOpacity>*/}
-
-          {/*<TouchableOpacity*/}
-          {/*    onPress = { () => alert('')}*/}
-          {/*    style={styles.button10}>*/}
-          {/*  <Text style = {styles.buttonText}>E</Text>*/}
-          {/*</TouchableOpacity>*/}
-
-          {/*<Text style={{fontWeight:'bold', bottom:335, left:10}}>*/}
-          {/*  <Text style={{color:'red'}}> AUTO         </Text>*/}
-          {/*  <Text style={{color:'blue'}}>    MANUAL</Text>*/}
-
-          {/*</Text>*/}
-          <TouchableOpacity
-              style={[styles.TypeButtonStyle,
-                {marginTop:-45, marginLeft: -150}]}
-              onPress={()=>this.props.navigation.dispatch(StackActions.replace('6SMTuner'))}
-          >
-            <Text style={styles.TextStyle}>Manual</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-              style={[styles.TypeButtonStyle,
-                {width:90, marginTop:-40, marginLeft: 50}]}
-              onPress={()=>this.props.navigation.dispatch(StackActions.replace('6SMTuner'))}
-          >
-            <Text style={styles.TextStyle}>Automatic</Text>
-          </TouchableOpacity>
-
-
-
-        </SafeAreaView>
+        <TouchableOpacity
+          style={[
+            styles.TypeButtonStyle,
+            {width: 90, marginTop: -40, marginLeft: 50},
+          ]}
+          onPress={() =>
+            this.props.navigation.dispatch(StackActions.replace('6SMTuner'))
+          }>
+          <Text style={styles.TextStyle}>Automatic</Text>
+        </TouchableOpacity> */}
+      </SafeAreaView>
     );
   }
-
-
-
-
-
-
-
 }
-
-
-
 
 const styles = StyleSheet.create({
   //styles for elements listed in Alphabetical order (with the exception of container - which is always on top)
@@ -388,132 +332,113 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
-  // button: {
-  //   margin: 16
-  // },
-
-  logo: {
-    width: 220,
-    height: 550,
-    marginBottom: -380,
-  },
-  drops:{
-    fontSize: 15,
-    color: "white",
+  baseText: {
     fontWeight: 'bold',
-
+    bottom: 55000,
   },
-
-
-
-  button5: {
-    backgroundColor:'#55B7AD',
+  buttonA: {
+    backgroundColor: colors.sixStringButtonFill,
     padding: 20,
-    borderRadius: 90,
+    borderRadius: 95,
     position: 'absolute',
     left: 10,
-
-    bottom: 350,
-
+    bottom: 295,
+    borderWidth: 1,
   },
-
-  button6: {
-    backgroundColor: '#55B7AD',
+  buttonB: {
+    backgroundColor: colors.sixStringButtonFill,
     padding: 20,
-    borderRadius: 90,
+    borderRadius: 95,
+    position: 'absolute',
+    right: 10,
+    bottom: 295,
+    borderWidth: 1,
+  },
+  buttonD: {
+    backgroundColor: colors.sixStringButtonFill,
+    padding: 20,
+    borderRadius: 95,
     position: 'absolute',
     left: 10,
-    bottom: 250,
-
+    borderWidth: 1,
+    bottom: 390,
   },
-
-  button7: {
-    backgroundColor: '#55B7AD',
+  buttonG: {
+    backgroundColor: colors.sixStringButtonFill,
     padding: 20,
-    borderRadius: 90,
+    borderRadius: 95,
+    position: 'absolute',
+    right: 10,
+    bottom: 390,
+    borderWidth: 1,
+  },
+  buttonHE: {
+    backgroundColor: colors.sixStringButtonFill,
+    padding: 20,
+    borderRadius: 95,
+    position: 'absolute',
+    right: 10,
+    bottom: 200,
+    borderWidth: 1,
+  },
+  buttonLE: {
+    backgroundColor: colors.sixStringButtonFill,
+    padding: 20,
+    borderRadius: 95,
     position: 'absolute',
     left: 10,
-    bottom: 150,
-
+    bottom: 200,
+    borderWidth: 1,
   },
-
-  button8: {
-    backgroundColor: '#55B7AD',
-    padding: 20,
-    borderRadius: 90,
-    position: 'absolute',
-    right: 10,
-    bottom: 350,
-
-  },
-
-  button9: {
-    backgroundColor: '#55B7AD',
-    padding: 20,
-    borderRadius: 90,
-    position: 'absolute',
-    right: 10,
-    bottom: 250,
-
-  },
-
-  button10: {
-    backgroundColor:'#55B7AD',
-    padding: 20,
-    borderRadius: 90,
-    position: 'absolute',
-    right: 10,
-    bottom: 150,
-
-  },
-
-
   buttonText: {
     fontSize: 20,
-    color: "white",
+    color: colors.black,
     fontWeight: 'bold',
+  },
+  DropDownStyle: {
+    width: 150,
+    backgroundColor: colors.userInputElement,
+    height: 40,
+    marginRight: -235,
+    bottom: 40,
+    borderColor: colors.black,
+    borderWidth: 0.5,
+    borderRadius: 10,
+  },
+  drops: {
+    fontSize: 15,
+    color: colors.black,
+    fontWeight: 'bold',
+  },
+  guitarImage: {
+    height: '70%',
+    bottom: -180,
+  },
+  switch: {
+    bottom: 250,
+  },
+  switchMA: {
+    paddingHorizontal: 20,
+    marginLeft: 240,
   },
   TextStyle: {
     fontSize: 15,
     // position:'absolute',
-    color: "white",
+    color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
-
   },
-
-
-
-
-  switch:{
-    bottom:250,
-
-  },
-
-  baseText: {
-    fontWeight: 'bold',
-    bottom:55000,
-
-
+  toggleElements: {
+    flex: 1,
+    bottom: 440,
+    //top: 20,
   },
   TypeButtonStyle: {
-    width:70,
-    height:40,
+    width: 70,
+    height: 40,
     backgroundColor: 'grey',
     bottom: 300,
     left: 30,
-  },
-
-  innerText: {
-    color: 'red',
-    bottom:150,
-
-
-  },
-  innerText2: {
-    color: 'blue',
-
   },
   DropDownStyle: {
     width:150,
