@@ -74,6 +74,11 @@ jobs:
       - run:
           name: "check variables"
           command: "echo ${token}" 
+
+      - run:
+          name: "add remote reference for git"
+          command: "git remote add origin https://${token}@github.com/CiaranOtter/SCRUM_OF_THE_EARTH.git"
+          
       - push-to-origin
         
 
