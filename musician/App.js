@@ -7,6 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {StatusBar} from 'react-native';
 import {Button, StyleSheet, Text, View, Pressable, Image} from 'react-native';
 import logo from './assets/6String.jpg';
+
 import MetronomeScreen from './app/screens/MetronomeScreen';
 import _6SMTunerScreen from './app/screens/TunerScreen';
 import _4SMTunerScreen from './app/screens/4_StringManualTunerScreen';
