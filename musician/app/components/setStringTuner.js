@@ -1,7 +1,8 @@
 export default class setNoteTuner extends Tuner {
-    constructor(Note) {
+    constructor(freq) {
         super();
-        this.Note = Note;
+        this.Note = super.getNote(freq);
+        this.targetFreq = freq;
     }
     
     setNote(Note){
@@ -12,7 +13,11 @@ export default class setNoteTuner extends Tuner {
         return this.Note;
     }
 
-    getCents(frequency) {
-        return 
+    setTargetFrequency(freq) {
+        this.targetFreq = freq;
+    }
+
+    getTargetFrequency() {
+        return this.targetFreq
     }
 }
