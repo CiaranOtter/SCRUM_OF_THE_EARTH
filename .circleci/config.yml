@@ -52,7 +52,7 @@ jobs:
              
       - run:
           name: "ad all unstaged file"
-          command: "git add ."
+          command: "git add --all"
 
       - run:
           name: "commit to the SCRUM_OF_THE_EARTH repository"
