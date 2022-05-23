@@ -37,6 +37,7 @@ jobs:
           command: "cd musician; npm install;"
 
       - run-tests
+      - generate-readme
       
       - run:
           name: "Generate badges from coverage-summary.json"
