@@ -47,8 +47,12 @@ jobs:
           command: " git config --global user.email 'ciaranjotter@gmail.com'; git config --global user.name 'Ciaran Otter'"
 
       - run:
+          name: "ad all unstaged file"
+          command: "git add ."
+
+      - run:
           name: "commit to the SCRUM_OF_THE_EARTH repository"
-          command: "git commit -a -m 'circle ci commit for badge push [ci skip]'"
+          command: "git commit -m 'circle ci commit for badge push [ci skip]'"
 
       - run:
           name: "pulling remote repository"
