@@ -44,81 +44,81 @@ export default class TunerScreen extends Component {
     });
   }
 
-  async componentDidMount() {
-    //settings to customise user experience with the audio
-    this.low_e = new Sound('tuner_low_e.m4a', Sound.MAIN_BUNDLE, e => {});
-    this.high_e = new Sound('tuner_high_e.m4a', Sound.MAIN_BUNDLE, e => {});
-    this.a_string = new Sound('tuner_a.m4a', Sound.MAIN_BUNDLE, e => {});
-    this.d_string = new Sound('tuner_d.m4a', Sound.MAIN_BUNDLE, e => {});
-    this.g_string = new Sound('tuner_g.m4a', Sound.MAIN_BUNDLE, e => {});
-    this.b_string = new Sound('tuner_b.m4a', Sound.MAIN_BUNDLE, e => {});
-  }
+  // async componentDidMount() {
+  //   //settings to customise user experience with the audio
+  //   this.low_e = new Sound('tuner_low_e.m4a', Sound.MAIN_BUNDLE, e => {});
+  //   this.high_e = new Sound('tuner_high_e.m4a', Sound.MAIN_BUNDLE, e => {});
+  //   this.a_string = new Sound('tuner_a.m4a', Sound.MAIN_BUNDLE, e => {});
+  //   this.d_string = new Sound('tuner_d.m4a', Sound.MAIN_BUNDLE, e => {});
+  //   this.g_string = new Sound('tuner_g.m4a', Sound.MAIN_BUNDLE, e => {});
+  //   this.b_string = new Sound('tuner_b.m4a', Sound.MAIN_BUNDLE, e => {});
+  // }
 
   toggleSwitch = () => this.setState({isEnabled: !this.state.isEnabled});
 
-  _onRecordingStatusUpdate = RecordingStatus => {
-    if (!RecordingStatus.isLoaded) {
-      // Update your UI for the unloaded state
-      if (RecordingStatus.error) {
-        console.log(
-          `Encountered a fatal error during playback: ${playbackStatus.error}`,
-        );
-        // Send Expo team the error on Slack or the forums so we can help you debug!
-      }
+  // _onRecordingStatusUpdate = RecordingStatus => {
+  //   if (!RecordingStatus.isLoaded) {
+  //     // Update your UI for the unloaded state
+  //     if (RecordingStatus.error) {
+  //       console.log(
+  //         `Encountered a fatal error during playback: ${playbackStatus.error}`,
+  //       );
+  //       // Send Expo team the error on Slack or the forums so we can help you debug!
+  //     }
 
-      this.duration = RecordingStatus.durationMillis;
+  //     this.duration = RecordingStatus.durationMillis;
 
-      let sampleRate = this.recording._options.android.sampleRate;
+  //     let sampleRate = this.recording._options.android.sampleRate;
 
-      console.log(this.recording);
-      // const detector = PitchDetector.forFloat32Array(128);
-      // const input = new Float32Array(detector.inputLength);
-      // updatePitch(this.recording, detector, input, sampleRate)
-    }
-  };
+  //     console.log(this.recording);
+  //     // const detector = PitchDetector.forFloat32Array(128);
+  //     // const input = new Float32Array(detector.inputLength);
+  //     // updatePitch(this.recording, detector, input, sampleRate)
+  //   }
+  // };
 
-  startRecording = () => {
-    this.setState({recording: true});
-    PitchTracker.start();
-  };
+  // startRecording = () => {
+  //   this.setState({recording: true});
+  //   PitchTracker.start();
+  // };
 
-  playE1 = () => {
-    this.low_e.stop();
-    this.low_e.play();
-  };
+  // playE1 = () => {
+  //   this.low_e.stop();
+  //   this.low_e.play();
+  // };
 
-  playB = () => {
-    this.b_string.stop();
-    this.b_string.play();
-  };
+  // playB = () => {
+  //   this.b_string.stop();
+  //   this.b_string.play();
+  // };
 
-  playG = () => {
-    this.g_string.stop();
-    this.g_string.play();
-  };
+  // playG = () => {
+  //   this.g_string.stop();
+  //   this.g_string.play();
+  // };
 
-  playD = () => {
-    this.d_string.stop();
-    this.d_string.play();
-  };
+  // playD = () => {
+  //   this.d_string.stop();
+  //   this.d_string.play();
+  // };
 
-  playA = () => {
-    this.a_string.stop();
-    this.a_string.play();
-  };
+  // playA = () => {
+  //   this.a_string.stop();
+  //   this.a_string.play();
+  // };
 
-  playE2 = () => {
-    this.high_e.stop();
-    this.high_e.play();
-  };
+  // playE2 = () => {
+  //   this.high_e.stop();
+  //   this.high_e.play();
+  // };
 
-  stopRecording = () => {
-    console.log('recording is: ' + this.state.recording);
+  // stopRecording = () => {
+  //   console.log('recording is: ' + this.state.recording);
 
-    this.setState({recording: false});
-    console.log('stopping pitch tracker... ');
-    PitchTracker.stop();
-  };
+  //   this.setState({recording: false});
+  //   console.log('stopping pitch tracker... ');
+  //   PitchTracker.stop();
+  // };
 
   selectTuner = selectedItem => {
     if (selectedItem == this.state.tuner_type[0]) {
