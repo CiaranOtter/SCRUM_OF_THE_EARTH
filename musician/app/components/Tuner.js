@@ -75,7 +75,7 @@ export default class Tuner {
    * @returns {int}
    */
   getCents(frequency, note) {
-    console.log("example of note is: "+note);
+      console.log("example of note is: "+note);
     return Math.floor(
       (1200 * Math.log(frequency / this.getStandardFrequency(note))) /
         Math.log(2)

@@ -102,7 +102,7 @@ export default function App() {
 
         <Pressable
           onPress={() => {
-            nav.navigate('Chromatic');
+            nav.navigate('beatMaker');
           }}
           style={styles.icon_container}>
           <Icon name="construction" />
