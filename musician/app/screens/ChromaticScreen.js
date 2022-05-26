@@ -1,100 +1,69 @@
-import React, { Component } from 'react';
-import { StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native';
-//import {ImageBackground, SafeAreaView, StyleSheet, TouchableOpacity, Alert, View } from "react-native";
-import SelectDropdown from "react-native-select-dropdown";
-import { StackActions } from "@react-navigation/native";
+import React, { Component } from "react";
+import {
+  View,
+  Text,
+  StatusBar,
+  StyleSheet,
+  PermissionsAndroid,
+} from "react-native";
+import Tuner from "../components/Tuner.js";
+import Note from "../components/Notes.js";
+import Meter from "../components/Meter.js";
+import colors from "../config/colors.js";
 
+export default class ChromaticScreen extends Component {
+  state = {
+    note: {
+      name: "A",
+      octave: 4,
+      frequency: 440,
+    },
+  };
 
-const pitchNoteC = require("../classes/pitchNoteClassification.js");
-
-export default class ChromaticScreen extends Component{
-  
-  constructor(){
-    super();
-
-    this.state = {
-      tuner_type: ["4 String Tuner", "6 String Tuner", "Chromatic Tuner"]
-
-    }
-
-    this.pitchNoteClass = new pitchNoteC();
-    this.pitch = 5021;
-  }
-  
-  selectedTuner = (selectedItem) =>{
-    if(selectedItem == this.state.tuner_type[0]){
-        this.props.navigation.dispatch(StackActions.replace('4SMTuner'));
-        return this.state.tuner_type[0];
-    }
-    else if(selectedItem == this.state.tuner_type[1]){
-        this.props.navigation.dispatch(StackActions.replace('6SMTuner'));
-        return this.state.tuner_type[1]
-    }
-    else if(selectedItem == this.state.tuner_type[2]){
-        this.props.navigation.dispatch(StackActions.replace('Chromatic'));
-        return this.state.tuner_type[2]
-    }
+  _update(note) {
+    this.setState({ note });
   }
 
-  render(){
-    const note = this.pitchNoteClass.getNote(this.pitch);
-    const classification = this.pitchNoteClass.getClassification(this.pitch);
-    const pitch = this.pitch;
+  async componentDidMount() {
+    if (Platform.OS === "android") {
+      await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+      ]);
+    }
 
+    const tuner = new Tuner();
+    tuner.start();
+    tuner.onNoteDetected = (note) => {
+      if (this._lastNoteName === note.name) {
+        this._update(note);
+      } else {
+        this._lastNoteName = note.name;
+      }
+    };
+  }
+
+  render() {
     return (
-
-      <SafeAreaView style={styles.container}>
-        <TouchableOpacity style={{marginTop:-100, marginLeft:-160}}>
-            <SelectDropdown 
-                data={this.state.tuner_type}
-                onSelect={() => {}}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                return this.selectedTuner(selectedItem)
-                }}
-                rowTextForSelection={(item, index) => {
-                  return item
-                }}
-                defaultButtonText={this.state.tuner_type[2]}
-                buttonStyle={styles.DropDownStyle}
-                buttonTextStyle={styles.textStyle}
-                rowTextStyle={{fontSize: 15}}
-            />
-        </TouchableOpacity>
-        <Text style={styles.title}>{note}</Text>
-        <Text style={styles.frequency}>{pitch}Hz</Text>
-        <Text style={styles.indicator}>{classification}</Text>
-      </SafeAreaView>
+      <View style={style.body}>
+        <StatusBar backgroundColor="#000" translucent />
+        <Meter cents={this.state.note.cents} type={"radial"} />
+        <Note {...this.state.note} />
+        <Text style={style.frequency}>
+          {this.state.note.frequency.toFixed(1)} Hz
+        </Text>
+      </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
+const style = StyleSheet.create({
+  body: {
     flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  DropDownStyle: {
-    width:150,
-    backgroundColor: '#55B7AD'
-  },
-  title: {
-    fontSize: 150,
-    color: 'gray',
-    marginTop: 100
-  },
-  indicator:{
-    fontSize: 24
+    justifyContent: "center",
+    alignItems: "center",
   },
   frequency: {
-    fontSize: 30,
-    color: '#55B7AD'
+    fontSize: 28,
+    color: colors.white
   },
-    textStyle:{
-      fontSize:15,
-        color:'white',
-        fontWeight:'bold',
-
-    },
 });

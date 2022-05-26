@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "expo": {
     "name": "musician",
     "slug": "musician",
@@ -17,16 +18,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ios"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "android.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     }
   }
 }
+=======
+  "name": "musician",
+  "displayName": "musician"
+}
+>>>>>>> main
