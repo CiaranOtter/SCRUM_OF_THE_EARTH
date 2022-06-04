@@ -14,9 +14,64 @@ import {SectionGrid} from 'react-native-super-grid';
 
 import colors from '../config/colors';
 
+const Sound = require("react-native-sound");
+
+Sound.setCategory("Alarm");
+
 export default class BeatMakerScreen extends Component {
   constructor() {
     super();
+
+    this.crash = new Sound('crash.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the crash sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.crash.getDuration() + ' number of channels: ' + this.crash.getNumberOfChannels());
+    
+    });
+
+    this.highHat = new Sound('high_hat.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the high hat sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.highHat.getDuration() + ' number of channels: ' + this.highHat.getNumberOfChannels());
+    
+    });
+
+    this.kickDrum = new Sound('kick_drum.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the kick drum sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.kickDrum.getDuration() + ' number of channels: ' + this.kickDrum.getNumberOfChannels());
+    
+    });
+
+    this.snare = new Sound('snare.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the snare sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.snare.getDuration() + ' number of channels: ' + this.snare.getNumberOfChannels());
+    
+    });
+
+    this.tom = new Sound('tom.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the tom sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.tom.getDuration() + ' number of channels: ' + this.tom.getNumberOfChannels());
+    
+    });
+
     this.state = {
       bars: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       currentBar: 4,
@@ -157,6 +212,38 @@ export default class BeatMakerScreen extends Component {
 
   //function that gets called whenever an item on the grid gets tapped
   gridItemTapped = (item, index) => {
+
+    if (item === 1 || item === 6 || item === 11 || item === 16){
+
+      this.crash.stop();
+      this.crash.setCurrentTime(0);
+      this.crash.play();
+    }
+    else if (item === 2 || item === 7 || item === 12 || item === 17){
+
+      this.highHat.stop();
+      this.highHat.setCurrentTime(0);
+      this.highHat.play();
+    }
+    else if (item === 3 || item === 8 || item === 13 || item === 18){
+
+      this.kickDrum.stop();
+      this.kickDrum.setCurrentTime(0);
+      this.kickDrum.play();
+    }
+    else if (item === 4 || item === 9 || item === 14 || item === 19){
+
+      this.snare.stop();
+      this.snare.setCurrentTime(0);
+      this.snare.play();
+    }
+    else if (item === 5 || item === 10 || item === 15 || item === 20){
+
+      this.tom.stop();
+      this.tom.setCurrentTime(0);
+      this.tom.play();
+    }
+    
     console.log(item);
     //console.log(index);
   };
