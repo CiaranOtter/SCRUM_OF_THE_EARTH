@@ -62,13 +62,6 @@ export default class Meter extends PureComponent {
 }
 
 const style = StyleSheet.create({
-  meter: {
-    height: 200,
-    marginBottom: 40,
-  },
-  border:{
-    // borderWidth: 1
-  },
   circle: {
     position: "absolute",
     backgroundColor: colors.ghostGrey,

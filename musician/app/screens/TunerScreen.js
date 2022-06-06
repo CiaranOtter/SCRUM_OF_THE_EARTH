@@ -33,15 +33,6 @@ export default class TunerScreen extends Component {
       recording: false,
       isEnabled: true,
     };
-
-    PitchTracker.prepare();
-
-    PitchTracker.noteOn(res => {
-      console.log('Note On: ' + res['midiNum']);
-    }); // Note On: 60
-    PitchTracker.noteOff(res => {
-      console.log('Note Off: ' + res['midiNum']);
-    });
   }
 
   // async componentDidMount() {

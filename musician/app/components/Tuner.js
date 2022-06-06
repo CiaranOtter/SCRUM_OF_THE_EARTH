@@ -35,8 +35,9 @@ export default class Tuner {
       const frequency = this.pitchFinder(data);
       if (frequency && this.onNoteDetected) {
         const note = this.getNote(frequency);
+        console.log("note is "+note)
         this.onNoteDetected({
-          name: this.noteStrings[note % 12],
+          name: this.getNoteName(note),
           value: note,
           cents: this.getCents(frequency, note),
           octave: parseInt(note / 12) - 1,
@@ -44,6 +45,10 @@ export default class Tuner {
         });
       }
     });
+  }
+
+  getNoteName( note ){
+    return this.noteStrings[note % 12]
   }
 
   /**

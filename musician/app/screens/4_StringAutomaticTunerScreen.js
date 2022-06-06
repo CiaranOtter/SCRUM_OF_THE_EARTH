@@ -7,23 +7,50 @@ import {
   TouchableOpacity,
   Alert,
   View,
+  StatusBar
 } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import {StackActions} from '@react-navigation/native';
 import {Switch} from 'react-native-switch';
+import Automatic_Tuner from '../components/Automic_Tuner';
+import Meter from "../components/Meter.js"
 
 import guitarImage from '../../assets/Tuner_4String_Auto.png';
 import colors from '../config/colors';
+import Note from '../components/Notes.js'
 
 export default class _4SATuner extends Component {
   // Constructing class and initializing state and dropdown data
   constructor() {
     super();
-    this.state = {
-      playedNote: '',
-      isEnabled: false,
-      tuner_type: ['4 String Tuner', '6 String Tuner', 'Chromatic Tuner'],
+    
+    this.tuner = new Automatic_Tuner();
+    this.tuner.setTargetNote(40);
+    this.tuner.start();
+    this.tuner.onNoteDetected = (note) => {
+      if (this._lastNoteName === note.name) {
+        console.log("detetce note")
+        console.log(note)
+        this._update(note);
+      } else {
+        this._lastNoteName = note.name;
+      }
     };
+  }
+
+  state = {
+    note: {
+      name: "E",
+      octave: 1,
+      frequency: 83,
+    },
+    playedNote: '',
+    isEnabled: false,
+    tuner_type: ['4 String Tuner', '6 String Tuner', 'Chromatic Tuner'],
+  };
+
+  _update(note) {
+    this.setState({ note });
   }
 
   toggleSwitch = () =>
@@ -32,18 +59,42 @@ export default class _4SATuner extends Component {
   // Called to play E String soudn back to user
   SoundEButton = () => {
     this.setState({playedNote: 'E'});
+    this.tuner.setTargetNote(40)
+    this._update({
+      name: "E",
+      octave: 1,
+      frequency: 83,
+    })
   };
   // Called to play A String soudn back to user
   SoundAButton = () => {
     this.setState({playedNote: 'A'});
+    this.tuner.setTargetNote(45);
+    this._update({
+      name: "A",
+      octave: 1,
+      frequency: 110,
+    })
   };
   // Called to play D String soudn back to user
   SoundDButton = () => {
     this.setState({playedNote: 'D'});
+    this.tuner.setTargetNote(50)
+    this._update({
+      name: "D",
+      octave: 1,
+      frequency: 146.83,
+    })
   };
   // Called to play G String soudn back to user
   SoundGButton = () => {
     this.setState({playedNote: 'G'});
+    this.tuner.setTargetNote(55);
+    this._update({
+      name: "G",
+      octave: 1,
+      frequency: 196.00,
+    })
   };
 
   // Claaed to make a request to record
@@ -176,18 +227,17 @@ export default class _4SATuner extends Component {
           </TouchableOpacity>
 
           <View style={styles.NotePlayedContainer}>
+          <StatusBar backgroundColor="#000" translucent />
+            <Meter cents={this.state.note.cents} type={"radial"} />
+            <Note {...this.state.note} />
+            <Text style={styles.frequency}>
+              {this.state.note.frequency.toFixed(1)} Hz
+            </Text>
             <Text style={[styles.TextStyle, {margin: 20, fontSize: 30}]}>
               {this.state.playedNote}
             </Text>
           </View>
 
-          {/* Button to start making a request to reord */}
-          <TouchableOpacity
-            style={[styles.RecordingButton, {marginLeft: 250}]}
-            activeOpacity={0.9}
-            onPress={this.record}>
-            <Text style={[styles.TextStyle, {fontSize: 14}]}>Record</Text>
-          </TouchableOpacity>
         </ImageBackground>
       </SafeAreaView>
     );
@@ -197,6 +247,19 @@ export default class _4SATuner extends Component {
 // styles
 
 const styles = StyleSheet.create({
+  frequency: {
+    fontSize: 28,
+    color: colors.white
+  },
+  NotePlayedContainer: {
+    //marginTop: 50,
+    borderRadius: 50,
+    borderWidth: 5,
+    borderColor: 'green',
+    textAlign: 'center',
+    alignSelf: 'baseline',
+    position:"relative"
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
