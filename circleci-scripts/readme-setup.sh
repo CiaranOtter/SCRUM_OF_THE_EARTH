@@ -6,5 +6,5 @@ if test -f "./README.md"; then
     rm README.md
 fi
 
-merge ./readme-sources
+merge ./readme-sources -no-file-info
 mv ./readme-sources/merged.md ./README.md
