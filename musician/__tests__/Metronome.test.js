@@ -1,5 +1,7 @@
 const metronome = require("../app/classes/metronome.js")
 const TestMetronome = new metronome();
+
+// Testing the metronome system for the app
   describe("Use case tests for the metronome", () => {
     test("When the user enter a time signature as a number the metronome's time signature value for the interval will change", () => {
 

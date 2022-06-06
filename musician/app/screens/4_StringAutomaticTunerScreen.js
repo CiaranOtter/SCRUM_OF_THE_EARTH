@@ -228,7 +228,7 @@ export default class _4SATuner extends Component {
 
           <View style={styles.NotePlayedContainer}>
           <StatusBar backgroundColor="#000" translucent />
-            <Meter cents={this.state.note.cents} type={"radial"} />
+            <Meter style={styles.meter}cents={this.state.note.cents} type={"radial"} />
             <Note {...this.state.note} />
             <Text style={styles.frequency}>
               {this.state.note.frequency.toFixed(1)} Hz
@@ -247,6 +247,9 @@ export default class _4SATuner extends Component {
 // styles
 
 const styles = StyleSheet.create({
+  meter: {
+    width: "50%",
+  },
   frequency: {
     fontSize: 28,
     color: colors.white

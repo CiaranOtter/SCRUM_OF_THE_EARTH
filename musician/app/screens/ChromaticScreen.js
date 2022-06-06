@@ -14,11 +14,19 @@ import Note from "../components/Notes.js";
 import Meter from "../components/Meter.js";
 import colors from "../config/colors.js";
 
+// the chomaic tuner screen in the app
+// This hanles the detection and update of recorded notes from a musical instrument
 export default class ChromaticScreen extends Component {
   constructor() {
     super();
   }
   
+  /**
+   * the state contains:
+   *  note - the name of the note that the system has detected from the user
+   *  octave - the octae to which the detcted not belongs
+   *  frequency - the recorded frequency that the app has detected
+   */
   state = {
     note: {
       name: "A",
@@ -28,10 +36,15 @@ export default class ChromaticScreen extends Component {
     tuner_type: ['4 String Tuner', '6 String Tuner', 'Chromatic Tuner'],
     isEnabled: false,
   };
+
+  // method to update the note in the omponents state
   _update(note) {
     this.setState({ note });
   }
 
+
+  // run this function to nitialise the component and its state when the component 
+  // is mounted to the app
   async componentDidMount() {
     if (Platform.OS === "android") {
       await PermissionsAndroid.requestMultiple([
@@ -50,30 +63,11 @@ export default class ChromaticScreen extends Component {
     };
   }
 
+  // render the component that contains the 
+  // meter, tuner
   render() {
     return (
       <View style={style.body}>
-        {/* <View style={style.toggleElements}>
-          
-          <TouchableOpacity style={{marginTop: 160, marginLeft: 20, borderWidth: 1}}>
-            {/* Drrop down choice menu
-            <SelectDropdown
-              data={this.state.tuner_type}
-              onSelect={() => {}}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                return this.selectedTuner(selectedItem);
-              }}
-              rowTextForSelection={(item, index) => {
-                return item;
-              }}
-              defaultButtonText={this.state.tuner_type[2]}
-              buttonStyle={style.DropDownStyle}
-              buttonTextStyle={{fontSize: 15, fontWeight: 'bold'}}
-              rowTextStyle={{fontSize: 15}}
-            />
-          </TouchableOpacity>
-        </View> */}
-
         <StatusBar backgroundColor="#000" translucent />
         <Meter cents={this.state.note.cents} type={"radial"} />
         <Note {...this.state.note} />
@@ -85,6 +79,7 @@ export default class ChromaticScreen extends Component {
   }
 }
 
+// styels for the chromatic tuner component
 const style = StyleSheet.create({
   body: {
     flex: 1,
@@ -94,7 +89,8 @@ const style = StyleSheet.create({
   frequency: {
     fontSize: 28,
     color: colors.white
-  }, DropDownStyle: {
+  }, 
+  DropDownStyle: {
     width: 150,
     backgroundColor: colors.userInputElement,
     height: 40,

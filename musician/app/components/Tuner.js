@@ -25,6 +25,9 @@ export default class Tuner {
     this.pitchFinder = new PitchFinder.YIN({ sampleRate: this.sampleRate });
   }
 
+
+  // Request recording for from the device and start the react recording system to take in sound 
+  // adds an event listener to run the sound detection from pitch Finder
   start() {
     Recording.init({
       sampleRate: this.sampleRate,
@@ -46,6 +49,12 @@ export default class Tuner {
       }
     });
   }
+
+  /**
+   * 
+   * @param {*} note a the name value that we wnt to find the name of
+   * @returns  the name of the Note atactched the note value
+   */
 
   getNoteName( note ){
     return this.noteStrings[note % 12]

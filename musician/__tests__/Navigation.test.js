@@ -4,7 +4,9 @@
 
 // import DrawerAppNavigator from '../DrawerAppNavigator';
 
+// // Testing the navigation system for the app
 // describe('Testing react navigation', () => {
+
 //   test('screen contains a button linking to the notifications page', async () => {
 //     const component = (
 //       <NavigationContainer>

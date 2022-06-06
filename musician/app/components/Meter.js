@@ -1,14 +1,23 @@
 import React, { PureComponent } from "react";
 import { View, StyleSheet, Animated, Dimensions } from "react-native";
-import ThemedListItem from "react-native-elements/dist/list/ListItem";
 import colors from "../config/colors";
 
+// Meter component for the app that can be adde to a page in order measure and display the accuracy 
+// of the a recorded and tuned note
 export default class Meter extends PureComponent {
+  // set the state of the meter with the cents (the differnec betwen in tune note and recorded sound)
+  //
+  // the state contains the values of :
+  //  cents - how close the recorded frequency is to the detcted note
+  //  pointerstyle - the style atacthed to the animated elements that can be apdated by the interpolator
+
   state = {
     cents: new Animated.Value(0),
     pointerStyle: colors.startGreen
   };
 
+
+  // initialise and update the state when the compoent is updated
   componentDidUpdate() {
     Animated.timing(this.state.cents, {
       toValue: this.props.cents,
@@ -19,7 +28,14 @@ export default class Meter extends PureComponent {
     this.state.cents.setValue(this.props.cents);
   }
 
+
+  // render the metter that is to be added to some component in the App
   render() {
+      // create a system that will interpolate and animate the color and position 
+      // of the meter in the in this omponent
+      //
+      // This animates the cents state value in the range of -50 to 50 
+      //
       const Metercolor = this.state.cents.interpolate({
         inputRange: [-50, -25,0,25, 50],
         outputRange: [colors.stopRed, colors.midYellow, colors.startGreen, colors.midYellow, colors.stopRed],
@@ -45,22 +61,12 @@ export default class Meter extends PureComponent {
         <Animated.View
           style={[style.circle, this.state.pointerStyle]}
         />
-        {/* <View style={[style.scale, style.scale_5, style.strong]} />
-        <View style={[style.scale, style.scale_4]} />
-        <View style={[style.scale, style.scale_3]} />
-        <View style={[style.scale, style.scale_2]} />
-        <View style={[style.scale, style.scale_1]} />
-        <View style={[style.scale, style.strong]} />
-        <View style={[style.scale, style.scale1]} />
-        <View style={[style.scale, style.scale2]} />
-        <View style={[style.scale, style.scale3]} />
-        <View style={[style.scale, style.scale4]} />
-        <View style={[style.scale, style.scale5, style.strong]} /> */}
       </View>
     );
   }
 }
 
+// styles for the meter component
 const style = StyleSheet.create({
   circle: {
     position: "absolute",
