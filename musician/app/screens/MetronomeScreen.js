@@ -1,5 +1,8 @@
-import React, { Component, useState } from "react"; //libraries imported from external sources
-import { render } from "react-dom";
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-undef */
+/* eslint-disable prettier/prettier */
+import React, { Component, useState } from 'react'; //libraries imported from external sources
+import { render } from 'react-dom';
 import {
   SafeAreaView,
   TouchableHighlight,
@@ -11,22 +14,23 @@ import {
   TextInput,
   Button,
   Modal,
-  // Picker,
+  Slider,
   View,
-} from "react-native";
-import colors from "../config/colors";
+} from 'react-native';
+import colors from '../config/colors';
 
-import { Picker } from "@react-native-picker/picker"
+import { Picker } from '@react-native-picker/picker'
 
-const metronome = require("../classes/metronome.js");
-const Sound = require("react-native-sound");
+const metronome = require('../classes/metronome.js');
+const Sound = require('react-native-sound');
 
-Sound.setCategory("Alarm")
+Sound.setCategory('Alarm')
 
 export default class MetronomeScreen extends Component {
 
   constructor() {
     super();
+
     this.timer;
     this.MetronomeClass = new metronome();
     // this.navigation = navigation;
@@ -38,7 +42,7 @@ export default class MetronomeScreen extends Component {
       }
       // loaded successfully
       console.log('duration in seconds: ' + this.hardclick.getDuration() + ' number of channels: ' + this.hardclick.getNumberOfChannels());
-    
+
     });
 
     this.click1 = new Sound('click.mp3', Sound.MAIN_BUNDLE, (error) => {
@@ -48,7 +52,7 @@ export default class MetronomeScreen extends Component {
       }
       // loaded successfully
       console.log('duration in seconds: ' + this.click1.getDuration() + ' number of channels: ' + this.click1.getNumberOfChannels());
-    
+
     });
     //initial state of the app and its componets/functions
     // this.state = {
@@ -63,7 +67,7 @@ export default class MetronomeScreen extends Component {
 
   //load the sound we're going to use for the metronome
   async componentDidMount() {
-    
+
   }
 
 
@@ -145,8 +149,8 @@ export default class MetronomeScreen extends Component {
   // };
 
   handleBpmChange = (text) => {
-    if (text == ""){
-      text = "120"
+    if (text == '') {
+      text = '120'
     }
     this.MetronomeClass.setBPM(text);
   };
@@ -160,7 +164,7 @@ export default class MetronomeScreen extends Component {
     let playing = this.MetronomeClass.isPlaying();
     if (playing) {
       clearInterval(this.timer);
-      startstopText = "START";
+      startstopText = 'START';
       this.MetronomeClass.setCount(0)
     } else {
       //start again with the current bpm
@@ -204,30 +208,31 @@ export default class MetronomeScreen extends Component {
     this.MetronomeClass.updateCount();
   };
 
+
   render() {
     // initialise the variables we are going to use to be in the current state
     const playing = this.MetronomeClass.isPlaying();
     const bpm = this.MetronomeClass.getBPM();
     const beatsPerMeasure = this.MetronomeClass.getBeatsPerMeasure();
     return (
-      <SafeAreaView style={styles.container} forceInset={{ top: 'never'}}>
-        
-          {/* Text for bpm input */}
-          
+      <SafeAreaView style={styles.container} forceInset={{ top: 'never' }}>
 
-          {/* input for the bpm */}
-          <View style={{ flex: 1 }}>
-            <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>
-            <View style={styles.centeredView}>
-              <TextInput
-                style={styles.bpmTextInput}
-                onChangeText={text => {this.handleBpmChange(text)}} //text to indicate that the user should enter a bpm and a bpm text input
-                number={bpm}></TextInput>
-              </View>
+        {/* Text for bpm input */}
+
+
+        {/* input for the bpm */}
+        <View style={{ flex: 1 }}>
+          <Text style={styles.bpmText}>ENTER BEATS PER MINUTES:</Text>
+          <View style={styles.centeredView}>
+            <TextInput
+              style={styles.bpmTextInput}
+              onChangeText={text => { this.handleBpmChange(text) }} //text to indicate that the user should enter a bpm and a bpm text input
+              number={bpm}></TextInput>
           </View>
-          
-          {/* input picker for the beats per measure */}
-          <View styel={{ flex: 2 }}>
+        </View>
+
+        {/* input picker for the beats per measure */}
+        <View styel={{ flex: 2 }}>
           <View style={styles.centeredView}>
             <Picker
               style={styles.pickerMenu}
@@ -271,7 +276,7 @@ export default class MetronomeScreen extends Component {
         </View>
 
         {/* input button for starting and stopping the metronome */}
-        <View style={{ flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
           <TouchableOpacity
             style={styles.playButton}
             onPress={this.startStop} // a button to start or stop the metronome sound
@@ -291,7 +296,7 @@ export default class MetronomeScreen extends Component {
           >
             {beatsPerMeasure} / 4
           </Text>
-{/* 
+          {/* 
           <Text
             //bpm text
             style={styles.speedText}
@@ -299,6 +304,12 @@ export default class MetronomeScreen extends Component {
             {this.MetronomeClass.getTempoText}
           </Text> */}
         </ImageBackground>
+        <Slider maximumValue="250" minimumValue="20" step="1"
+          value={this.bpm}
+          onValueChange={text => { this.handleBpmChange(text) }} //text to indicate that the user should enter a bpm and a bpm text input
+
+        />
+
       </SafeAreaView>
     );
   }
@@ -381,7 +392,7 @@ const styles = StyleSheet.create({
   centeredView: {
     // flex: 1,
     flexDirection: 'row',
-    alignItems:'center',
-    justifyContent:'center', 
- },
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+/* eslint-disable prettier/prettier */
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -10,13 +11,69 @@ import {
   Modal,
 } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
-import {SectionGrid} from 'react-native-super-grid';
+import { SectionGrid } from 'react-native-super-grid';
 
 import colors from '../config/colors';
+
+const Sound = require("react-native-sound");
+const metronome = require("../classes/metronome.js");
+
+Sound.setCategory("Alarm");
 
 export default class BeatMakerScreen extends Component {
   constructor() {
     super();
+    this.MetronomeClass = new metronome();
+    this.crash = new Sound('crash.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the crash sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.crash.getDuration() + ' number of channels: ' + this.crash.getNumberOfChannels());
+
+    });
+
+    this.highHat = new Sound('high_hat.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the high hat sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.highHat.getDuration() + ' number of channels: ' + this.highHat.getNumberOfChannels());
+
+    });
+
+    this.kickDrum = new Sound('kick_drum.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the kick drum sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.kickDrum.getDuration() + ' number of channels: ' + this.kickDrum.getNumberOfChannels());
+
+    });
+
+    this.snare = new Sound('snare.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the snare sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.snare.getDuration() + ' number of channels: ' + this.snare.getNumberOfChannels());
+
+    });
+
+    this.tom = new Sound('tom.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the tom sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + this.tom.getDuration() + ' number of channels: ' + this.tom.getNumberOfChannels());
+
+    });
+
     this.state = {
       bars: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       currentBar: 4,
@@ -85,7 +142,7 @@ export default class BeatMakerScreen extends Component {
   }
 
   openTSSelector = visible => {
-    this.setState({tsModalVisible: visible});
+    this.setState({ tsModalVisible: visible });
   };
 
   //function to populate the grid that makes the track grid on screen based on bars, beats and number of tracks
@@ -110,7 +167,7 @@ export default class BeatMakerScreen extends Component {
         data.push(indexSectionSize);
       }
       //this.printArray(data);
-      let sectionArray = {title: title, data: data};
+      let sectionArray = { title: title, data: data };
       //let array = this.state.gridData;
       //array.push(sectionArray);
       //this.setState(array);
@@ -143,8 +200,8 @@ export default class BeatMakerScreen extends Component {
   //functionthat gets called when user selects a time signature
   tSSelector = (beats, note) => {
     //console.log('Time Signature selector tapped' + beats + '/' + note);
-    this.setState({numBeatsPerBar: beats});
-    this.setState({tsNote: note});
+    this.setState({ numBeatsPerBar: beats });
+    this.setState({ tsNote: note });
     this.populateGridData(this.state.numBars, beats, this.state.numTracks);
     this.openTSSelector(!this.state.tsModalVisible);
   };
@@ -153,10 +210,94 @@ export default class BeatMakerScreen extends Component {
   tempoSelector(selectedTempo) {
     this.currentTempo = selectedTempo;
     console.log('Tempo selector tapped ' + this.currentTempo);
-  }
+    if (selectedTempo = 'Larghissimo') {
+      this.selectedTempo = this.MetronomeClass.setBPM(20);
+      this.selectedTempo = this.currentTempo;
+    }
+    if (selectedTempo = 'Grave') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(30);
+      this.state.selectedTempo = this.currentTempo;
+
+    }
+    if (selectedTempo = 'Lento') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(40);
+      //  this.state.selectedTempo = this.currentTempo;
+    }
+    if (selectedTempo = 'Larghetto') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(60);
+      // this.state.selectedTempo = this.currentTempo;
+    }
+    if (selectedTempo = 'Adagio') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(66);
+      // this.state.selectedTempo = this.currentTempo;
+    }
+    if (selectedTempo = 'Andante') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(76);
+      // this.state.selectedTempo = this.currentTempo;
+    }
+    if (selectedTempo = 'Andantino') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(80);
+      // this.state.selectedTempo = this.currentTempo;
+    }
+    if (selectedTempo = 'Moderato') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(108);
+      // this.state.selectedTempo = this.currentTempo;
+    }
+    if (selectedTempo = 'Allegro') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(120);
+      //  this.state.selectedTempo = this.currentTempo;
+    }
+    if (selectedTempo = 'Vivace') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(168);
+      //this.state.selectedTempo = this.currentTempo;
+    }
+
+    if (selectedTempo = 'Presto') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(168);
+      // this.state.selectedTempo = this.currentTempo;
+    }
+
+    if (selectedTempo = 'Prestissimo') {
+      this.state.selectedTempo = this.MetronomeClass.setBPM(200);
+      // this.state.selectedTempo = this.currentTempo;
+    }
+
+  };
 
   //function that gets called whenever an item on the grid gets tapped
   gridItemTapped = (item, index) => {
+
+    if (item === 1 || item === 6 || item === 11 || item === 16) {
+
+      this.crash.stop();
+      this.crash.setCurrentTime(0);
+      this.crash.play();
+    }
+    else if (item === 2 || item === 7 || item === 12 || item === 17) {
+
+      this.highHat.stop();
+      this.highHat.setCurrentTime(0);
+      this.highHat.play();
+    }
+    else if (item === 3 || item === 8 || item === 13 || item === 18) {
+
+      this.kickDrum.stop();
+      this.kickDrum.setCurrentTime(0);
+      this.kickDrum.play();
+    }
+    else if (item === 4 || item === 9 || item === 14 || item === 19) {
+
+      this.snare.stop();
+      this.snare.setCurrentTime(0);
+      this.snare.play();
+    }
+    else if (item === 5 || item === 10 || item === 15 || item === 20) {
+
+      this.tom.stop();
+      this.tom.setCurrentTime(0);
+      this.tom.play();
+    }
+
     console.log(item);
     //console.log(index);
   };
@@ -182,7 +323,7 @@ export default class BeatMakerScreen extends Component {
     console.log('Error with settting track header color');
   };
 
-  trackHeaderTapped(item) {}
+  trackHeaderTapped(item) { }
 
   //function that gets called by plus button and adds sounds to grid
   // addMoreSounds = () => {
@@ -333,7 +474,7 @@ export default class BeatMakerScreen extends Component {
                     defaultButtonText={this.state.numBeatsPerBar}
                     buttonStyle={styles.barDownStyle}
                     buttonTextStyle={styles.dropDownText}
-                    rowTextStyle={{fontSize: 15}}
+                    rowTextStyle={{ fontSize: 15 }}
                   />
                   <SelectDropdown
                     data={this.state.tsValues}
@@ -349,11 +490,11 @@ export default class BeatMakerScreen extends Component {
                     defaultButtonText={this.state.tsNote}
                     buttonStyle={styles.barDownStyle}
                     buttonTextStyle={styles.dropDownText}
-                    rowTextStyle={{fontSize: 15}}
+                    rowTextStyle={{ fontSize: 15 }}
                   />
                 </View>
               </Modal>
-              <Text style={[styles.dropDownText, {fontSize: 18}]}>
+              <Text style={[styles.dropDownText, { fontSize: 18 }]}>
                 {this.state.numBeatsPerBar}/{this.state.tsNote}
               </Text>
             </View>
@@ -388,7 +529,7 @@ export default class BeatMakerScreen extends Component {
               defaultButtonText={this.state.currentTempo}
               buttonStyle={styles.barDownStyle}
               buttonTextStyle={styles.dropDownText}
-              rowTextStyle={{fontSize: 15}}
+              rowTextStyle={{ fontSize: 15 }}
             />
           </TouchableOpacity>
         </View>
@@ -397,11 +538,11 @@ export default class BeatMakerScreen extends Component {
           style={styles.soundBar}
           data={this.state.tracks}
           horizontal={true}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <TouchableOpacity
               style={[
                 styles.trackButtons,
-                {backgroundColor: this.trackActivityColor(item)},
+                { backgroundColor: this.trackActivityColor(item) },
               ]}>
               <Text>{item}</Text>
             </TouchableOpacity>
@@ -413,15 +554,15 @@ export default class BeatMakerScreen extends Component {
           sections={this.state.gridData}
           style={styles.gridView}
           maxItemsPerRow={this.state.numTracks}
-          renderItem={({item, section, index}) => (
+          renderItem={({ item, section, index }) => (
             <TouchableOpacity
               onPress={() => this.gridItemTapped(item, index)}
               style={[
                 styles.itemContainer,
-                {backgroundColor: colors.sixStringAutoBG},
+                { backgroundColor: colors.sixStringAutoBG },
               ]}></TouchableOpacity>
           )}
-          renderSectionHeader={({section}) => (
+          renderSectionHeader={({ section }) => (
             // <Text style={styles.sectionHeader}></Text>nasheandsizweseatingonatreekissing
             <View style={styles.sectionHeader}></View>
           )}
